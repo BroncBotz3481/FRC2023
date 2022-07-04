@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Daydream;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -26,8 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     private void ConfigureSubsystem() {
-        // TODO: CAN IDs
-        // TODO: Move CAN IDs to Constants
+
         IntakeMotor = new VictorSPX(0);
         IntakeMotor.setInverted(false);
         // TODO: Move PCM type to Constants
