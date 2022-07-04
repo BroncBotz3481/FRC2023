@@ -12,18 +12,18 @@ public class ShooterSubsystem extends SubsystemBase {
     private TalonSRX RightMotor;
     
     public ShooterSubsystem() {
-        ConfigureSubsystem();
+        configureSubsystem();
     }
 
-    public void SetPIDVelocity(double velocity) {
+    public void setPIDVelocity(double velocity) {
         RightMotor.set(ControlMode.Velocity, velocity);
     }
 
-    public void SetPower(double power) {
+    public void setPower(double power) {
         RightMotor.set(ControlMode.PercentOutput, power);
     }
 
-    public void ConfigureSubsystem() {
+    private void configureSubsystem() {
         // TODO: CAN IDs
         // TODO: Move CAN IDs to Constants
         LeftMotor = new VictorSPX(0);

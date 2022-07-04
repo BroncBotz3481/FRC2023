@@ -13,19 +13,19 @@ public class IntakeSubsystem extends SubsystemBase {
     private DoubleSolenoid IntakePiston;
     
     public IntakeSubsystem() {
-        ConfigureSubsystem();
+        configureSubsystem();
     }
 
     // TODO: This is a crude way to control this, we should have a combo method that controls both the piston and the motor
-    public void SetIntakePower(double power) {
+    public void setIntakePower(double power) {
         IntakeMotor.set(VictorSPXControlMode.PercentOutput, power);
     }
 
-    public void SetPistonPosition(DoubleSolenoid.Value value) {
+    public void setPistonPosition(DoubleSolenoid.Value value) {
         IntakePiston.set(value);
     }
 
-    private void ConfigureSubsystem() {
+    private void configureSubsystem() {
 
         IntakeMotor = new VictorSPX(0);
         IntakeMotor.setInverted(false);

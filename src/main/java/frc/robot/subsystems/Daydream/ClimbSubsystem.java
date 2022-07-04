@@ -11,18 +11,18 @@ public class ClimbSubsystem extends SubsystemBase {
     private VictorSPX RightClimbMotor;
     
     public ClimbSubsystem() {
-        ConfigureSubsystem();
+        configureSubsystem();
     }
 
-    public void SetLeftClimberPower(double power){
+    public void setLeftClimberPower(double power){
         LeftClimbMotor.set(ControlMode.PercentOutput, power);
     }
 
-    public void SetRightClimberPower(double power){
+    public void setRightClimberPower(double power){
         RightClimbMotor.set(ControlMode.PercentOutput, power);
     }
 
-    public void ConfigureSubsystem() {
+    public void configureSubsystem() {
         // TODO: CAN IDs
         // TODO: Move CAN IDs to Constants
         LeftClimbMotor = new VictorSPX(0);

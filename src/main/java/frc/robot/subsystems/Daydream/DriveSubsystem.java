@@ -13,15 +13,15 @@ public class DriveSubsystem extends SubsystemBase {
     private CANSparkMax Right1;
 
     public DriveSubsystem() {
-        ConfigureSubsystem();        
+        configureSubsystem();        
     }
 
-    public void DriveByPower(double leftPower, double rightPower) {
+    public void driveByPower(double leftPower, double rightPower) {
         Left0.set(leftPower);
         Right0.set(rightPower);
     }
 
-    private void ConfigureSubsystem() {
+    private void configureSubsystem() {
         // TODO: Verify motor IDs
         // TODO: Move motor ID's to Conastants.java
         Left0 = new CANSparkMax(0, MotorType.kBrushless);

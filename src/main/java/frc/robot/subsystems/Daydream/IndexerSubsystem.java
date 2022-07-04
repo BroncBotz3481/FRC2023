@@ -12,15 +12,15 @@ public class IndexerSubsystem extends SubsystemBase {
     private AnalogInput PressurePad;
     
     public IndexerSubsystem() {
-        ConfigureSubsystem();
+        configureSubsystem();
     }
 
-    public void SetIndexerPower(int power, boolean ignorePressurePad) {
+    public void setIndexerPower(int power, boolean ignorePressurePad) {
         if(PressurePad.getValue() <= 100 || ignorePressurePad)
             IndexerMotor.set(ControlMode.PercentOutput, power);
     }
 
-    private void ConfigureSubsystem() {
+    private void configureSubsystem() {
         // TODO: CAN IDs
         // TODO: Move CAN IDs to Constants
         IndexerMotor = new VictorSPX(0);
