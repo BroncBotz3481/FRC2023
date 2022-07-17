@@ -18,12 +18,11 @@ public class ExampleSubsystem extends SubsystemBase {
   public ExampleSubsystem() {
     motor = new VictorSPX(0); // Create the new motor controller (make sure you check your ID!)
   }
-
   // This could be "runintake" or "stopintake" or "liftclimber"
   public void runMotor(double power) {
     motor.set(ControlMode.PercentOutput, power); // This is how you set power to a VictorSPX or a TalonSRX
   }
-
+  //aidulhfjanlrhing
   public void stopMotor() {
     runMotor(0); // motor.set(ControlMode.PercentOutput, 0)
   }
