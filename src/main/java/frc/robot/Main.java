@@ -1,6 +1,14 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+/****************************** Header ******************************\
+Class Name: Main [final]
+File Name: Main.java
+Summary: Main entry point of the code. Sets Robot as the main robot class.
+Project: BroncBotzFRC2023
+Copyright (c) BroncBotz.
+All rights reserved.
+
+Author(s): Dylan Watson
+Email: dylantrwatson@gmail.com
+\********************************************************************/
 
 package frc.robot;
 
