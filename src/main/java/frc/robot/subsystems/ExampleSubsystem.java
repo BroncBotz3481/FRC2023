@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ExampleSubsystemConstants;
 
 public class ExampleSubsystem extends SubsystemBase {
-  
+  // EXAMPLE COMMENT
   public VictorSPX motor; // This is the motor controller
   
   /** Creates a new ExampleSubsystem. */
