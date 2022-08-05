@@ -25,32 +25,29 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     }
 
-
-    public void runEitherSide(double power, boolean runLeftSide){
-        if(runLeftSide){
-            frontLeftMotor.set(power);
-        }
-        frontRightMotor.set(power);
+    public void run(double powerLeft, double powerRight){
+        frontLeftMotor.set(powerLeft);
+        frontRightMotor.set(powerRight);
     }
 
-    public Object retrieveEncoderPosition(boolean leftSide){
+    public double retrieveEncoderPosition(boolean leftSide){
         if(leftSide){
-            RelativeEncoder position = frontLeftMotor.getEncoder();
-            return position.getPosition();
+            RelativeEncoder encoder = frontLeftMotor.getEncoder();
+            return encoder.getPosition();
             
         }
-        RelativeEncoder position = frontRightMotor.getEncoder();
-        return position.getPosition();
+        RelativeEncoder encoder = frontRightMotor.getEncoder();
+        return encoder.getPosition();
 
     }
 
-    public Object retrieveEncoderVelocity(boolean leftSide){
+    public double retrieveEncoderVelocity(boolean leftSide){
         if(leftSide){
-            RelativeEncoder position = frontLeftMotor.getEncoder();
-            return position.getVelocity();
+            RelativeEncoder encoder = frontLeftMotor.getEncoder();
+            return encoder.getVelocity();
         }
-        RelativeEncoder position = frontRightMotor.getEncoder();
-        return position.getVelocity();
+        RelativeEncoder encoder = frontRightMotor.getEncoder();
+        return encoder.getVelocity();
     }
 
 }
