@@ -16,7 +16,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ExampleSubsystemConstants;
- // HELLO 
 public class ExampleSubsystem extends SubsystemBase {
 
   public VictorSPX motor; // This is the motor controller
