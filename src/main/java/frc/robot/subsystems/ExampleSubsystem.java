@@ -30,7 +30,7 @@ public class ExampleSubsystem extends SubsystemBase {
   public void runMotor(double power) {
     motor.set(ControlMode.PercentOutput, power); // This is how you set power to a VictorSPX or a TalonSRX
   }
-
+  //hello
   public void stopMotor() {
     runMotor(0); // motor.set(ControlMode.PercentOutput, 0)
   }
