@@ -7,7 +7,7 @@ Copyright (c) BroncBotz.
 All rights reserved.
 
 Author(s): Samuel Zhao and Shruti Venkat
-Email: Shruti.venkat05@gmail.com
+Email: Shruti.venkat05@gmail.com and samuelzhao0714@gmail.com
 \********************************************************************/
 
 

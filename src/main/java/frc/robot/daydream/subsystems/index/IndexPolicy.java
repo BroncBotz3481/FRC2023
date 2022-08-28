@@ -10,7 +10,7 @@ Author(s): Shruti Venkat and Samuel Zhao
 Email: Shruti.venkat05@gmail.com
 \********************************************************************/
 
-package frc.robot.daydream.subsystems.intake;
+package frc.robot.daydream.subsystems.index;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -20,10 +20,10 @@ package frc.robot.daydream.subsystems.intake;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class IntakePolicy {
-    private static final class IntakeSubsystemConstants {
-        public static double Intakepower; //power for motors
-        public static boolean isUpIntake; //whether the intake is up or not
+public final class IndexPolicy {
+    private static final class IndexSubsystemConstants {
+        public static double Indexpower; //power for motors
+        public static boolean isShooting;
 
         
     }

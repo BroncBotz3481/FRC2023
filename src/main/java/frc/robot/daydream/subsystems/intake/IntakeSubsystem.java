@@ -12,30 +12,25 @@ Email: shruti.venkat05@gmail.com
 package frc.robot.daydream.subsystems.intake;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.DigitalInput;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.Constants.ExampleSubsystemConstants;
-//import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  public CANSparkMax intakeMotor; 
+  public VictorSPX intakeMotor; 
   public DoubleSolenoid piston;
-  public DigitalInput pressurePad;
 
   public IntakeSubsystem() {
-    intakeMotor = new CANSparkMax(0, MotorType.kBrushless); 
+    intakeMotor = new VictorSPX(0); 
   }
   
-  public void runMotor(double power) {
+  public void runMotor(double Intakepower) {
    
 
-  }
 
+  }
   public void stopMotor() {
     runMotor(0); 
 

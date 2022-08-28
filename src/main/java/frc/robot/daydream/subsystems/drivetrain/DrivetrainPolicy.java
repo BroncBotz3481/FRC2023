@@ -24,7 +24,7 @@ public final class DrivetrainPolicy {
     private static final class DrivetrainSubsystemConstants {
         public static double powerLeft; //power for left motors
         public static double powerRight; //power for right motors
-        public static boolean leftSide; 
+        public static boolean leftSide;  //the complete left side of the robot
 
         
     }
