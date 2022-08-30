@@ -21,7 +21,7 @@ package frc.robot.daydream.subsystems.drivetrain;
  * constants are needed, to reduce verbosity.
  */
 public final class DrivetrainPolicy {
-    private static final class DrivetrainSubsystemConstants {
+    public static final class DrivetrainSubsystemConstants {
         public static double powerLeft; //power for left motors
         public static double powerRight; //power for right motors
         public static boolean leftSide;  //the complete left side of the robot
