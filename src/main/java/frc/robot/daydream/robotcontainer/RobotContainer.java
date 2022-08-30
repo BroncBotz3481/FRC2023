@@ -10,12 +10,22 @@ Author(s): Dylan Watson
 Email: dylantrwatson@gmail.com
 \********************************************************************/
 
-package frc.robot;
+package frc.robot.daydream.robotcontainer;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.daydream.commands.ClimberCommand;
+import frc.robot.daydream.commands.DrivetrainCommand;
+import frc.robot.daydream.commands.IndexCommand;
+import frc.robot.daydream.commands.IntakeCommand;
+import frc.robot.daydream.commands.ShooterCommand;
+import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
+import frc.robot.daydream.subsystems.drivetrain.DrivetrainSubsystem;
+import frc.robot.daydream.subsystems.index.IndexSubsystem;
+import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
+import frc.robot.daydream.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.ExampleCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -30,6 +40,26 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+
+  private final ClimberCommand m_climberCommand = new ClimberCommand(m_climberSubsystem);
+
+  private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  
+  private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
+
+  private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
+
+  private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
+
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+
+  private final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
+
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+
+  private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -44,7 +74,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {}
 
-  /**
+  /**--------------------------------------------------------------------------------------------
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
