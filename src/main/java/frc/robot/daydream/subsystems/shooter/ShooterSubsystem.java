@@ -30,10 +30,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     turret = new TalonSRX(0); // Created the new Talon motor controller 
     shooter = new TalonSRX(1);
+    
   }
   
   // This could be "runintake" or "stopintake" or "liftclimber"
-  public void SetHoodAngle() {
+  public void SetHoodAngle(double angle) {
 
   }
 
@@ -44,6 +45,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void shoot() {
+
 
   }
 
