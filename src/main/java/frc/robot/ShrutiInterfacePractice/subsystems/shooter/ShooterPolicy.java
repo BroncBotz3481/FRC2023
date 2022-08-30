@@ -6,11 +6,12 @@ Project: BroncBotzFRC2023
 Copyright (c) BroncBotz.
 All rights reserved.
 
-Author(s): Shruti Venkat and Samuel Zhao
+Author(s): Shruti
 Email: Shruti.venkat05@gmail.com
 \********************************************************************/
 
-package frc.robot.daydream.subsystems.shooter;
+package frc.robot.ShrutiInterfacePractice.subsystems.shooter;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -25,7 +26,7 @@ public final class ShooterPolicy {
         public static double powerShooter;
         public static boolean isItRotating;
         public static double angle;
-        public static double rpm;
+
 
         
     }

@@ -26,13 +26,13 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor = new VictorSPX(0); 
   }
   
-  public void runMotor(double Intakepower) {
+  public void runMotor() {
    
 
 
   }
   public void stopMotor() {
-    runMotor(0); 
+     
 
 
   }
