@@ -14,9 +14,12 @@ Email: Shruti.venkat05@gmail.com and samuelzhao0714@gmail.com
 package frc.robot.daydream.subsystems.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.robot.daydream.subsystems.drivetrain.DrivetrainPolicy.DrivetrainSubsystemConstants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
     private CANSparkMax frontLeftMotor;
@@ -39,7 +42,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     public void run(){
-
+        frontLeftMotor.set(DrivetrainSubsystemConstants.powerLeft);
+        
 
     }
 
