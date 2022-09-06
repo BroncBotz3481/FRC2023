@@ -19,7 +19,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.robot.daydream.subsystems.drivetrain.DrivetrainPolicy.DrivetrainSubsystemConstants;
+import frc.robot.daydream.subsystems.drivetrain.DrivetrainPolicy;
 
 public class DrivetrainSubsystem extends SubsystemBase {
     private CANSparkMax frontLeftMotor;
@@ -42,18 +42,29 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     public void run(){
-        frontLeftMotor.set(DrivetrainSubsystemConstants.powerLeft);
+        frontLeftMotor.set(DrivetrainPolicy.powerLeft);
+        frontRightMotor.set(DrivetrainPolicy.powerRight);
         
+    }
+
+    public double retrieveEncoderPosition(){
+        if(DrivetrainPolicy.leftSide){
+            RelativeEncoder encoder = frontLeftMotor.getEncoder();
+            return encoder.getPosition();
+            
+        }
+        RelativeEncoder encoder = frontRightMotor.getEncoder();
+        return encoder.getPosition();
 
     }
 
-    public void retrieveEncoderPosition(){
-
-
-    }
-
-    public void retrieveEncoderVelocity(){
-
+    public double retrieveEncoderVelocity(){
+        if(DrivetrainPolicy.leftSide){
+            RelativeEncoder encoder = frontLeftMotor.getEncoder();
+            return encoder.getVelocity();
+        }
+        RelativeEncoder encoder = frontRightMotor.getEncoder();
+        return encoder.getVelocity();
 
     }
 

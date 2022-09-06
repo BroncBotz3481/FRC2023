@@ -10,12 +10,12 @@ Author(s): Shruti Venkat and Samuel Zhao
 Email: shruti.venkat05@gmail.com
 \********************************************************************/
 package frc.robot.daydream.subsystems.index;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ExampleSubsystemConstants;
 
 public class IndexSubsystem extends SubsystemBase {
 
@@ -27,18 +27,26 @@ public class IndexSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public IndexSubsystem() {
     Indexmotor = new VictorSPX(1); // Create the new motor controller (make sure you check your ID!)
-    
+    pressurePad = new DigitalInput(13);
   }
   
   // This could be "runintake" or "stopintake" or "liftclimber"
   public void runIndex() {
-   
+    if(IndexPolicy.indexFull()){
+      IndexPolicy.Indexpower = 0;
+    }
+    Indexmotor.set(ControlMode.PercentOutput, IndexPolicy.Indexpower);
 
   }
 
 
   public void stopIndex() {
+    Indexmotor.set(ControlMode.PercentOutput, 0);
 
+  }
 
+  @Override
+  public void periodic(){
+    IndexPolicy.pressurePadSet = pressurePad.get();
   }
 }

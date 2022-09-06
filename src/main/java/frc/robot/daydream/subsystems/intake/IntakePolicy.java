@@ -20,11 +20,11 @@ package frc.robot.daydream.subsystems.intake;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class IntakePolicy {
-    private static final class IntakeSubsystemConstants {
-        public static double Intakepower; //power for motors
-        public static boolean isUpIntake; //whether the intake is up or not
+public class IntakePolicy {
 
-        
-    }
+    public static double intakePower; //power for motors
+   // public static boolean isUpIntake; //whether the intake is up or not
+    
+   
+    
 }

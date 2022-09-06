@@ -11,6 +11,8 @@ Email: Shruti.venkat05@gmail.com
 \********************************************************************/
 
 package frc.robot.daydream.subsystems.shooter;
+
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -20,13 +22,10 @@ package frc.robot.daydream.subsystems.shooter;
  * constants are needed, to reduce verbosity.
  */
 public final class ShooterPolicy {
-    private static final class ShooterSubsystemConstants {
-        public static double powerTurret;
         public static double powerShooter;
-        public static boolean isItRotating;
-        public static double angle;
-        public static double rpm;
-
-        
-    }
+        // public static double rampUp(){
+        //         if(IndexPolicy.indexFull()){
+        //                 powerShooter+=0.1;
+        //         }
+        // }
 }

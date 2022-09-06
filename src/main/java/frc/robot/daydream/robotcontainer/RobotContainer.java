@@ -37,33 +37,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
-
-  private final ClimberCommand m_climberCommand = new ClimberCommand(m_climberSubsystem);
-
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  
-  private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
-
   private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
-
-  private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
-
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-
-  private final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
-
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final ClimberCommand m_climberCommand = new ClimberCommand(m_climberSubsystem);
+  private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
+  private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
+  private final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
   private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
+    configureButtonBindings                                                                                                                                                                                                                                                                                       ();
   }
 
   /**

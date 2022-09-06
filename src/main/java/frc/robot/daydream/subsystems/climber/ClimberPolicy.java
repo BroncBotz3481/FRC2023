@@ -21,9 +21,9 @@ package frc.robot.daydream.subsystems.climber;
  * constants are needed, to reduce verbosity.
  */
 public final class ClimberPolicy {
-    public static final class ClimberSubsystemConstants {
+  
         public static double leftPowerClimb;
         public static double rightPowerClimb;
     
-    }
+    
 }

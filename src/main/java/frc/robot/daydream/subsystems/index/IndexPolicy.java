@@ -20,11 +20,22 @@ package frc.robot.daydream.subsystems.index;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class IndexPolicy {
-    private static final class IndexSubsystemConstants {
+public class IndexPolicy {
         public static double Indexpower; //power for motors
         public static boolean isShooting;
+        public static boolean pressurePadSet;
 
-        
-    }
+        public static boolean indexFull()
+        {
+            return pressurePadSet;
+        }
+
+        public static double getIndexPower()
+        {
+            if(indexFull())
+            {
+                IndexPolicy.Indexpower = 0;
+            }
+            return IndexPolicy.Indexpower;
+        }
 }
