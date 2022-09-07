@@ -25,5 +25,7 @@ public final class DrivetrainPolicy {
         public static double powerRight; //power for right motors
         public static boolean leftSide;  //the complete left side of the robot
 
+        public static double rightEncoderPosition, rightEncoderVelocity,
+                                leftEncoderPosition, leftEncoderVelocity;
 
 }

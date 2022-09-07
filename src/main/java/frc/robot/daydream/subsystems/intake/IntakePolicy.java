@@ -11,6 +11,7 @@ Email: Shruti.venkat05@gmail.com
 \********************************************************************/
 
 package frc.robot.daydream.subsystems.intake;
+import frc.robot.daydream.subsystems.index.IndexPolicy;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -24,7 +25,14 @@ public class IntakePolicy {
 
     public static double intakePower; //power for motors
    // public static boolean isUpIntake; //whether the intake is up or not
-    
-   
+
+   public static double getIntakePower()
+   {
+        if( IndexPolicy.indexFull() )
+        {
+            IntakePolicy.intakePower = 0;
+        }
+        return IntakePolicy.intakePower;
+   }
     
 }

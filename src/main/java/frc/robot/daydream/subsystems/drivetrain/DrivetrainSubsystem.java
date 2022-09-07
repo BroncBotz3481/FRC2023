@@ -27,6 +27,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private CANSparkMax frontRightMotor;
     private CANSparkMax backRightMotor;
 
+    private RelativeEncoder leftEncoder, rightEncoder;
+
     public DrivetrainSubsystem(){
         frontLeftMotor = new CANSparkMax(0, MotorType.kBrushless);
         backLeftMotor = new CANSparkMax(1, MotorType.kBrushless);
@@ -39,6 +41,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
         frontLeftMotor.setInverted(true);
         frontRightMotor.setInverted(false);
 
+        leftEncoder = frontLeftMotor.getEncoder();
+        rightEncoder = frontRightMotor.getEncoder();
+
     }
 
     public void run(){
@@ -47,25 +52,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         
     }
 
-    public double retrieveEncoderPosition(){
-        if(DrivetrainPolicy.leftSide){
-            RelativeEncoder encoder = frontLeftMotor.getEncoder();
-            return encoder.getPosition();
-            
-        }
-        RelativeEncoder encoder = frontRightMotor.getEncoder();
-        return encoder.getPosition();
-
-    }
-
-    public double retrieveEncoderVelocity(){
-        if(DrivetrainPolicy.leftSide){
-            RelativeEncoder encoder = frontLeftMotor.getEncoder();
-            return encoder.getVelocity();
-        }
-        RelativeEncoder encoder = frontRightMotor.getEncoder();
-        return encoder.getVelocity();
-
+    @Override
+    public void periodic()
+    {
+        DrivetrainPolicy.rightEncoderPosition = rightEncoder.getPosition();
+        DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
+        DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
+        DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
     }
 
 }

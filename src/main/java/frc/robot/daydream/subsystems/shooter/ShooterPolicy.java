@@ -11,7 +11,7 @@ Email: Shruti.venkat05@gmail.com
 \********************************************************************/
 
 package frc.robot.daydream.subsystems.shooter;
-
+import frc.robot.daydream.subsystems.index.IndexPolicy;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -23,9 +23,15 @@ package frc.robot.daydream.subsystems.shooter;
  */
 public final class ShooterPolicy {
         public static double powerShooter;
-        // public static double rampUp(){
-        //         if(IndexPolicy.indexFull()){
-        //                 powerShooter+=0.1;
-        //         }
-        // }
+
+        public static double getShooterPower(){
+                if(IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0){
+                    ShooterPolicy.powerShooter = 0.1;
+                }
+                return ShooterPolicy.powerShooter;
+        }
+        public static boolean shootReady()
+        {
+            return IndexPolicy.indexFull();
+        }
 }

@@ -41,19 +41,22 @@ public class ShooterSubsystem extends SubsystemBase {
 
 
   public void shoot(){
-    
-    shooterMotor.set(ControlMode.PercentOutput, ShooterPolicy.powerShooter);
+    shooterMotor.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
   }
 
-  // DON'T WORRY ABOUT periodic() and simulationPeriodic() right now
-  @Override
-  public void periodic() {
-    IndexPolicy.pressurePadSet = pressurePad.get();
-    // This method will be called once per scheduler run
+  public void stopShooter()
+  {
+    ShooterPolicy.powerShooter = 0;
+    shoot();
   }
 
   @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
+  public void periodic()
+  {
+    if(ShooterPolicy.shootReady())
+    {
+      shoot();
+    }
   }
+
 }

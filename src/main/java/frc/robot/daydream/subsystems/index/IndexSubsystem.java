@@ -32,10 +32,7 @@ public class IndexSubsystem extends SubsystemBase {
   
   // This could be "runintake" or "stopintake" or "liftclimber"
   public void runIndex() {
-    if(IndexPolicy.indexFull()){
-      IndexPolicy.Indexpower = 0;
-    }
-    Indexmotor.set(ControlMode.PercentOutput, IndexPolicy.Indexpower);
+    Indexmotor.set(ControlMode.PercentOutput, IndexPolicy.getIndexPower());
 
   }
 
