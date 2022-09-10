@@ -11,6 +11,7 @@ Email: Shruti.venkat05@gmail.com
 \********************************************************************/
 
 package frc.robot.daydream.subsystems.drivetrain;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -24,6 +25,7 @@ public final class DrivetrainPolicy {
         public static double powerLeft; //power for left motors
         public static double powerRight; //power for right motors
         public static boolean leftSide;  //the complete left side of the robot
+        public static Timer time;
 
         public static double rightEncoderPosition, rightEncoderVelocity,
                                 leftEncoderPosition, leftEncoderVelocity;
