@@ -13,12 +13,12 @@ Email: dylantrwatson@gmail.com
 
 package frc.robot.daydream.commands;
 
-import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
 import frc.robot.daydream.subsystems.climber.ClimberPolicy;
+import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class LowClimb extends CommandBase {
+public class LowerLowClimb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimberSubsystem m_climberSubsystem;
 
@@ -27,7 +27,7 @@ public class LowClimb extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public LowClimb(ClimberSubsystem subsystem) {
+  public LowerLowClimb(ClimberSubsystem subsystem) {
     m_climberSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -36,17 +36,15 @@ public class LowClimb extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ClimberPolicy.leftPowerClimb = 0.5;
-    ClimberPolicy.rightPowerClimb = 0.5;
-    m_climberSubsystem.runRightMotor();
+    ClimberPolicy.leftPowerClimb = -0.5;
+    ClimberPolicy.rightPowerClimb = -0.5;
     m_climberSubsystem.runLeftMotor();
-    
+    m_climberSubsystem.runRightMotor();
   }
 
   // Called once the command ends or is interrupted.
