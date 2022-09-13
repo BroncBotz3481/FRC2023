@@ -13,7 +13,9 @@ Email: Shruti.venkat05@gmail.com and samuelzhao0714@gmail.com
 
 package frc.robot.daydream.subsystems.drivetrain;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.motorcontrol.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
@@ -29,6 +31,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     private RelativeEncoder leftEncoder, rightEncoder;
 
+    private DifferentialDrive driveTrain;
+    
     public DrivetrainSubsystem(){
         frontLeftMotor = new CANSparkMax(0, MotorType.kBrushless);
         backLeftMotor = new CANSparkMax(1, MotorType.kBrushless);
@@ -44,11 +48,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         leftEncoder = frontLeftMotor.getEncoder();
         rightEncoder = frontRightMotor.getEncoder();
 
+        driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
+
     }
 
     public void run(){
-        frontLeftMotor.set(DrivetrainPolicy.powerLeft);
-        frontRightMotor.set(DrivetrainPolicy.powerRight);
+        driveTrain.tankDrive(DrivetrainPolicy.powerLeft, DrivetrainPolicy.powerRight);
+        
         
     }
 

@@ -48,9 +48,14 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void raise() {
-      piston.toggle();
+      piston.set(Value.kReverse);
 
     }
+  
+  public void toggle(){
+      piston.toggle();
+
+  }
   }
   
 

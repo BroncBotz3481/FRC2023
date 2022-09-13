@@ -6,7 +6,7 @@ Project: BroncBotzFRC2023
 Copyright (c) BroncBotz.
 All rights reserved.
 
-Author(s): Dylan Watson
+Author(s): Shruti Venkat and Samuel Zhao
 Email: dylantrwatson@gmail.com
 \********************************************************************/
 
@@ -17,7 +17,7 @@ import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class IntakeCommand extends CommandBase {
+public class RaiseAndStopCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_intakeSubsystem;
 
@@ -26,7 +26,7 @@ public class IntakeCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(IntakeSubsystem subsystem) {
+  public RaiseAndStopCommand(IntakeSubsystem subsystem) {
     m_intakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -34,8 +34,9 @@ public class IntakeCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
-
+  public void initialize() {
+  m_intakeSubsystem.raise();
+  }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
