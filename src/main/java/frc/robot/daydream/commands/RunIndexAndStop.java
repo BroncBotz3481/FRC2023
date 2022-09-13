@@ -13,47 +13,41 @@ Email: dylantrwatson@gmail.com
 
 package frc.robot.daydream.commands;
 
-import frc.robot.daydream.subsystems.climber.ClimberPolicy;
-import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
+import frc.robot.daydream.subsystems.index.IndexSubsystem;
+import frc.robot.daydream.subsystems.index.IndexPolicy;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-
-////
 /** An example command that uses an example subsystem. */
-public class LowerHighClimb extends CommandBase {
+public class RunIndexAndStop extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ClimberSubsystem m_climberSubsystem;
+  private final IndexSubsystem m_indexSubsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public LowerHighClimb(ClimberSubsystem subsystem) {
-    m_climberSubsystem = subsystem;
+  public RunIndexAndStop(IndexSubsystem subsystem) {
+    m_indexSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ClimberPolicy.leftPowerClimb = -0.5;
-    ClimberPolicy.rightPowerClimb = -0.5;
-    m_climberSubsystem.runLeftMotor();
-    m_climberSubsystem.runRightMotor();
+    IndexPolicy.indexPower = 0.5;
+    m_indexSubsystem.runIndex();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_climberSubsystem.stopLeftMotor();
-    m_climberSubsystem.stopRightMotor();
+    m_indexSubsystem.stopIndex();
   }
 
   // Returns true when the command should end.

@@ -21,8 +21,8 @@ package frc.robot.daydream.subsystems.index;
  * constants are needed, to reduce verbosity.
  */
 public class IndexPolicy {
-        public static double Indexpower; //power for motors
-        public static boolean isShooting;
+        public static double indexPower; //power for motors
+        //public static boolean isShooting;
         public static boolean pressurePadSet;
 
         public static boolean indexFull()
@@ -34,8 +34,8 @@ public class IndexPolicy {
         {
             if(indexFull())
             {
-                IndexPolicy.Indexpower = 0;
+                IndexPolicy.indexPower = 0;
             }
-            return IndexPolicy.Indexpower;
+            return IndexPolicy.indexPower;
         }
 }

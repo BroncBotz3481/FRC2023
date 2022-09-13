@@ -28,23 +28,21 @@ public class IntakeSubsystem extends SubsystemBase {
   public DoubleSolenoid piston;
 
   public IntakeSubsystem() {
-    intakeMotor = new VictorSPX(0); 
+    intakeMotor = new VictorSPX(1); 
     piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 1);  
   }
   
   public void runMotor() {
    
-    intakeMotor.set(ControlMode.PercentOutput, IntakePolicy.intakePower);
+    intakeMotor.set(ControlMode.PercentOutput, IntakePolicy.getIntakePower());
 
   }
   public void stopMotor() {
-     
     intakeMotor.set(ControlMode.PercentOutput, 0);
 
   }
 
   public void drop() {
-
     piston.set(Value.kForward);
 
   }

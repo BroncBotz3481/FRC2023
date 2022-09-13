@@ -28,7 +28,7 @@ public class IntakePolicy {
 
    public static double getIntakePower()
    {
-        if( IndexPolicy.indexFull() )
+        if(IndexPolicy.indexFull() )
         {
             IntakePolicy.intakePower = 0;
         }
