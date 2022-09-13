@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.daydream.commands.ClimberCommand;
 import frc.robot.daydream.commands.DrivetrainCommand;
 import frc.robot.daydream.commands.IndexCommand;
-import frc.robot.daydream.commands.IntakeCommand;
+//import frc.robot.daydream.commands.RaiseAndStopCommand;
 import frc.robot.daydream.commands.ShooterCommand;
 import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
 import frc.robot.daydream.subsystems.drivetrain.DrivetrainSubsystem;
@@ -45,9 +45,9 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final ClimberCommand m_climberCommand = new ClimberCommand(m_climberSubsystem);
-  private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
+ // private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
   private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
-  private final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
+ // private final RaiseAndStopCommand m_intakeCommand = new RaiseAndStopCommand(m_intakeSubsystem);
   private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

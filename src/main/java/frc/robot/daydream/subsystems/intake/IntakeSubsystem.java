@@ -12,8 +12,11 @@ Email: shruti.venkat05@gmail.com
 package frc.robot.daydream.subsystems.intake;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.daydream.subsystems.index.IndexPolicy;
+import frc.robot.daydream.subsystems.intake.IntakePolicy;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -21,22 +24,21 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  public VictorSPX intakeMotor;
+  public VictorSPX intakeMotor; 
   public DoubleSolenoid piston;
 
   public IntakeSubsystem() {
-    intakeMotor = new VictorSPX(0);
-    piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 1);
+    intakeMotor = new VictorSPX(0); 
+    piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 1);  
   }
-
+  
   public void runMotor() {
-
+   
     intakeMotor.set(ControlMode.PercentOutput, IntakePolicy.intakePower);
 
   }
-
   public void stopMotor() {
-
+     
     intakeMotor.set(ControlMode.PercentOutput, 0);
 
   }
@@ -48,7 +50,14 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void raise() {
-    piston.toggle();
+      piston.set(Value.kReverse);
+
+    }
+  
+  public void toggle(){
+      piston.toggle();
 
   }
-}
+  }
+  
+

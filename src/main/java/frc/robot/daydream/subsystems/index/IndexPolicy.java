@@ -13,7 +13,7 @@ Email: Shruti.venkat05@gmail.com
 package frc.robot.daydream.subsystems.index;
 
 public class IndexPolicy {
-    public static double Indexpower; // power for motors
+    public static double indexPower; // power for motors
     public static boolean isShooting;
     public static boolean pressurePadSet;
 
@@ -23,8 +23,8 @@ public class IndexPolicy {
 
     public static double getIndexPower() {
         if (indexFull()) {
-            IndexPolicy.Indexpower = 0;
+            IndexPolicy.indexPower = 0;
         }
-        return IndexPolicy.Indexpower;
+        return IndexPolicy.indexPower;
     }
 }
