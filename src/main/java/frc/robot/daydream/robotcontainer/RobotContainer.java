@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  public XboxController controller1;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
@@ -52,10 +53,10 @@ public class RobotContainer {
   private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
  // private final RaiseAndStopCommand m_intakeCommand = new RaiseAndStopCommand(m_intakeSubsystem);
   private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
+  // How to make a reference: controller1::getLeftY
   private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_drivetrainSubsystem, leftpower, rightpower);
   //private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_leftpower);
 
-  public XboxController controller1;
   //private static final Joystick auxController;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -73,6 +74,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Set the Default Command for the drivetrain
+    m_drivetrainSubsystem.setDefaultCommand(m_drivetrainCommand);
+
+    // When binding to a button on a XboxController, it is generally a good idea to use the enum (XboxController.Button.kA)
     final JoystickButton leftJoystick = new JoystickButton(controller1, 1);
     final JoystickButton rightJoystick = new JoystickButton(controller1, 2);
     
