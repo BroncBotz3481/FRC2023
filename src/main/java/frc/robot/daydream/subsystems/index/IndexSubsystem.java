@@ -29,15 +29,12 @@ public class IndexSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public IndexSubsystem() {
     Indexmotor = new VictorSPX(1); // Create the new motor controller (make sure you check your ID!)
-    pressurePad = new DigitalInput(13);
+    pressurePad = new DigitalInput(2);
   }
   
   // This could be "runintake" or "stopintake" or "liftclimber"
   public void runIndex() {
-    if(IndexPolicy.indexFull()){
-      IndexPolicy.indexPower = 0;
-    }
-    Indexmotor.set(ControlMode.PercentOutput, IndexPolicy.indexPower);
+    Indexmotor.set(ControlMode.PercentOutput, IndexPolicy.getIndexPower());
 
   }
 

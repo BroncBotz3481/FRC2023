@@ -24,12 +24,9 @@ public class ShooterSubsystem extends SubsystemBase {
   
   public ShooterSubsystem() {
     shooterMotor = new TalonSRX(1);
-    pressurePad = new DigitalInput(12);
   }
   
   // This could be "runintake" or "stopintake" or "liftclimber"
-
-
 
   public void shoot(){
     shooterMotor.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
