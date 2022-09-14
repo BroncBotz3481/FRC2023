@@ -34,7 +34,7 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public void runMotor() {
    
-    intakeMotor.set(ControlMode.PercentOutput, IntakePolicy.getIntakePower());
+    intakeMotor.set(ControlMode.PercentOutput, IntakePolicy.intakePower);
 
   }
   public void stopMotor() {

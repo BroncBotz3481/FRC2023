@@ -27,6 +27,8 @@ import frc.robot.daydream.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.commands.ExampleCommand;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,21 +41,29 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  //private DrivetrainSubsystem m_leftpower = new DrivetrainSubsystem();
   private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-
+  
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final ClimberCommand m_climberCommand = new ClimberCommand(m_climberSubsystem);
  // private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
   private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
  // private final RaiseAndStopCommand m_intakeCommand = new RaiseAndStopCommand(m_intakeSubsystem);
   private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
-  
+  private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_drivetrainSubsystem, leftpower, rightpower);
+  //private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_leftpower);
+
+  public XboxController controller1;
+  //private static final Joystick auxController;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings                                                                                                                                                                                                                                                                                       ();
+    controller1 = new XboxController(0);    
+    //auxController = new Joystick(0);  
+    configureButtonBindings();
   }
 
   /**
@@ -62,7 +72,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    final JoystickButton leftJoystick = new JoystickButton(controller1, 1);
+    final JoystickButton rightJoystick = new JoystickButton(controller1, 2);
+    
+    // leftJoystick.
+    //final JoystickButton auxButtonA = new JoystickButton(, 1);
+  }
 
   /**--------------------------------------------------------------------------------------------
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -71,6 +87,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+
     return m_autoCommand;
   }
 }

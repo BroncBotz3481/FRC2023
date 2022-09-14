@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.Timer;
 /** An example command that uses an example subsystem. */
 public class DrivetrainCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DrivetrainSubsystem m_driveTrainSubsystem;
+  private final DrivetrainSubsystem m_drivetrainSubsystem;
   private final DoubleSupplier m_leftpower, m_rightpower;
 
 
@@ -35,7 +35,7 @@ public class DrivetrainCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public DrivetrainCommand(DrivetrainSubsystem subsystem, DoubleSupplier leftpower, DoubleSupplier rightpower) {
-    m_driveTrainSubsystem = subsystem;
+    m_drivetrainSubsystem = subsystem;
     m_leftpower = leftpower;
     m_rightpower = rightpower;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -54,7 +54,7 @@ public class DrivetrainCommand extends CommandBase {
     double leftYaxis = m_leftpower.getAsDouble(), rightYaxis = m_rightpower.getAsDouble();
     DrivetrainPolicy.powerLeft = leftYaxis;
     DrivetrainPolicy.powerRight = rightYaxis;
-    m_driveTrainSubsystem.run();
+    m_drivetrainSubsystem.run();
   }
 
   // Called once the command ends or is interrupted.
@@ -62,7 +62,7 @@ public class DrivetrainCommand extends CommandBase {
   public void end(boolean interrupted) {
     DrivetrainPolicy.powerLeft = 0;
     DrivetrainPolicy.powerRight = 0;
-    m_driveTrainSubsystem.run();
+    m_drivetrainSubsystem.run();
     
   }
 

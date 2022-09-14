@@ -14,10 +14,11 @@ Email: dylantrwatson@gmail.com
 package frc.robot.daydream.commands;
 
 import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
+import frc.robot.daydream.subsystems.intake.IntakePolicy;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class RaiseAndStopIntake extends CommandBase {
+public class LowerAndRejectCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_intakeSubsystem;
 
@@ -26,7 +27,7 @@ public class RaiseAndStopIntake extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public RaiseAndStopIntake(IntakeSubsystem subsystem) {
+  public LowerAndRejectCommand(IntakeSubsystem subsystem) {
     m_intakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -34,15 +35,22 @@ public class RaiseAndStopIntake extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_intakeSubsystem.drop();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    IntakePolicy.intakePower = -0.5;
+    m_intakeSubsystem.runMotor();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_intakeSubsystem.stopMotor();
+  }
 
   // Returns true when the command should end.
   @Override

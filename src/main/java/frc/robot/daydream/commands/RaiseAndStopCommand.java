@@ -13,6 +13,7 @@ Email: dylantrwatson@gmail.com
 
 package frc.robot.daydream.commands;
 
+import frc.robot.daydream.subsystems.intake.IntakePolicy;
 import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -39,11 +40,15 @@ public class RaiseAndStopCommand extends CommandBase {
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_intakeSubsystem.stopMotor();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    IntakePolicy.intakePower = 0;
+  }
 
   // Returns true when the command should end.
   @Override
