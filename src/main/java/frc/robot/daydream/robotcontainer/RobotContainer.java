@@ -14,10 +14,11 @@ package frc.robot.daydream.robotcontainer;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.daydream.commands.ClimberCommand;
 import frc.robot.daydream.commands.DrivetrainCommand;
-//import frc.robot.daydream.commands.IndexCommand;
+import frc.robot.daydream.commands.IndexCommand;
 //import frc.robot.daydream.commands.RaiseAndStopCommand;
-import frc.robot.daydream.commands.LowShotCommand;
+import frc.robot.daydream.commands.ShooterCommand;
 import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
 import frc.robot.daydream.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.daydream.subsystems.index.IndexSubsystem;
@@ -47,15 +48,16 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final ClimberCommand m_climberCommand = new ClimberCommand(m_climberSubsystem);
  // private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
-  //private final RunIndexCommand m_indexCommand = new RunIndexCommand(m_indexSubsystem);
+  private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
  // private final RaiseAndStopCommand m_intakeCommand = new RaiseAndStopCommand(m_intakeSubsystem);
-  private final LowShotCommand m_shooterCommand = new LowShotCommand(m_shooterSubsystem);
-  private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_drivetrainSubsystem, controller1::getLeftY, controller1::getRightY);
+  private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
+  // How to make a reference: controller1::getLeftY
+  private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_drivetrainSubsystem, leftpower, rightpower);
   //private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_leftpower);
 
-  
-  //private static final Joystick auxController; 
+  //private static final Joystick auxController;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -72,9 +74,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //final JoystickButton leftJoystick = new JoystickButton(controller1, 1);
-    //final JoystickButton rightJoystick = new JoystickButton(controller1, 2);
+    // Set the Default Command for the drivetrain
     m_drivetrainSubsystem.setDefaultCommand(m_drivetrainCommand);
+
+    // When binding to a button on a XboxController, it is generally a good idea to use the enum (XboxController.Button.kA)
+    final JoystickButton leftJoystick = new JoystickButton(controller1, 1);
+    final JoystickButton rightJoystick = new JoystickButton(controller1, 2);
+    
     // leftJoystick.
     //final JoystickButton auxButtonA = new JoystickButton(, 1);
   }
