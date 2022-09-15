@@ -14,11 +14,10 @@ package frc.robot.daydream.robotcontainer;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.daydream.commands.ClimberCommand;
 import frc.robot.daydream.commands.DrivetrainCommand;
-import frc.robot.daydream.commands.IndexCommand;
+//import frc.robot.daydream.commands.IndexCommand;
 //import frc.robot.daydream.commands.RaiseAndStopCommand;
-import frc.robot.daydream.commands.ShooterCommand;
+import frc.robot.daydream.commands.LowShotCommand;
 import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
 import frc.robot.daydream.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.daydream.subsystems.index.IndexSubsystem;
@@ -37,6 +36,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  public XboxController controller1;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
@@ -47,16 +47,15 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final ClimberCommand m_climberCommand = new ClimberCommand(m_climberSubsystem);
  // private final DrivetrainCommand m_driveTrainCommand = new DrivetrainCommand(m_drivetrainSubsystem);
-  private final IndexCommand m_indexCommand = new IndexCommand(m_indexSubsystem);
+  //private final RunIndexCommand m_indexCommand = new RunIndexCommand(m_indexSubsystem);
  // private final RaiseAndStopCommand m_intakeCommand = new RaiseAndStopCommand(m_intakeSubsystem);
-  private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
-  private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_drivetrainSubsystem, leftpower, rightpower);
+  private final LowShotCommand m_shooterCommand = new LowShotCommand(m_shooterSubsystem);
+  private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_drivetrainSubsystem, controller1::getLeftY, controller1::getRightY);
   //private final DrivetrainCommand m_drivetrainCommand = new DrivetrainCommand(m_leftpower);
 
-  public XboxController controller1;
-  //private static final Joystick auxController;
+  
+  //private static final Joystick auxController; 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -73,9 +72,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    final JoystickButton leftJoystick = new JoystickButton(controller1, 1);
-    final JoystickButton rightJoystick = new JoystickButton(controller1, 2);
-    
+    //final JoystickButton leftJoystick = new JoystickButton(controller1, 1);
+    //final JoystickButton rightJoystick = new JoystickButton(controller1, 2);
+    m_drivetrainSubsystem.setDefaultCommand(m_drivetrainCommand);
     // leftJoystick.
     //final JoystickButton auxButtonA = new JoystickButton(, 1);
   }

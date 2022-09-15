@@ -14,7 +14,8 @@ package frc.robot.daydream.subsystems.index;
 import frc.robot.daydream.subsystems.index.IndexPolicy;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.DigitalInput;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,14 +23,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IndexSubsystem extends SubsystemBase {
 
   public VictorSPX Indexmotor; // This is the motor controller
-  public DigitalInput pressurePad;
+  public AnalogInput pressurePad;
 
   //public static boolean isPressed; //if pressure pad is pressed or not
 
   /** Creates a new ExampleSubsystem. */
   public IndexSubsystem() {
     Indexmotor = new VictorSPX(1); // Create the new motor controller (make sure you check your ID!)
-    pressurePad = new DigitalInput(2);
+    pressurePad = new AnalogInput(2);
   }
   
   // This could be "runintake" or "stopintake" or "liftclimber"
@@ -46,6 +47,6 @@ public class IndexSubsystem extends SubsystemBase {
 
   @Override
   public void periodic(){
-    IndexPolicy.pressurePadSet = pressurePad.get();
+    IndexPolicy.pressurePadSet = pressurePad.getValue();
   }
 }

@@ -43,12 +43,12 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void drop() {
-    piston.set(Value.kForward);
+    piston.set(IntakePolicy.downPosition);
 
   }
 
   public void raise() {
-      piston.set(Value.kReverse);
+      piston.set(IntakePolicy.upPosition);
 
     }
   

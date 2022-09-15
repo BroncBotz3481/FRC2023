@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj.Timer;
 
 /** An example command that uses an example subsystem. */
 public class DrivetrainCommand extends CommandBase {
