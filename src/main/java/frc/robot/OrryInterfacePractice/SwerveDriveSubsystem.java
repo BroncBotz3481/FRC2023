@@ -6,7 +6,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-private class SwerveModule {
+public class SwerveDriveSubsystem extends SubsystemBase {
+    private class SwerveModule {
     public double speed;
     public double angle;
 
@@ -27,7 +28,6 @@ private class SwerveModule {
     }
 }
 
-public class SwerveDriveSubsystem extends SubsystemBase {
     private CANSparkMax frontLeftMotor;
     private CANSparkMax backLeftMotor;
     private CANSparkMax frontRightMotor;
