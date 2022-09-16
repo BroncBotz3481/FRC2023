@@ -13,21 +13,21 @@ Email: dylantrwatson@gmail.com
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.OrryInterfacePractice.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class IntakeBall extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private final IntakeSubsystem m_IntakeSubsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public IntakeBall(IntakeSubsystem subsystem) {
+    m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -48,5 +48,17 @@ public class ExampleCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public void toggleIntake() {
+
+  }
+
+  public void runMotor() {
+
+  }
+
+  public void raiseBalls() {
+    
   }
 }
