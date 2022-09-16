@@ -34,27 +34,30 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private DifferentialDrive driveTrain;
     
     public DrivetrainSubsystem(){
-        frontLeftMotor = new CANSparkMax(0, MotorType.kBrushless);
-        backLeftMotor = new CANSparkMax(1, MotorType.kBrushless);
-        frontRightMotor = new CANSparkMax(2, MotorType.kBrushless);
-        backRightMotor = new CANSparkMax(3, MotorType.kBrushless);
+        frontLeftMotor = new CANSparkMax(4, MotorType.kBrushless);
+        backLeftMotor = new CANSparkMax(3, MotorType.kBrushless);
+        frontRightMotor = new CANSparkMax(1, MotorType.kBrushless);
+        backRightMotor = new CANSparkMax(2, MotorType.kBrushless);
 
         backLeftMotor.follow(frontLeftMotor);//frontLeftMotor is the leader
         backRightMotor.follow(frontRightMotor);//frontRightMotor is the leader
 
-        frontLeftMotor.setInverted(true);
         frontRightMotor.setInverted(false);
+        frontLeftMotor.setInverted(true);
 
         leftEncoder = frontLeftMotor.getEncoder();
         rightEncoder = frontRightMotor.getEncoder();
 
         driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
-
+        System.out.println("Are there errors here in DrivetrainSubsystem?");    
     }
 
     public void run(){
-        driveTrain.tankDrive(DrivetrainPolicy.powerLeft, DrivetrainPolicy.powerRight);
-        
+        System.out.println("AM I RUNNING!!!");
+        System.out.println(DrivetrainPolicy.powerLeft);
+        System.out.println(DrivetrainPolicy.powerRight);
+        driveTrain.tankDrive(DrivetrainPolicy.powerLeft * 0.5, DrivetrainPolicy.powerRight * 0.5);
+        // frontLeftMotor.set(Driver);
         
     }
 

@@ -29,7 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
     intakeMotor = new VictorSPX(1); 
-    piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 1);  
+    piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 7, 6);
+     
   }
   
   public void runMotor() {

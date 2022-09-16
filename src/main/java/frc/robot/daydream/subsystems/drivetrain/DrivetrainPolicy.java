@@ -12,7 +12,6 @@ Email: Shruti.venkat05@gmail.com
 
 package frc.robot.daydream.subsystems.drivetrain;
 
-import edu.wpi.first.wpilibj.Timer;
 
 public final class DrivetrainPolicy {
         public static double powerLeft; // power for left motors
