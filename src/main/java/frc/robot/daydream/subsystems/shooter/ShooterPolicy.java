@@ -1,16 +1,17 @@
 /****************************** Header ******************************\
-Class Name: IntakeModule [final]
-File Name: IntakeModule.java
-Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods 
-Project: BroncBotzFRC2023
-Copyright (c) BroncBotz.
-All rights reserved.
+ Class Name: IntakeModule [final]
+ File Name: IntakeModule.java
+ Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods
+ Project: BroncBotzFRC2023
+ Copyright (c) BroncBotz.
+ All rights reserved.
 
-Author(s): Shruti Venkat and Samuel Zhao
-Email: Shruti.venkat05@gmail.com
-\********************************************************************/
+ Author(s): Shruti Venkat and Samuel Zhao
+ Email: Shruti.venkat05@gmail.com
+ \********************************************************************/
 
 package frc.robot.daydream.subsystems.shooter;
+
 import frc.robot.daydream.subsystems.index.IndexPolicy;
 
 /**
@@ -22,16 +23,16 @@ import frc.robot.daydream.subsystems.index.IndexPolicy;
  * constants are needed, to reduce verbosity.
  */
 public final class ShooterPolicy {
-        public static double powerShooter;
+    public static double powerShooter;
 
-        public static double getShooterPower(){
-                if(IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0){
-                    ShooterPolicy.powerShooter = 0.1;
-                }
-                return ShooterPolicy.powerShooter;
+    public static double getShooterPower() {
+        if (IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0) {
+            ShooterPolicy.powerShooter = 0.1;
         }
-        public static boolean shootReady()
-        {
-            return IndexPolicy.indexFull();
-        }
+        return ShooterPolicy.powerShooter;
+    }
+
+    public static boolean shootReady() {
+        return IndexPolicy.indexFull();
+    }
 }

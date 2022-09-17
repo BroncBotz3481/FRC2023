@@ -19,7 +19,7 @@ import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
 /**
  * An example command that uses an example subsystem.
  */
-public class RaiseAndStopCommand extends CommandBase {
+public class StopIntakeCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final IntakeSubsystem m_intakeSubsystem;
 
@@ -28,7 +28,7 @@ public class RaiseAndStopCommand extends CommandBase {
      *
      * @param subsystem The subsystem used by this command.
      */
-    public RaiseAndStopCommand(IntakeSubsystem subsystem) {
+    public StopIntakeCommand(IntakeSubsystem subsystem) {
         m_intakeSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -37,7 +37,6 @@ public class RaiseAndStopCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_intakeSubsystem.raise();
         m_intakeSubsystem.stopMotor();
 
     }

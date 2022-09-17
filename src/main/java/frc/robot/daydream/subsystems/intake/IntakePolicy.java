@@ -1,14 +1,14 @@
 /****************************** Header ******************************\
-Class Name: IntakePolicyClass 
-File Name: IntakePolicy.java
-Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods 
-Project: BroncBotzFRC2023
-Copyright (c) BroncBotz.
-All rights reserved.
+ Class Name: IntakePolicyClass
+ File Name: IntakePolicy.java
+ Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods
+ Project: BroncBotzFRC2023
+ Copyright (c) BroncBotz.
+ All rights reserved.
 
-Author(s): Shruti Venkat and Samuel Zhao
-Email: Shruti.venkat05@gmail.com
-\********************************************************************/
+ Author(s): Shruti Venkat and Samuel Zhao
+ Email: Shruti.venkat05@gmail.com
+ \********************************************************************/
 
 package frc.robot.daydream.subsystems.intake;
 
@@ -25,12 +25,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public class IntakePolicy {
 
+    public static final DoubleSolenoid.Value upPosition = Value.kForward;
+    public static final DoubleSolenoid.Value downPosition = Value.kReverse;
     public static double intakePower; //power for motors
-    public static final DoubleSolenoid.Value upPosition = Value.kReverse;
-    public static final DoubleSolenoid.Value downPosition = Value.kForward;
-   // public static boolean isUpIntake; //whether the intake is up or not
-    
-   
-   
-    
+    // public static boolean isUpIntake; //whether the intake is up or not
+
+
 }

@@ -1,14 +1,14 @@
 /****************************** Header ******************************\
-Class Name: IntakeModule [final]
-File Name: IntakeModule.java
-Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods 
-Project: BroncBotzFRC2023
-Copyright (c) BroncBotz.
-All rights reserved.
+ Class Name: IntakeModule [final]
+ File Name: IntakeModule.java
+ Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods
+ Project: BroncBotzFRC2023
+ Copyright (c) BroncBotz.
+ All rights reserved.
 
-Author(s): Shruti
-Email: Shruti.venkat05@gmail.com
-\********************************************************************/
+ Author(s): Shruti
+ Email: Shruti.venkat05@gmail.com
+ \********************************************************************/
 
 package frc.robot.ShrutiInterfacePractice.subsystems.shooter;
 
@@ -28,6 +28,5 @@ public final class ShooterPolicy {
         public static double angle;
 
 
-        
     }
 }

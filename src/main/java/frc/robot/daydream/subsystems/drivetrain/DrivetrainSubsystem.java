@@ -1,39 +1,36 @@
 /****************************** Header ******************************\
-Class Name: DrivetrainSubsystem extends SubsystemBase
-File Name: DrivetrainSubsystem.java
-Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods 
-Project: BroncBotzFRC2023
-Copyright (c) BroncBotz.
-All rights reserved.
+ Class Name: DrivetrainSubsystem extends SubsystemBase
+ File Name: DrivetrainSubsystem.java
+ Summary: Contains constant subclasses and variables for commands, subsystems, and utility methods
+ Project: BroncBotzFRC2023
+ Copyright (c) BroncBotz.
+ All rights reserved.
 
-Author(s): Samuel Zhao and Shruti Venkat
-Email: Shruti.venkat05@gmail.com and samuelzhao0714@gmail.com
-\********************************************************************/
+ Author(s): Samuel Zhao and Shruti Venkat
+ Email: Shruti.venkat05@gmail.com and samuelzhao0714@gmail.com
+ \********************************************************************/
 
 
 package frc.robot.daydream.subsystems.drivetrain;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.*;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.robot.daydream.subsystems.drivetrain.DrivetrainPolicy;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-    private CANSparkMax frontLeftMotor;
-    private CANSparkMax backLeftMotor;
-    private CANSparkMax frontRightMotor;
-    private CANSparkMax backRightMotor;
+    private final CANSparkMax frontLeftMotor;
+    private final CANSparkMax backLeftMotor;
+    private final CANSparkMax frontRightMotor;
+    private final CANSparkMax backRightMotor;
 
-    private RelativeEncoder leftEncoder, rightEncoder;
+    private final RelativeEncoder leftEncoder;
+    private final RelativeEncoder rightEncoder;
 
-    private DifferentialDrive driveTrain;
-    
-    public DrivetrainSubsystem(){
+    private final DifferentialDrive driveTrain;
+
+    public DrivetrainSubsystem() {
         frontLeftMotor = new CANSparkMax(4, MotorType.kBrushless);
         backLeftMotor = new CANSparkMax(3, MotorType.kBrushless);
         frontRightMotor = new CANSparkMax(1, MotorType.kBrushless);
@@ -49,21 +46,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
         rightEncoder = frontRightMotor.getEncoder();
 
         driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
-        System.out.println("Are there errors here in DrivetrainSubsystem?");    
+        System.out.println("Are there errors here in DrivetrainSubsystem?");
     }
 
-    public void run(){
+    public void run() {
         System.out.println("AM I RUNNING!!!");
         System.out.println(DrivetrainPolicy.powerLeft);
         System.out.println(DrivetrainPolicy.powerRight);
         driveTrain.tankDrive(DrivetrainPolicy.powerLeft * 0.5, DrivetrainPolicy.powerRight * 0.5);
         // frontLeftMotor.set(Driver);
-        
+
     }
 
     @Override
-    public void periodic()
-    {
+    public void periodic() {
         DrivetrainPolicy.rightEncoderPosition = rightEncoder.getPosition();
         DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
