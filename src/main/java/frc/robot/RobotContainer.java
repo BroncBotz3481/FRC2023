@@ -117,12 +117,14 @@ public class RobotContainer {
       final JoystickButton xButton2 = new JoystickButton(controller1, 3);
       final JoystickButton leftShoulderButton = new JoystickButton(controller1, 4);
       final JoystickButton rightShoulderButton = new JoystickButton(controller1, 5);
+      final JoystickButton rightTrigger = new JoystickButton(controller1, 7);
       yButton2.whenPressed(m_lowShotCommand);
       bButton2.whenPressed(m_highShotCommand); //haven't done shooter (especially PID)
       aButton2.whenActive(m_reverseIndexCommand);
       xButton2.whenPressed(m_lowerAndRejectCommand);
       leftShoulderButton.whenPressed(m_lowerAndSuckCommand);
       rightShoulderButton.whenPressed(m_runIndexCommand);
+      rightTrigger.whileHeld(m_raiseAndStopCommand);
 
       
       // bButton.whenPressed(m_lowerIntakeCommand);
