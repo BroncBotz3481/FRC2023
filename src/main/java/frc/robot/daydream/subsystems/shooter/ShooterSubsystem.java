@@ -13,22 +13,26 @@ package frc.robot.daydream.subsystems.shooter;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  public TalonSRX shooterMotor; 
+  public VictorSPX shooterMotorLeft; 
+  public TalonSRX shooterMotorRight;
   
   public ShooterSubsystem() {
-    shooterMotor = new TalonSRX(1);
+    shooterMotorLeft = new VictorSPX(2);
+    shooterMotorRight = new TalonSRX(1);
   }
   
   // This could be "runintake" or "stopintake" or "liftclimber"
 
   public void shoot(){
-    shooterMotor.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
+    shooterMotorRight.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
+    shooterMotorLeft.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
   }
 
   public void stopShooter()

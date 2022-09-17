@@ -28,8 +28,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public DoubleSolenoid piston;
 
   public IntakeSubsystem() {
-    intakeMotor = new VictorSPX(1); 
+    intakeMotor = new VictorSPX(7); 
     piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 7, 6);
+
+    intakeMotor.setInverted(true);
      
   }
   

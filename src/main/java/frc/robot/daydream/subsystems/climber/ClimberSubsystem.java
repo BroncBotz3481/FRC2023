@@ -11,8 +11,10 @@ public class ClimberSubsystem extends SubsystemBase{
     private VictorSPX rightMotorClimb;
 
     public ClimberSubsystem(){
-        leftMotorClimb = new VictorSPX(2);
-        rightMotorClimb = new VictorSPX(3);
+        leftMotorClimb = new VictorSPX(4);
+        rightMotorClimb = new VictorSPX(5);
+
+        leftMotorClimb.setInverted(true);
     }
 
 
