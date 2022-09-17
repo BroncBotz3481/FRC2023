@@ -22,22 +22,35 @@ public class ShooterSubsystem extends SubsystemBase {
     public VictorSPX shooterMotorLeft;
     public TalonSRX shooterMotorRight;
 
+    enum slotIdx {
+        PRIMARY,
+        AUXILLARY
+    }
+    enum pidIdx {
+        DISTANCE,
+        TURNING, 
+        VELOCITY,
+        MOTIONPROFILE,
+    }
+
+
     public ShooterSubsystem() {
+
         shooterMotorLeft = new VictorSPX(2);
         shooterMotorRight = new TalonSRX(1);
 
         shooterMotorLeft.setInverted(true);
         shooterMotorLeft.follow(shooterMotorRight);
         
-        shooterMotorRight.selectProfileSlot(2,0); // First parameter "2" correlates to velocity, second parameter correlates to primary PID
-        shooterMotorRight.config_kP(0, 0);  // First parameter is primary PID, second parameter is velocity
-        shooterMotorRight.config_kI(0, 0);  
-        shooterMotorRight.config_kD(0, 0);
-        shooterMotorRight.config_kF(0, 0);
+        shooterMotorRight.selectProfileSlot(slotIdx.PRIMARY.ordinal(), pidIdx.VELOCITY.ordinal()); // First parameter "2" correlates to velocity, second parameter correlates to primary PID
+        shooterMotorRight.config_kP(slotIdx.PRIMARY.ordinal(), 0);  // First parameter is primary PID, second parameter is velocity
+        shooterMotorRight.config_kI(slotIdx.PRIMARY.ordinal(), 0);  
+        shooterMotorRight.config_kD(slotIdx.PRIMARY.ordinal(), 0);
+        shooterMotorRight.config_kF(slotIdx.PRIMARY.ordinal(), 0);
 
-        shooterMotorRight.config_IntegralZone(0, 300);
-        shooterMotorRight.configAllowableClosedloopError(0, 0);
-        shooterMotorRight.configClosedLoopPeriod(0, 1);
+        shooterMotorRight.config_IntegralZone(slotIdx.PRIMARY.ordinal(), 300);
+        shooterMotorRight.configAllowableClosedloopError(slotIdx.PRIMARY.ordinal(), pidIdx.VELOCITY.ordinal());
+        shooterMotorRight.configClosedLoopPeriod(slotIdx.PRIMARY.ordinal(), 1);
 
         shooterMotorRight.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 50);
         shooterMotorRight.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 50);
