@@ -11,60 +11,64 @@
  \********************************************************************/
 
 
-package frc.robot.daydream.commands.shooterCommand;
+package frc.robot.daydream.commands.drivetrainCommand;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.daydream.subsystems.index.IndexPolicy;
-import frc.robot.daydream.subsystems.shooter.ShooterPolicy;
-import frc.robot.daydream.subsystems.shooter.ShooterSubsystem;
+import frc.robot.daydream.subsystems.drivetrain.DrivetrainPolicy;
+import frc.robot.daydream.subsystems.drivetrain.DrivetrainSubsystem;
+
+import java.util.function.DoubleSupplier;
+
 
 /**
  * An example command that uses an example subsystem.
  */
-public class HighShotCommand extends CommandBase {
+public class ReverseDriveCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final ShooterSubsystem m_shooterSubsystem;
+    private final DrivetrainSubsystem m_drivetrainSubsystem;
     private Timer time;
+
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public HighShotCommand(ShooterSubsystem subsystem) {
-        m_shooterSubsystem = subsystem;
+    public ReverseDriveCommand(DrivetrainSubsystem subsystem) {
+        m_drivetrainSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
+        System.out.println("Are there errors here in DrivetrainCommand?");
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         time.start();
-        IndexPolicy.overridePressurePad = true;
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_shooterSubsystem.shoot(0.8);
-
-
+        DrivetrainPolicy.powerLeft = -1;
+        DrivetrainPolicy.powerRight = -1;
+        m_drivetrainSubsystem.run();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        IndexPolicy.overridePressurePad = false;
-        m_shooterSubsystem.stopShooter();
+        DrivetrainPolicy.powerLeft = 0;
+        DrivetrainPolicy.powerRight = 0;
+        m_drivetrainSubsystem.run();
 
     }
-
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(time.get() == 3.0){
+        if(time.get()==3.0){
             return true;
         }
         return false;

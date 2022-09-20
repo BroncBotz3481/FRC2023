@@ -15,9 +15,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.daydream.commands.*;
 import frc.robot.daydream.commands.drivetrainCommand.DrivetrainCommand;
+import frc.robot.daydream.commands.drivetrainCommand.ReverseDriveCommand;
 import frc.robot.daydream.commands.indexCommand.ReverseIndexCommand;
 import frc.robot.daydream.commands.indexCommand.StopIndexCommand;
 import frc.robot.daydream.commands.intakeCommand.LowerAndRejectCommand;
@@ -95,6 +97,11 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
+        SequentialCommandGroup m_autoCommand = new SequentialCommandGroup(
+            
+            new HighShotCommand(m_shooterSubsystem),
+            new ReverseDriveCommand(m_drivetrainSubsystem)
+        );
         return null;
         // return m_runIndexCommand;
     }
