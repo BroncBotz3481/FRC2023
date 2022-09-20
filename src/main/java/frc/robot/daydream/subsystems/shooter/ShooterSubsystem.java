@@ -59,7 +59,8 @@ public class ShooterSubsystem extends SubsystemBase {
     // This could be "runintake" or "stopintake" or "liftclimber"
     // https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#closed-loop-configs-per-slot-four-slots-available
 
-    public void shoot() {
+    public void shoot(double power) {
+        ShooterPolicy.powerShooter = power;
         shooterMotorRight.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
 
     }
@@ -69,8 +70,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void stopShooter() {
-        ShooterPolicy.powerShooter = 0;
-        shoot();
+        shoot(0);
     }
 
     @Override

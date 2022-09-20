@@ -24,8 +24,6 @@ public class StopShooterCommand extends CommandBase {
      */
     @Override
     public void initialize() {
-
-        ShooterPolicy.powerShooter = 0.0;
         shooterSubsystem.shoot(0);
     }
 

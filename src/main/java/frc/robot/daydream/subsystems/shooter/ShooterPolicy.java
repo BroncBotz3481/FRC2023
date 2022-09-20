@@ -24,7 +24,7 @@ import frc.robot.daydream.subsystems.index.IndexPolicy;
  */
 public final class ShooterPolicy {
     public static double powerShooter;
-
+    public static double targetSpeed;
     public static double getShooterPower() {
         if (IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0) {
             ShooterPolicy.powerShooter = 0.1;
