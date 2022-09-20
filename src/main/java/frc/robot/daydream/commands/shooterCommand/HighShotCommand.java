@@ -11,25 +11,26 @@
  \********************************************************************/
 
 
-package frc.robot.daydream.commands;
+package frc.robot.daydream.commands.shooterCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.daydream.subsystems.index.IndexSubsystem;
+import frc.robot.daydream.subsystems.index.IndexPolicy;
+import frc.robot.daydream.subsystems.shooter.ShooterSubsystem;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ReverseIndexCommand extends CommandBase {
+public class HighShotCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final IndexSubsystem m_indexSubsystem;
+    private final ShooterSubsystem m_shooterSubsystem;
 
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public ReverseIndexCommand(IndexSubsystem subsystem) {
-        m_indexSubsystem = subsystem;
+    public HighShotCommand(ShooterSubsystem subsystem) {
+        m_shooterSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -37,20 +38,26 @@ public class ReverseIndexCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        IndexPolicy.overridePressurePad = true;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_indexSubsystem.runIndex(-0.5);
+
+        m_shooterSubsystem.shoot(0.8);
+
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Is this running?");
-        m_indexSubsystem.stopIndex();
+        IndexPolicy.overridePressurePad = false;
+        m_shooterSubsystem.stopShooter();
+
     }
+
 
     // Returns true when the command should end.
     @Override

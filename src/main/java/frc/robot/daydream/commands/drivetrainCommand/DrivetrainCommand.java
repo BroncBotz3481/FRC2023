@@ -11,45 +11,59 @@
  \********************************************************************/
 
 
-package frc.robot.daydream.commands;
+package frc.robot.daydream.commands.drivetrainCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.daydream.subsystems.index.IndexSubsystem;
+import frc.robot.daydream.subsystems.drivetrain.DrivetrainPolicy;
+import frc.robot.daydream.subsystems.drivetrain.DrivetrainSubsystem;
+
+import java.util.function.DoubleSupplier;
+
 
 /**
  * An example command that uses an example subsystem.
  */
-public class StopIndexCommand extends CommandBase {
+public class DrivetrainCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final IndexSubsystem m_indexSubsystem;
+    private final DrivetrainSubsystem m_drivetrainSubsystem;
+    private final DoubleSupplier m_leftpower, m_rightpower;
+
 
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public StopIndexCommand(IndexSubsystem subsystem) {
-        m_indexSubsystem = subsystem;
+    public DrivetrainCommand(DrivetrainSubsystem subsystem, DoubleSupplier leftpower, DoubleSupplier rightpower) {
+        m_drivetrainSubsystem = subsystem;
+        m_leftpower = leftpower;
+        m_rightpower = rightpower;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
+        System.out.println("Are there errors here in DrivetrainCommand?");
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
-        m_indexSubsystem.runIndex(0);
+        DrivetrainPolicy.powerLeft = m_leftpower.getAsDouble();
+        DrivetrainPolicy.powerRight = m_rightpower.getAsDouble();
+        m_drivetrainSubsystem.run();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_indexSubsystem.stopIndex();
+        DrivetrainPolicy.powerLeft = 0;
+        DrivetrainPolicy.powerRight = 0;
+        m_drivetrainSubsystem.run();
+
     }
 
     // Returns true when the command should end.

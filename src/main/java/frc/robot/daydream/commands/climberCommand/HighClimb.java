@@ -12,7 +12,7 @@
 
 ////
 
-package frc.robot.daydream.commands;
+package frc.robot.daydream.commands.climberCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.daydream.subsystems.climber.ClimberPolicy;

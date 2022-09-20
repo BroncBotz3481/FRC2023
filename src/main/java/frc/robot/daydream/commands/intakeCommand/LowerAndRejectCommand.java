@@ -11,29 +11,25 @@
  \********************************************************************/
 
 
-package frc.robot.daydream.commands;
+package frc.robot.daydream.commands.intakeCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.daydream.subsystems.climber.ClimberPolicy;
-import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
-
-
-////
+import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class LowerHighClimb extends CommandBase {
+public class LowerAndRejectCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final ClimberSubsystem m_climberSubsystem;
+    private final IntakeSubsystem m_intakeSubsystem;
 
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public LowerHighClimb(ClimberSubsystem subsystem) {
-        m_climberSubsystem = subsystem;
+    public LowerAndRejectCommand(IntakeSubsystem subsystem) {
+        m_intakeSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -41,22 +37,20 @@ public class LowerHighClimb extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        m_intakeSubsystem.drop();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ClimberPolicy.leftPowerClimb = -0.5;
-        ClimberPolicy.rightPowerClimb = -0.5;
-        m_climberSubsystem.runLeftMotor();
-        m_climberSubsystem.runRightMotor();
+
+        m_intakeSubsystem.runMotor(-0.5);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_climberSubsystem.stopLeftMotor();
-        m_climberSubsystem.stopRightMotor();
+        m_intakeSubsystem.stopMotor();
     }
 
     // Returns true when the command should end.

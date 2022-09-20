@@ -11,25 +11,26 @@
  \********************************************************************/
 
 
-package frc.robot.daydream.commands;
+package frc.robot.daydream.commands.shooterCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
+import frc.robot.daydream.subsystems.index.IndexPolicy;
+import frc.robot.daydream.subsystems.shooter.ShooterSubsystem;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class LowerAndSuckCommand extends CommandBase {
+public class LowShotCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final IntakeSubsystem m_intakeSubsystem;
+    private final ShooterSubsystem m_shooterSubsystem;
 
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public LowerAndSuckCommand(IntakeSubsystem subsystem) {
-        m_intakeSubsystem = subsystem;
+    public LowShotCommand(ShooterSubsystem subsystem) {
+        m_shooterSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -37,21 +38,26 @@ public class LowerAndSuckCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_intakeSubsystem.drop();
-
+        IndexPolicy.overridePressurePad = true;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_intakeSubsystem.runMotor(0.5);
+
+        m_shooterSubsystem.shoot(0.4);
+
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_intakeSubsystem.stopMotor();
+        IndexPolicy.overridePressurePad = false;
+        m_shooterSubsystem.stopShooter();
+
     }
+
 
     // Returns true when the command should end.
     @Override

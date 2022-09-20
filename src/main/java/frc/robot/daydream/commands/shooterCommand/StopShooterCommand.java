@@ -1,4 +1,4 @@
-package frc.robot.daydream.commands;
+package frc.robot.daydream.commands.shooterCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.daydream.subsystems.shooter.ShooterPolicy;
