@@ -32,6 +32,7 @@ public class HighShotCommand extends CommandBase {
     public HighShotCommand(ShooterSubsystem subsystem) {
         m_shooterSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
+        time = new Timer();
         addRequirements(subsystem);
         System.out.println("Are there errors here in HighShot initialization?");
     }
