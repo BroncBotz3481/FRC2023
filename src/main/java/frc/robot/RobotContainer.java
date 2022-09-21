@@ -17,22 +17,22 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.daydream.commands.drivetrainCommand.DrivetrainCommand;
-import frc.robot.daydream.commands.drivetrainCommand.ReverseDriveCommand;
-import frc.robot.daydream.commands.indexCommand.ReverseIndexCommand;
-import frc.robot.daydream.commands.indexCommand.StopIndexCommand;
-import frc.robot.daydream.commands.intakeCommand.LowerAndRejectCommand;
-import frc.robot.daydream.commands.intakeCommand.LowerAndSuckCommand;
-import frc.robot.daydream.commands.intakeCommand.RaiseAndStopCommand;
-import frc.robot.daydream.commands.intakeCommand.StopIntakeCommand;
-import frc.robot.daydream.commands.shooterCommand.HighShotCommand;
-import frc.robot.daydream.commands.shooterCommand.LowShotCommand;
-import frc.robot.daydream.commands.shooterCommand.StopShooterCommand;
-import frc.robot.daydream.subsystems.climber.ClimberSubsystem;
-import frc.robot.daydream.subsystems.drivetrain.DrivetrainSubsystem;
-import frc.robot.daydream.subsystems.index.IndexSubsystem;
-import frc.robot.daydream.subsystems.intake.IntakeSubsystem;
-import frc.robot.daydream.subsystems.shooter.ShooterSubsystem;
+import frc.robot.commands.drivetrainCommand.DrivetrainCommand;
+import frc.robot.commands.drivetrainCommand.ReverseDriveCommand;
+import frc.robot.commands.indexCommand.ReverseIndexCommand;
+import frc.robot.commands.indexCommand.StopIndexCommand;
+import frc.robot.commands.intakeCommand.LowerAndRejectCommand;
+import frc.robot.commands.intakeCommand.LowerAndSuckCommand;
+import frc.robot.commands.intakeCommand.RaiseAndStopCommand;
+import frc.robot.commands.intakeCommand.StopIntakeCommand;
+import frc.robot.commands.shooterCommand.HighShotCommand;
+import frc.robot.commands.shooterCommand.LowShotCommand;
+import frc.robot.commands.shooterCommand.StopShooterCommand;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
+import frc.robot.subsystems.index.IndexSubsystem;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
