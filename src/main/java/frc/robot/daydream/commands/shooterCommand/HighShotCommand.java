@@ -35,6 +35,7 @@ public class HighShotCommand extends CommandBase {
         m_shooterSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
+        System.out.println("Are there errors here in HighShot initialization?");
     }
 
     // Called when the command is initially scheduled.
@@ -42,19 +43,21 @@ public class HighShotCommand extends CommandBase {
     public void initialize() {
         time.start();
         IndexPolicy.overridePressurePad = true;
+        System.out.println("Is the initialize method working");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
         m_shooterSubsystem.shoot(0.8);
-
+        System.out.println("Is the execute method working");
 
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        time.stop();
         IndexPolicy.overridePressurePad = false;
         m_shooterSubsystem.stopShooter();
 
@@ -64,7 +67,7 @@ public class HighShotCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(time.get() == 3.0){
+        if(time.get() >= 3.0){
             return true;
         }
         return false;

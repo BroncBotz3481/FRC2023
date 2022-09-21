@@ -22,6 +22,7 @@ import frc.robot.daydream.commands.drivetrainCommand.ReverseDriveCommand;
 import frc.robot.daydream.commands.indexCommand.ReverseIndexCommand;
 import frc.robot.daydream.commands.indexCommand.StopIndexCommand;
 import frc.robot.daydream.commands.intakeCommand.LowerAndRejectCommand;
+import frc.robot.daydream.commands.intakeCommand.LowerAndSuckCommand;
 import frc.robot.daydream.commands.intakeCommand.RaiseAndStopCommand;
 import frc.robot.daydream.commands.intakeCommand.StopIntakeCommand;
 import frc.robot.daydream.commands.shooterCommand.HighShotCommand;
@@ -76,7 +77,7 @@ public class RobotContainer {
         m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
         new Trigger(controller1::getAButton).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem));
-        new Trigger(controller1::getXButton).whileActiveContinuous(new LowerAndRejectCommand(m_intakeSubsystem));
+        new Trigger(controller1::getXButton).whileActiveContinuous(new LowerAndSuckCommand(m_intakeSubsystem));
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem));
         new Trigger(controller1::getRightBumper).whileActiveContinuous(new RaiseAndStopCommand(m_intakeSubsystem));
         new Trigger(controller1::getAButton).whenInactive(new StopIndexCommand(m_indexSubsystem));
@@ -101,8 +102,9 @@ public class RobotContainer {
             new HighShotCommand(m_shooterSubsystem),
             new ReverseDriveCommand(m_drivetrainSubsystem)
         );
-        return null;
+        System.out.println("Is this auto running?");
         // return m_runIndexCommand;
+        return m_autoCommand;
     }
 
 }

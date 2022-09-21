@@ -40,7 +40,6 @@ public class DrivetrainCommand extends CommandBase {
         m_rightpower = rightpower;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
-        System.out.println("Are there errors here in DrivetrainCommand?");
     }
 
     // Called when the command is initially scheduled.

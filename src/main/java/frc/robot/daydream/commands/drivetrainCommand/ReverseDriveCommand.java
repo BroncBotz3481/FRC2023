@@ -45,7 +45,7 @@ public class ReverseDriveCommand extends CommandBase {
     @Override
     public void initialize() {
         time.start();
-
+        System.out.println("Is the initialize method working");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -54,11 +54,13 @@ public class ReverseDriveCommand extends CommandBase {
         DrivetrainPolicy.powerLeft = -1;
         DrivetrainPolicy.powerRight = -1;
         m_drivetrainSubsystem.run();
+        System.out.println("Is the execute method working?");
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        time.stop();
         DrivetrainPolicy.powerLeft = 0;
         DrivetrainPolicy.powerRight = 0;
         m_drivetrainSubsystem.run();
@@ -68,7 +70,7 @@ public class ReverseDriveCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(time.get()==3.0){
+        if(time.get()>=3.0){
             return true;
         }
         return false;
