@@ -43,10 +43,10 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterMotorLeft.follow(shooterMotorRight);
         
         shooterMotorRight.selectProfileSlot(slotIdx.PRIMARY.ordinal(), pidIdx.VELOCITY.ordinal()); // First parameter "2" correlates to velocity, second parameter correlates to primary PID
-        shooterMotorRight.config_kP(slotIdx.PRIMARY.ordinal(), 0);  // First parameter is primary PID, second parameter is velocity
+        shooterMotorRight.config_kP(slotIdx.PRIMARY.ordinal(), 0.087);  // First parameter is primary PID, second parameter is velocity
         shooterMotorRight.config_kI(slotIdx.PRIMARY.ordinal(), 0);  
         shooterMotorRight.config_kD(slotIdx.PRIMARY.ordinal(), 0);
-        shooterMotorRight.config_kF(slotIdx.PRIMARY.ordinal(), 0);
+        shooterMotorRight.config_kF(slotIdx.PRIMARY.ordinal(), 0.0365);
 
         shooterMotorRight.config_IntegralZone(slotIdx.PRIMARY.ordinal(), 300);
         shooterMotorRight.configAllowableClosedloopError(slotIdx.PRIMARY.ordinal(), pidIdx.VELOCITY.ordinal());
