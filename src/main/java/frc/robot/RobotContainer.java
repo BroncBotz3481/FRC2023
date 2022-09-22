@@ -99,7 +99,7 @@ public class RobotContainer {
         // An ExampleCommand will run in autonomous
         SequentialCommandGroup m_autoCommand = new SequentialCommandGroup(
             
-            new HighShotCommand(m_shooterSubsystem),
+            //new HighShotCommand(m_shooterSubsystem),
             new ReverseDriveCommand(m_drivetrainSubsystem)
         );
         System.out.println("Is this auto running?");

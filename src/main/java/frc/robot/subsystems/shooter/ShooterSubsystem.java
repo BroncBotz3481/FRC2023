@@ -16,21 +16,22 @@ import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.RelativeEncoder;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    public VictorSPX shooterMotorLeft;
-    public TalonSRX shooterMotorRight;
+    private VictorSPX shooterMotorLeft;
+    private TalonSRX shooterMotorRight;
 
     enum slotIdx {
-        PRIMARY,
-        AUXILLARY
-    }
-    enum pidIdx {
         DISTANCE,
         TURNING, 
         VELOCITY,
         MOTIONPROFILE,
+    }
+    enum pidIdx {
+        PRIMARY,
+        AUXILLARY
     }
 
 
@@ -42,15 +43,15 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterMotorLeft.setInverted(true);
         shooterMotorLeft.follow(shooterMotorRight);
         
-        shooterMotorRight.selectProfileSlot(slotIdx.PRIMARY.ordinal(), pidIdx.VELOCITY.ordinal()); // First parameter "2" correlates to velocity, second parameter correlates to primary PID
-        shooterMotorRight.config_kP(slotIdx.PRIMARY.ordinal(), 0.087);  // First parameter is primary PID, second parameter is velocity
-        shooterMotorRight.config_kI(slotIdx.PRIMARY.ordinal(), 0);  
-        shooterMotorRight.config_kD(slotIdx.PRIMARY.ordinal(), 0);
-        shooterMotorRight.config_kF(slotIdx.PRIMARY.ordinal(), 0.0365);
+        shooterMotorRight.selectProfileSlot(slotIdx.VELOCITY.ordinal(), pidIdx.PRIMARY.ordinal()); // First parameter "2" correlates to velocity, second parameter correlates to primary PID
+        shooterMotorRight.config_kP(slotIdx.VELOCITY.ordinal(), 0.087);  // First parameter is primary PID, second parameter is velocity
+        shooterMotorRight.config_kI(slotIdx.VELOCITY.ordinal(), 0);  
+        shooterMotorRight.config_kD(slotIdx.VELOCITY.ordinal(), 0);
+        shooterMotorRight.config_kF(slotIdx.VELOCITY.ordinal(), 0.0365);
 
-        shooterMotorRight.config_IntegralZone(slotIdx.PRIMARY.ordinal(), 300);
-        shooterMotorRight.configAllowableClosedloopError(slotIdx.PRIMARY.ordinal(), pidIdx.VELOCITY.ordinal());
-        shooterMotorRight.configClosedLoopPeriod(slotIdx.PRIMARY.ordinal(), 1);
+        shooterMotorRight.config_IntegralZone(slotIdx.VELOCITY.ordinal(), 300);
+        shooterMotorRight.configAllowableClosedloopError(slotIdx.VELOCITY.ordinal(), pidIdx.PRIMARY.ordinal());
+        shooterMotorRight.configClosedLoopPeriod(slotIdx.VELOCITY.ordinal(), 1);
 
         shooterMotorRight.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 50);
         shooterMotorRight.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 50);
@@ -62,6 +63,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public void shoot(double power) {
         ShooterPolicy.powerShooter = power;
         shooterMotorRight.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
+        
 
     }
 
@@ -74,7 +76,10 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     @Override
-    public void periodic() {
+    public void periodic() { 
+
+        System.out.println(shooterMotorRight.getSelectedSensorVelocity(pidIdx.PRIMARY.ordinal())); 
+
     }
 
 }
