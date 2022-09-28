@@ -13,6 +13,7 @@
 package frc.robot.subsystems.shooter;
 
 import frc.robot.subsystems.index.IndexPolicy;
+import frc.robot.subsystems.index.IndexSubsystem;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -25,6 +26,7 @@ import frc.robot.subsystems.index.IndexPolicy;
 public final class ShooterPolicy {
     public static double powerShooter;
     public static double targetSpeed;
+    public static double encoderVelocity;
     public static double getShooterPower() {
         if (IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0) {
             ShooterPolicy.powerShooter = 0.1;
@@ -34,5 +36,17 @@ public final class ShooterPolicy {
 
     public static boolean shootReady() {
         return IndexPolicy.indexFull();
+    }
+    public static boolean inBound(double boundary){
+        if(ShooterPolicy.encoderVelocity > targetSpeed - boundary && ShooterPolicy.encoderVelocity < targetSpeed + boundary)
+        {
+            IndexPolicy.overridePressurePad = true;
+            return true;
+        }
+        else{
+             IndexPolicy.overridePressurePad = false;
+             return false;
+
+        }
     }
 }

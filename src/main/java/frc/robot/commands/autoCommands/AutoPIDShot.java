@@ -65,9 +65,9 @@ public class AutoPIDShot extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // if(ShooterPolicy.rightEncoderVelocity>=12000 && time.get()>=3.0){
-        //     return true;
-        // }
+        if(ShooterPolicy.encoderVelocity>=12000 && time.get()>=3.0){
+            return true;
+        }
         return false;
     }
 }

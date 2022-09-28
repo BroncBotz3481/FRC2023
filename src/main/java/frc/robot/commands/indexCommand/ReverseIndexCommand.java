@@ -14,6 +14,7 @@
 package frc.robot.commands.indexCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.index.IndexPolicy;
 import frc.robot.subsystems.index.IndexSubsystem;
 
 /**
@@ -55,6 +56,9 @@ public class ReverseIndexCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+//        if(IndexPolicy.indexFull()){
+//            return true;
+//        }
         return false;
     }
 }

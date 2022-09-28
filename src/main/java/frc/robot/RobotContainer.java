@@ -15,16 +15,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.drivetrainCommand.DrivetrainCommand;
 import frc.robot.commands.drivetrainCommand.ReverseDriveCommand;
 import frc.robot.commands.indexCommand.ReverseIndexCommand;
 import frc.robot.commands.indexCommand.StopIndexCommand;
-import frc.robot.commands.intakeCommand.LowerAndRejectCommand;
 import frc.robot.commands.intakeCommand.LowerAndSuckCommand;
 import frc.robot.commands.intakeCommand.RaiseAndStopCommand;
-import frc.robot.commands.intakeCommand.StopIntakeCommand;
 import frc.robot.commands.shooterCommand.HighShotCommand;
 import frc.robot.commands.shooterCommand.LowShotCommand;
 import frc.robot.commands.shooterCommand.StopShooterCommand;
@@ -76,15 +75,16 @@ public class RobotContainer {
         m_intakeSubsystem.setDefaultCommand(new RaiseAndStopCommand(m_intakeSubsystem));
         m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
         new Trigger(controller1::getAButton).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
-        new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem));
+        new Trigger(controller1::getBButton).whileActiveContinuous(new ParallelCommandGroup(
+                new HighShotCommand(m_shooterSubsystem), new ReverseIndexCommand(m_indexSubsystem)));
         new Trigger(controller1::getXButton).whileActiveContinuous(new LowerAndSuckCommand(m_intakeSubsystem));
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem));
         new Trigger(controller1::getRightBumper).whileActiveContinuous(new RaiseAndStopCommand(m_intakeSubsystem));
-        new Trigger(controller1::getAButton).whenInactive(new StopIndexCommand(m_indexSubsystem));
-        new Trigger(controller1::getBButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
-        new Trigger(controller1::getXButton).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
-        new Trigger(controller1::getYButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
-        new Trigger(controller1::getRightBumper).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
+//        new Trigger(controller1::getAButton).whenInactive(new StopIndexCommand(m_indexSubsystem));
+//        new Trigger(controller1::getBButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
+//        new Trigger(controller1::getXButton).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
+//        new Trigger(controller1::getYButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
+//        new Trigger(controller1::getRightBumper).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
 
 
     }
@@ -98,10 +98,9 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         SequentialCommandGroup m_autoCommand = new SequentialCommandGroup(
-            
-            //new HighShotCommand(m_shooterSubsystem),
-            new ReverseDriveCommand(m_drivetrainSubsystem)
-        );
+
+                //new HighShotCommand(m_shooterSubsystem),
+                new ReverseDriveCommand(m_drivetrainSubsystem));
         System.out.println("Is this auto running?");
         // return m_runIndexCommand;
         return m_autoCommand;

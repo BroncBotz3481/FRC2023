@@ -1,6 +1,7 @@
 package frc.robot.commands.shooterCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.index.IndexPolicy;
 import frc.robot.subsystems.shooter.ShooterPolicy;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
@@ -24,7 +25,15 @@ public class StopShooterCommand extends CommandBase {
      */
     @Override
     public void initialize() {
-        shooterSubsystem.shoot(0);
+        if(IndexPolicy.indexFull())
+        {
+            shooterSubsystem.shoot(0.2);
+
+        }
+        else {
+            shooterSubsystem.shoot(0);
+
+        }
     }
 
     /**

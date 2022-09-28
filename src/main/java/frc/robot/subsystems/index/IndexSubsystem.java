@@ -49,5 +49,6 @@ public class IndexSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         IndexPolicy.pressurePadSet = pressurePad.getValue();
+        System.out.println(pressurePad.getValue());
     }
 }

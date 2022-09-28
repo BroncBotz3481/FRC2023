@@ -39,14 +39,14 @@ public class ReverseDriveCommand extends CommandBase {
         time = new Timer();
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
-        System.out.println("Are there errors here in DrivetrainCommand?");
+        //System.out.println("Are there errors here in DrivetrainCommand?");
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         time.start();
-        System.out.println("Is the initialize method working");
+        //System.out.println("Is the initialize method working");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -55,7 +55,7 @@ public class ReverseDriveCommand extends CommandBase {
         DrivetrainPolicy.powerLeft = -1;
         DrivetrainPolicy.powerRight = -1;
         m_drivetrainSubsystem.run();
-        System.out.println("Is the execute method working?");
+        //System.out.println("Is the execute method working?");
     }
 
     // Called once the command ends or is interrupted.

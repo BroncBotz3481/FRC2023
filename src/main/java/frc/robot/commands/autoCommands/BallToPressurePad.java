@@ -11,28 +11,26 @@
  \********************************************************************/
 
 
-package frc.robot.commands.shooterCommand;
+package frc.robot.commands.autoCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.index.IndexPolicy;
 import frc.robot.subsystems.index.IndexSubsystem;
-import frc.robot.commands.indexCommand.ReverseIndexCommand;
-import frc.robot.subsystems.shooter.ShooterPolicy;
-import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.index.IndexPolicy;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class HighShotCommand extends CommandBase {
+public class BallToPressurePad extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final ShooterSubsystem m_shooterSubsystem;
+    private final IndexSubsystem m_indexSubsystem;
+
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public HighShotCommand(ShooterSubsystem subsystem) {
-        m_shooterSubsystem = subsystem;
+    public BallToPressurePad(IndexSubsystem subsystem) {
+        m_indexSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -40,31 +38,27 @@ public class HighShotCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        IndexPolicy.overridePressurePad = true;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //ShooterPolicy.targetSpeed = 12000;
-        ShooterPolicy.targetSpeed = 12000;
-        m_shooterSubsystem.shootPID();
-        ShooterPolicy.inBound(250);
-        
+        m_indexSubsystem.runIndex(-0.5);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        IndexPolicy.overridePressurePad = false;
-        m_shooterSubsystem.stopShooter();
-
+        //System.out.println("Is this running?");
+        m_indexSubsystem.stopIndex();
     }
-
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        if(IndexPolicy.indexFull()){
+            return true;
+        }
         return false;
     }
 }

@@ -24,14 +24,13 @@ public class IndexPolicy {
     }
 
     public static double getIndexPower() {
-        // if (indexFull()) {
-        //     if(overridePressurePad){
-        //         return IndexPolicy.indexPower;
-        //     }
-        //     else{
-        //         IndexPolicy.indexPower=0;
-        //     }
-        // }
+        if (indexFull()) {
+            if (overridePressurePad) {
+                return IndexPolicy.indexPower;
+            } else {
+                return 0;
+            }
+        }
         return IndexPolicy.indexPower;
     }
 }
