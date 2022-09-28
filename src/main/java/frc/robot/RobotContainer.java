@@ -77,7 +77,8 @@ public class RobotContainer {
         new Trigger(controller1::getAButton).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new ParallelCommandGroup(
                 new HighShotCommand(m_shooterSubsystem), new ReverseIndexCommand(m_indexSubsystem)));
-        new Trigger(controller1::getXButton).whileActiveContinuous(new LowerAndSuckCommand(m_intakeSubsystem));
+        new Trigger(controller1::getXButton).whileActiveContinuous(new ParallelCommandGroup(
+                new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem));
         new Trigger(controller1::getRightBumper).whileActiveContinuous(new RaiseAndStopCommand(m_intakeSubsystem));
 //        new Trigger(controller1::getAButton).whenInactive(new StopIndexCommand(m_indexSubsystem));
