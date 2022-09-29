@@ -37,10 +37,11 @@ public final class ShooterPolicy {
     public static boolean shootReady() {
         return IndexPolicy.indexFull();
     }
-    public static boolean inBound(double boundary){
+    public static boolean inBound(double boundary, IndexSubsystem subsystem){
         if(ShooterPolicy.encoderVelocity > targetSpeed - boundary && ShooterPolicy.encoderVelocity < targetSpeed + boundary)
         {
             IndexPolicy.overridePressurePad = true;
+            subsystem.runIndex(-0.5);
             return true;
         }
         else{

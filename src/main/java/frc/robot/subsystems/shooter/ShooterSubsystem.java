@@ -49,7 +49,7 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterMotorRight = new TalonSRX(1);
         pidTab = Shuffleboard.getTab("PID");
         velocityWidget = pidTab.addNumber("Velocity", ()->{return ShooterPolicy.encoderVelocity;});
-        kP = pidTab.add("kP", 0.088);
+        kP = pidTab.add("kP", 0.087);
         kI = pidTab.add("kI", 0);
         kD = pidTab.add("kD", 0);
         kF = pidTab.add("kF", 0.0365);
@@ -57,7 +57,7 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterMotorLeft.follow(shooterMotorRight);
         
         shooterMotorRight.selectProfileSlot(slotIdx.VELOCITY.ordinal(), pidIdx.PRIMARY.ordinal()); // First parameter "2" correlates to velocity, second parameter correlates to primary PID
-        shooterMotorRight.config_kP(slotIdx.VELOCITY.ordinal(), 0.088);  // 0.087 First parameter is primary PID, second parameter is velocity
+        shooterMotorRight.config_kP(slotIdx.VELOCITY.ordinal(), 0.087);  // 0.087 First parameter is primary PID, second parameter is velocity
         shooterMotorRight.config_kI(slotIdx.VELOCITY.ordinal(), 0);
         shooterMotorRight.config_kD(slotIdx.VELOCITY.ordinal(), 0);
         shooterMotorRight.config_kF(slotIdx.VELOCITY.ordinal(), 0.0365);

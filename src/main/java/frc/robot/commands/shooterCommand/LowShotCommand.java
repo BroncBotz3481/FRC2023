@@ -15,6 +15,8 @@ package frc.robot.commands.shooterCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.index.IndexPolicy;
+import frc.robot.subsystems.index.IndexSubsystem;
+import frc.robot.subsystems.shooter.ShooterPolicy;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 /**
@@ -23,14 +25,15 @@ import frc.robot.subsystems.shooter.ShooterSubsystem;
 public class LowShotCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final ShooterSubsystem m_shooterSubsystem;
-
+    private final IndexSubsystem m_indexSubsystem;
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public LowShotCommand(ShooterSubsystem subsystem) {
+    public LowShotCommand(ShooterSubsystem subsystem, IndexSubsystem isubsystem) {
         m_shooterSubsystem = subsystem;
+        m_indexSubsystem = isubsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -44,10 +47,11 @@ public class LowShotCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
-        m_shooterSubsystem.shoot(0.4);
-
-
+        //ShooterPolicy.targetSpeed = 12000;
+        ShooterPolicy.targetSpeed = 6900;
+        m_shooterSubsystem.shootPID();
+        ShooterPolicy.inBound(250, m_indexSubsystem);
+        
     }
 
     // Called once the command ends or is interrupted.

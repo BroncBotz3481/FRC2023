@@ -78,11 +78,10 @@ public class RobotContainer {
         m_intakeSubsystem.setDefaultCommand(new RaiseAndStopCommand(m_intakeSubsystem));
         m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
         new Trigger(controller1::getAButton).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
-        new Trigger(controller1::getBButton).whileActiveContinuous(new ParallelCommandGroup(
-                new HighShotCommand(m_shooterSubsystem), new ReverseIndexCommand(m_indexSubsystem)));
+        new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
         new Trigger(controller1::getXButton).whileActiveContinuous(new ParallelCommandGroup(
                 new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
-        new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem));
+        new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
         new Trigger(controller1::getRightBumper).whileActiveContinuous(new RaiseAndStopCommand(m_intakeSubsystem));
         new Trigger(controller1::getAButton).whenInactive(new StopIndexCommand(m_indexSubsystem));
         new Trigger(controller1::getBButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
@@ -102,9 +101,8 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         SequentialCommandGroup m_autoCommand = new SequentialCommandGroup(
-                new ParallelRaceGroup(
-                        new AutoPIDShot(m_shooterSubsystem), new ReverseIndexCommand(m_indexSubsystem)
-                ),new ReverseDriveCommand(m_drivetrainSubsystem));
+                new AutoPIDShot(m_shooterSubsystem,m_indexSubsystem),
+                new ReverseDriveCommand(m_drivetrainSubsystem));
         // return m_runIndexCommand;
         return m_autoCommand;
     }

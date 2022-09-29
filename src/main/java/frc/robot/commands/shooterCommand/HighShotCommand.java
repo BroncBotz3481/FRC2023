@@ -26,13 +26,15 @@ import frc.robot.subsystems.shooter.ShooterSubsystem;
 public class HighShotCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final ShooterSubsystem m_shooterSubsystem;
+    private final IndexSubsystem m_indexSubsystem;
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public HighShotCommand(ShooterSubsystem subsystem) {
+    public HighShotCommand(ShooterSubsystem subsystem, IndexSubsystem isubsystem) {
         m_shooterSubsystem = subsystem;
+        m_indexSubsystem = isubsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -49,7 +51,7 @@ public class HighShotCommand extends CommandBase {
         //ShooterPolicy.targetSpeed = 12000;
         ShooterPolicy.targetSpeed = 12000;
         m_shooterSubsystem.shootPID();
-        ShooterPolicy.inBound(250);
+        ShooterPolicy.inBound(250, m_indexSubsystem);
         
     }
 

@@ -15,7 +15,6 @@ public class IndexPolicy {
     public static double indexPower; // power for motors
     public static boolean overridePressurePad;
     public static int pressurePadSet;
-
     public static boolean indexFull() {
         if (pressurePadSet >= 100) {
             return false;
