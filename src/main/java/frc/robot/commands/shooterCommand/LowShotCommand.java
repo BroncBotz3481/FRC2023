@@ -36,6 +36,7 @@ public class LowShotCommand extends CommandBase {
         m_indexSubsystem = isubsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
+        addRequirements(isubsystem);
     }
 
     // Called when the command is initially scheduled.

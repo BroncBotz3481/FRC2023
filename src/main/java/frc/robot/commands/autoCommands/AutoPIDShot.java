@@ -39,6 +39,7 @@ public class AutoPIDShot extends CommandBase {
         time = new Timer();
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
+        addRequirements(isubsystem);
     }
 
     // Called when the command is initially scheduled.
