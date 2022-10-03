@@ -11,7 +11,7 @@
  \********************************************************************/
 
 
-package frc.robot.commands.drivetrainCommand;
+package frc.robot.commands.autoCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;

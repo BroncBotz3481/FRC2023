@@ -22,7 +22,7 @@ import frc.robot.commands.autoCommands.AutoPIDShot;
 import frc.robot.commands.climberCommand.RaiseClimbCommand;
 import frc.robot.commands.climberCommand.LowerClimbCommand;
 import frc.robot.commands.drivetrainCommand.DrivetrainCommand;
-import frc.robot.commands.drivetrainCommand.ReverseDriveCommand;
+import frc.robot.commands.autoCommands.ReverseDriveCommand;
 import frc.robot.commands.indexCommand.ReverseIndexCommand;
 import frc.robot.commands.indexCommand.StopIndexCommand;
 import frc.robot.commands.intakeCommand.LowerAndSuckCommand;
