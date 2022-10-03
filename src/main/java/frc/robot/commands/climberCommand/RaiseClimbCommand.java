@@ -10,27 +10,34 @@
  Email: dylantrwatson@gmail.com
  \********************************************************************/
 
-///
+////
+
 package frc.robot.commands.climberCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.climber.ClimberPolicy;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 
+import java.util.function.DoubleSupplier;
+
 /**
  * An example command that uses an example subsystem.
  */
-public class LowClimb extends CommandBase {
+public class RaiseClimbCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final ClimberSubsystem m_climberSubsystem;
 
+    private DoubleSupplier rightPower, leftPower;
+
     /**
      * Creates a new ExampleCommand.
-     *
+     *ss
      * @param subsystem The subsystem used by this command.
      */
-    public LowClimb(ClimberSubsystem subsystem) {
+    public RaiseClimbCommand(ClimberSubsystem subsystem, DoubleSupplier powerRight, DoubleSupplier powerLeft) {
         m_climberSubsystem = subsystem;
+        rightPower = powerRight;
+        leftPower = powerLeft;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -38,17 +45,17 @@ public class LowClimb extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
+        ClimberPolicy.leftPowerClimb = 0;
+        ClimberPolicy.rightPowerClimb = 0;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ClimberPolicy.leftPowerClimb = 0.5;
-        ClimberPolicy.rightPowerClimb = 0.5;
-        m_climberSubsystem.runRightMotor();
+        ClimberPolicy.leftPowerClimb = -leftPower.getAsDouble();
+        ClimberPolicy.rightPowerClimb = -rightPower.getAsDouble();
         m_climberSubsystem.runLeftMotor();
-
+        m_climberSubsystem.runRightMotor();
     }
 
     // Called once the command ends or is interrupted.

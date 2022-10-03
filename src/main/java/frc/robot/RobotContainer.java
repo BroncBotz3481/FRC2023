@@ -16,10 +16,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.autoCommands.AutoPIDShot;
+import frc.robot.commands.climberCommand.RaiseClimbCommand;
+import frc.robot.commands.climberCommand.LowerClimbCommand;
 import frc.robot.commands.drivetrainCommand.DrivetrainCommand;
 import frc.robot.commands.drivetrainCommand.ReverseDriveCommand;
 import frc.robot.commands.indexCommand.ReverseIndexCommand;
@@ -30,6 +31,7 @@ import frc.robot.commands.intakeCommand.StopIntakeCommand;
 import frc.robot.commands.shooterCommand.HighShotCommand;
 import frc.robot.commands.shooterCommand.LowShotCommand;
 import frc.robot.commands.shooterCommand.StopShooterCommand;
+import frc.robot.commands.climberCommand.StopClimberCommand;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.subsystems.index.IndexSubsystem;
@@ -74,9 +76,16 @@ public class RobotContainer {
 
 
         m_drivetrainSubsystem.setDefaultCommand(new DrivetrainCommand(m_drivetrainSubsystem, controller0::getLeftY, controller0::getRightY));
+        m_climberSubsystem.setDefaultCommand(new StopClimberCommand(m_climberSubsystem));
         m_indexSubsystem.setDefaultCommand(new StopIndexCommand(m_indexSubsystem));
         m_intakeSubsystem.setDefaultCommand(new RaiseAndStopCommand(m_intakeSubsystem));
         m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
+        new Trigger(controller0::getRightBumper).or(new Trigger(controller0:: getLeftBumper)).whileActiveContinuous(
+                new RaiseClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
+        new Trigger(()->{return controller0.getRightTriggerAxis() > 0.05;}).or(
+                new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).whileActiveContinuous(
+                new LowerClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
+
         new Trigger(controller1::getAButton).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
         new Trigger(controller1::getXButton).whileActiveContinuous(new ParallelCommandGroup(
@@ -88,6 +97,7 @@ public class RobotContainer {
         new Trigger(controller1::getXButton).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
         new Trigger(controller1::getYButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
         new Trigger(controller1::getRightBumper).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
+        new Trigger(controller0::getRightBumper).or( new Trigger(controller0::getLeftBumper)).whenInactive(new StopClimberCommand(m_climberSubsystem));
 
 
     }
