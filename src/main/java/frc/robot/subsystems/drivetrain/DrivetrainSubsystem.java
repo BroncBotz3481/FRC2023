@@ -53,7 +53,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
         System.out.println("AM I RUNNING!!!");
         System.out.println(DrivetrainPolicy.powerLeft);
         System.out.println(DrivetrainPolicy.powerRight);
-        driveTrain.tankDrive(DrivetrainPolicy.powerLeft * 0.5, DrivetrainPolicy.powerRight * 0.5);
+
+        driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
+        
         // frontLeftMotor.set(Driver);
 
     }

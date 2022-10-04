@@ -37,6 +37,7 @@ import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.subsystems.index.IndexSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.commands.intakeCommand.LowerIntake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -81,23 +82,20 @@ public class RobotContainer {
         m_intakeSubsystem.setDefaultCommand(new RaiseAndStopCommand(m_intakeSubsystem));
         m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
         new Trigger(controller0::getRightBumper).or(new Trigger(controller0:: getLeftBumper)).whileActiveContinuous(
-                new RaiseClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
+                new RaiseClimbCommand(m_climberSubsystem, controller0::getRightBumper, controller0::getLeftBumper));
         new Trigger(()->{return controller0.getRightTriggerAxis() > 0.05;}).or(
                 new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).whileActiveContinuous(
                 new LowerClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
 
         new Trigger(controller1::getAButton).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
-        new Trigger(controller1::getXButton).whileActiveContinuous(new ParallelCommandGroup(
-                new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
+
+            
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
-        new Trigger(controller1::getRightBumper).whileActiveContinuous(new RaiseAndStopCommand(m_intakeSubsystem));
-        new Trigger(controller1::getAButton).whenInactive(new StopIndexCommand(m_indexSubsystem));
-        new Trigger(controller1::getBButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
-        new Trigger(controller1::getXButton).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
-        new Trigger(controller1::getYButton).whenInactive(new StopShooterCommand(m_shooterSubsystem));
-        new Trigger(controller1::getRightBumper).whenInactive(new StopIntakeCommand(m_intakeSubsystem));
-        new Trigger(controller0::getRightBumper).or( new Trigger(controller0::getLeftBumper)).whenInactive(new StopClimberCommand(m_climberSubsystem));
+        new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
+            new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
+
+
 
 
     }

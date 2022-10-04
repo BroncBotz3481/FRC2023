@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.climber.ClimberPolicy;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 /**
@@ -27,14 +28,14 @@ public class RaiseClimbCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final ClimberSubsystem m_climberSubsystem;
 
-    private DoubleSupplier rightPower, leftPower;
+    private BooleanSupplier rightPower, leftPower;
 
     /**
      * Creates a new ExampleCommand.
      *ss
      * @param subsystem The subsystem used by this command.
      */
-    public RaiseClimbCommand(ClimberSubsystem subsystem, DoubleSupplier powerRight, DoubleSupplier powerLeft) {
+    public RaiseClimbCommand(ClimberSubsystem subsystem, BooleanSupplier powerRight, BooleanSupplier powerLeft) {
         m_climberSubsystem = subsystem;
         rightPower = powerRight;
         leftPower = powerLeft;
@@ -52,10 +53,20 @@ public class RaiseClimbCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ClimberPolicy.leftPowerClimb = -leftPower.getAsDouble();
-        ClimberPolicy.rightPowerClimb = -rightPower.getAsDouble();
-        m_climberSubsystem.runLeftMotor();
-        m_climberSubsystem.runRightMotor();
+        if(rightPower.getAsBoolean())
+        {
+            ClimberPolicy.rightPowerClimb = -0.5;
+            m_climberSubsystem.runRightMotor();
+
+        }
+
+        if(leftPower.getAsBoolean()){
+
+
+            ClimberPolicy.leftPowerClimb = -0.5;
+            m_climberSubsystem.runLeftMotor();
+        }
+
     }
 
     // Called once the command ends or is interrupted.
