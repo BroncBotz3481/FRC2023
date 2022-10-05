@@ -20,6 +20,7 @@ public class IndexPolicy {
             return false;
 
         } else return pressurePadSet < 10;
+        
     }
 
     public static double getIndexPower() {

@@ -27,7 +27,7 @@ public final class DrivetrainPolicy {
     {
         if(powerLeft > 0 && powerRight > 0)
             {
-               return 0.55;
+               return 0.65;
             }
             return 0.7;
 

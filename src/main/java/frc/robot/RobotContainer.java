@@ -38,6 +38,7 @@ import frc.robot.subsystems.index.IndexSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.commands.intakeCommand.LowerIntake;
+import frc.robot.commands.indexCommand.RunIndexCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -87,9 +88,9 @@ public class RobotContainer {
                 new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).whileActiveContinuous(
                 new LowerClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
 
-        new Trigger(controller1::getAButton).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
+        new Trigger(controller1::getAButton).whileActiveContinuous(new RunIndexCommand(m_indexSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
-
+        new Trigger(controller1::getRightBumper).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
             
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
         new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
