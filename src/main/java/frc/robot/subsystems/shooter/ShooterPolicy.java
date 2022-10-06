@@ -27,11 +27,11 @@ public final class ShooterPolicy {
     public static double targetSpeed;
     public static double encoderVelocity;
     public static double getShooterPower() {
-        if (IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0) {
+        /*if (IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0) {
             ShooterPolicy.powerShooter = 0.1;
-        }
+        } */
         return ShooterPolicy.powerShooter;
-    }
+    } 
 
     public static boolean shootReady() {
         return IndexPolicy.indexFull();

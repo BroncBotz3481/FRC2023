@@ -37,7 +37,7 @@ public class ReverseDriveCommand extends CommandBase {
     public ReverseDriveCommand(DrivetrainSubsystem subsystem) {
         m_drivetrainSubsystem = subsystem;
         time = new Timer();
-        System.out.println("IS THIS REVERSE RUNNING??? samuel is L");
+        //System.out.println("IS THIS REVERSE RUNNING??? samuel is L");
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
         //System.out.println("Are there errors here in DrivetrainCommand?");

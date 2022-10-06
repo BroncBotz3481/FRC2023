@@ -25,15 +25,15 @@ public class StopShooterCommand extends CommandBase {
      */
     @Override
     public void initialize() {
-        if(IndexPolicy.indexFull())
+       /* if(IndexPolicy.indexFull())
         {
             shooterSubsystem.shoot(0.2);
 
         }
-        else {
+        else { */
             shooterSubsystem.shoot(0);
 
-        }
+        
     }
 
     /**

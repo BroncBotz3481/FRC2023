@@ -32,6 +32,8 @@ import frc.robot.commands.shooterCommand.HighShotCommand;
 import frc.robot.commands.shooterCommand.LowShotCommand;
 import frc.robot.commands.shooterCommand.StopShooterCommand;
 import frc.robot.commands.climberCommand.StopClimberCommand;
+import frc.robot.commands.indexCommand.OverrideReverseIndexCommand;
+import frc.robot.commands.indexCommand.OverrideRunIndexCommand;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.subsystems.index.IndexSubsystem;
@@ -88,9 +90,9 @@ public class RobotContainer {
                 new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).whileActiveContinuous(
                 new LowerClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
 
-        new Trigger(controller1::getAButton).whileActiveContinuous(new RunIndexCommand(m_indexSubsystem));
+        new Trigger(controller1::getAButton).whileActiveContinuous(new OverrideReverseIndexCommand(m_indexSubsystem, m_intakeSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
-        new Trigger(controller1::getRightBumper).whileActiveContinuous(new ReverseIndexCommand(m_indexSubsystem));
+        new Trigger(controller1::getRightBumper).whileActiveContinuous(new OverrideRunIndexCommand(m_indexSubsystem));
             
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
         new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
