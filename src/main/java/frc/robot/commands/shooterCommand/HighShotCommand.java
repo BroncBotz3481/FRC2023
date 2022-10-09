@@ -50,10 +50,10 @@ public class HighShotCommand extends CommandBase {
     @Override
     public void execute() {
         //ShooterPolicy.targetSpeed = 12000;
-        ShooterPolicy.targetSpeed = 12000;
+        ShooterPolicy.targetSpeed = 12600;
         m_shooterSubsystem.shootPID();
         if(ShooterPolicy.inBound(250)){
-            m_indexSubsystem.runIndex(-0.5);
+            m_indexSubsystem.runIndex(-0.4);
         }
         
     }

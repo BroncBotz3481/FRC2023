@@ -26,10 +26,10 @@ public final class DrivetrainPolicy {
     public static double setPowerScale()
     {
         if(powerLeft > 0 && powerRight > 0)
-            {
-               return 0.65;
-            }
-            return 0.7;
+        {
+            return 0.6;  //backward speed
+        }
+        return 0.7; //forward speed
 
     }
 

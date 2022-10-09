@@ -72,7 +72,7 @@ public class ReverseDriveCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(time.get()>=3.0){
+        if(time.get()>=2.0){
             return true;
         }
         return false;

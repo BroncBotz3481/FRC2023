@@ -49,10 +49,10 @@ public class LowShotCommand extends CommandBase {
     @Override
     public void execute() {
         //ShooterPolicy.targetSpeed = 12000;
-        ShooterPolicy.targetSpeed = 6900;
+        ShooterPolicy.targetSpeed = 8200;
         m_shooterSubsystem.shootPID();
         if(ShooterPolicy.inBound(250)){
-            m_indexSubsystem.runIndex(-0.5);
+            m_indexSubsystem.runIndex(-0.4);
         }
         
     }

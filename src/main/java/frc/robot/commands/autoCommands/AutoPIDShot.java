@@ -53,10 +53,10 @@ public class AutoPIDShot extends CommandBase {
     @Override
     public void execute() {
         //ShooterPolicy.targetSpeed = 12000;
-        ShooterPolicy.targetSpeed = 12000;
+        ShooterPolicy.targetSpeed = 12300;
         m_shooterSubsystem.shootPID();
-        if(ShooterPolicy.inBound(250)){
-            m_indexSubsystem.runIndex(-0.5);
+        if(ShooterPolicy.inBound(150)){
+            m_indexSubsystem.runIndex(-0.4);
         }
         
     }
