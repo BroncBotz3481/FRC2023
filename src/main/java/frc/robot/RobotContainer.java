@@ -41,6 +41,7 @@ import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.commands.intakeCommand.LowerIntake;
 import frc.robot.commands.indexCommand.RunIndexCommand;
+import frc.robot.commands.drivetrainCommand.OverdriveCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -93,7 +94,13 @@ public class RobotContainer {
         new Trigger(controller1::getAButton).whileActiveContinuous(new OverrideReverseIndexCommand(m_indexSubsystem, m_intakeSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
         new Trigger(controller1::getRightBumper).whileActiveContinuous(new OverrideRunIndexCommand(m_indexSubsystem));
-            
+
+
+        ///////////
+        new Trigger(()->{return controller0.getRightTriggerAxis() > 0.05;}).and(new Trigger(controller0::getRightStickButtonPressed)).and(
+        new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).and(new Trigger(controller0::getLeftStickButtonPressed)).whileActiveContinuous(
+        new OverdriveCommand(m_drivetrainSubsystem, controller0::getLeftY, controller0::getRightY));
+        ///////////
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
         new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
             new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));

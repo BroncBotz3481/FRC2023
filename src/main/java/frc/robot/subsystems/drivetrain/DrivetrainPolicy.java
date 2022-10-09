@@ -17,7 +17,9 @@ public final class DrivetrainPolicy {
     public static double powerLeft; // power for left motors
     public static double powerRight; // power for right motors
     public static double powerScale;
+    public static boolean Overdrive;
 
+    
     
     public static double rightEncoderPosition, rightEncoderVelocity,
             leftEncoderPosition, leftEncoderVelocity;
@@ -25,10 +27,16 @@ public final class DrivetrainPolicy {
 
     public static double setPowerScale()
     {
-        if(powerLeft > 0 && powerRight > 0)
+        if(Overdrive)
+        {
+            return 1.0;
+        }
+
+        else if(powerLeft > 0 && powerRight > 0)
         {
             return 0.6;  //backward speed
         }
+
         return 0.7; //forward speed
 
     }
