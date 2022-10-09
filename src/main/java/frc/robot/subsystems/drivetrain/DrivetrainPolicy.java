@@ -27,9 +27,9 @@ public final class DrivetrainPolicy {
     {
         if(powerLeft > 0 && powerRight > 0)
         {
-            return 0.6;  //backward speed
+            return 0.65;  //backward speed
         }
-        return 0.7; //forward speed
+        return 0.8; //forward speed
 
     }
 
