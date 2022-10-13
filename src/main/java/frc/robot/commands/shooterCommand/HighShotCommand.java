@@ -49,11 +49,10 @@ public class HighShotCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //ShooterPolicy.targetSpeed = 12000;
-        ShooterPolicy.targetSpeed = 12600;
-        m_shooterSubsystem.shootPID();
+        
+        m_shooterSubsystem.shootPID(12600);
         if(ShooterPolicy.inBound(250)){
-            m_indexSubsystem.runIndex(-0.4);
+            m_indexSubsystem.runIndex(-0.65);
         }
         
     }

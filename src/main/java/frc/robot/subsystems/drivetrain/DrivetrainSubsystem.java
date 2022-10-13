@@ -45,15 +45,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         leftEncoder = frontLeftMotor.getEncoder();
         rightEncoder = frontRightMotor.getEncoder();
 
+        
         driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
-        System.out.println("Are there errors here in DrivetrainSubsystem?");
     }
 
-    public void run() {
-        System.out.println("AM I RUNNING!!!");
-        System.out.println(DrivetrainPolicy.powerLeft);
-        System.out.println(DrivetrainPolicy.powerRight);
-
+    public void run(double powerLeft, double powerRight) {
+        DrivetrainPolicy.powerLeft = powerLeft;
+        DrivetrainPolicy.powerRight = powerRight;
         driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
         
         // frontLeftMotor.set(Driver);
@@ -66,6 +64,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
+
     }
 
 }

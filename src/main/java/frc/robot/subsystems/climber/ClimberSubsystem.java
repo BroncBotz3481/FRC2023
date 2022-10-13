@@ -16,11 +16,13 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
 
-    public void runLeftMotor() {
+    public void runLeftMotor(double powerLeft) {
+        ClimberPolicy.leftPowerClimb = powerLeft; 
         leftMotorClimb.set(VictorSPXControlMode.PercentOutput, ClimberPolicy.leftPowerClimb);
     }
 
-    public void runRightMotor() {
+    public void runRightMotor(double powerRight) {
+        ClimberPolicy.rightPowerClimb = powerRight; 
         rightMotorClimb.set(VictorSPXControlMode.PercentOutput, ClimberPolicy.rightPowerClimb);
 
     }

@@ -28,7 +28,6 @@ public class DrivetrainCommand extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
     private final DoubleSupplier m_leftpower, m_rightpower;
 
-
     /**
      * Creates a new ExampleCommand.
      *
@@ -52,17 +51,13 @@ public class DrivetrainCommand extends CommandBase {
     @Override
     public void execute() {
     
-        DrivetrainPolicy.powerLeft = m_leftpower.getAsDouble();
-        DrivetrainPolicy.powerRight = m_rightpower.getAsDouble();
-        m_drivetrainSubsystem.run();
+        m_drivetrainSubsystem.run( m_leftpower.getAsDouble(), m_rightpower.getAsDouble());
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        DrivetrainPolicy.powerLeft = 0;
-        DrivetrainPolicy.powerRight = 0;
-        m_drivetrainSubsystem.run();
+        m_drivetrainSubsystem.run(0,0);
 
     }
 

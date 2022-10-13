@@ -25,7 +25,6 @@ public class ExampleSubsystem extends SubsystemBase {
      */
     public ExampleSubsystem() {
         motor = new VictorSPX(0); // Create the new motor controller (make sure you check your ID!)
-        System.out.println(ExampleSubsystemConstants.testConstant); // Example of how to use the "Constants" class and subclasses
     }
 
     // This could be "runintake" or "stopintake" or "liftclimber"

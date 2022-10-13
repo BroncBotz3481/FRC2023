@@ -30,7 +30,6 @@ public class IndexSubsystem extends SubsystemBase {
         indexMotor = new VictorSPX(6); // Create the new motor controller (make sure you check your ID!)
         pressurePad = new AnalogInput(0);
 
-        //indexMotor.setInverted(false);
     }
 
     // This could be "runintake" or "stopintake" or "liftclimber"
@@ -49,6 +48,5 @@ public class IndexSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         IndexPolicy.pressurePadSet = pressurePad.getValue();
-        System.out.println(pressurePad.getValue());
     }
 }

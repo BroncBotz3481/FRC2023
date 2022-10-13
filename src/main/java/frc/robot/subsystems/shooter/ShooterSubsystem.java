@@ -80,7 +80,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     }
 
-    public void shootPID(){
+    public void shootPID(double targetSpeed){
+        ShooterPolicy.targetSpeed = targetSpeed;
         shooterMotorRight.set(ControlMode.Velocity, ShooterPolicy.targetSpeed);
     }
 
@@ -91,8 +92,6 @@ public class ShooterSubsystem extends SubsystemBase {
     @Override
     public void periodic() { 
         ShooterPolicy.encoderVelocity = shooterMotorRight.getSelectedSensorVelocity(pidIdx.PRIMARY.ordinal());
-        System.out.println("Hey this is the shooter's current RPM: " + ShooterPolicy.encoderVelocity);
-//        pidTab.
 
     }
 

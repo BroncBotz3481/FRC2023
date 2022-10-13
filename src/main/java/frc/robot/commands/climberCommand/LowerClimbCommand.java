@@ -50,10 +50,10 @@ public class LowerClimbCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ClimberPolicy.rightPowerClimb = m_rightpower.getAsDouble()*.75;
-        ClimberPolicy.leftPowerClimb = m_leftpower.getAsDouble()*.75;
-        m_climberSubsystem.runRightMotor();
-        m_climberSubsystem.runLeftMotor();
+     //   ClimberPolicy.rightPowerClimb = m_rightpower.getAsDouble()*.70;
+     //   ClimberPolicy.leftPowerClimb = m_leftpower.getAsDouble()*.70;
+        m_climberSubsystem.runRightMotor(m_rightpower.getAsDouble()*.70);
+        m_climberSubsystem.runLeftMotor(m_leftpower.getAsDouble()*.70);
     }
 
     // Called once the command ends or is interrupted.

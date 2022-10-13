@@ -54,7 +54,6 @@ public class ReverseIndexCommand extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Is this running?");
         m_indexSubsystem.stopIndex();
 
     }
@@ -62,9 +61,7 @@ public class ReverseIndexCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-//        if(IndexPolicy.indexFull()){
-//            return true;
-//        }
+
         return false;
     }
 }

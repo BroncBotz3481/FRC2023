@@ -55,16 +55,14 @@ public class RaiseClimbCommand extends CommandBase {
     public void execute() {
         if(rightPower.getAsBoolean())
         {
-            ClimberPolicy.rightPowerClimb = -0.5;
-            m_climberSubsystem.runRightMotor();
+            m_climberSubsystem.runRightMotor(-1.0);
 
         }
 
         if(leftPower.getAsBoolean()){
 
 
-            ClimberPolicy.leftPowerClimb = -0.5;
-            m_climberSubsystem.runLeftMotor();
+            m_climberSubsystem.runLeftMotor(-1.0);
         }
 
     }

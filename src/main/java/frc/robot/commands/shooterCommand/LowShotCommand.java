@@ -48,11 +48,10 @@ public class LowShotCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //ShooterPolicy.targetSpeed = 12000;
-        ShooterPolicy.targetSpeed = 8200;
-        m_shooterSubsystem.shootPID();
+
+        m_shooterSubsystem.shootPID(8200);
         if(ShooterPolicy.inBound(250)){
-            m_indexSubsystem.runIndex(-0.4);
+            m_indexSubsystem.runIndex(-0.65);
         }
         
     }

@@ -52,9 +52,7 @@ public class AutoPIDShot extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //ShooterPolicy.targetSpeed = 12000;
-        ShooterPolicy.targetSpeed = 12300;
-        m_shooterSubsystem.shootPID();
+        m_shooterSubsystem.shootPID(12300);
         if(ShooterPolicy.inBound(150)){
             m_indexSubsystem.runIndex(-0.4);
         }
@@ -76,7 +74,6 @@ public class AutoPIDShot extends CommandBase {
     @Override
     public boolean isFinished() {
         if(time.get()>=4){
-            System.out.println("Is this running?");
             return true;
         }
         return false;

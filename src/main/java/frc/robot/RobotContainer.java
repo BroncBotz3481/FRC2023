@@ -49,15 +49,15 @@ import frc.robot.commands.indexCommand.RunIndexCommand;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
-    private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+    private final ClimberSubsystem m_climberSubsystem;
+    private final DrivetrainSubsystem m_drivetrainSubsystem;
     // The robot's subsystems and commands are defined here...
 
     //************SUBSYSTEMS*************************************************************/
     //private DrivetrainSubsystem m_leftpower = new DrivetrainSubsystem();
-    private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
-    private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-    private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+    private final IndexSubsystem m_indexSubsystem;
+    private final IntakeSubsystem m_intakeSubsystem;
+    private final ShooterSubsystem m_shooterSubsystem;
     public XboxController controller0;
     public XboxController controller1;
 
@@ -65,6 +65,11 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+        m_climberSubsystem = new ClimberSubsystem();
+        m_drivetrainSubsystem = new DrivetrainSubsystem();
+        m_intakeSubsystem = new IntakeSubsystem();
+        m_indexSubsystem = new IndexSubsystem();
+        m_shooterSubsystem = new ShooterSubsystem();
         controller0 = new XboxController(0);
         controller1 = new XboxController(1);
         configureButtonBindings();
@@ -89,6 +94,8 @@ public class RobotContainer {
         new Trigger(()->{return controller0.getRightTriggerAxis() > 0.05;}).or(
                 new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).whileActiveContinuous(
                 new LowerClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
+
+       
 
         new Trigger(controller1::getAButton).whileActiveContinuous(new OverrideReverseIndexCommand(m_indexSubsystem, m_intakeSubsystem));
         new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
