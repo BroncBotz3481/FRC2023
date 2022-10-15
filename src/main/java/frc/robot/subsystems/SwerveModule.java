@@ -1,11 +1,11 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
+import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.PIDBase;
-import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.ModuleConstants;
 
 public class SwerveModule {
@@ -13,12 +13,12 @@ public class SwerveModule {
     private final CANSparkMax driveMotor;
     private final CANSparkMax turningMotor;
 
-    private final CANEncoder driveEncoder;
-    private final CANEncoder turningEncoder;
+    private final RelativeEncoder driveEncoder;
+    private final RelativeEncoder turningEncoder;
 
     private final PIDController turningPidController; //Need to use the built in PID controler
 
-    private final AnalogInput absoluteEncoder;
+    private final CANCoder absoluteEncoder;
     private final boolean absoluteEncoderReversed;
     private final double absoluteEncoderOffsetRad;
 
@@ -27,7 +27,7 @@ public class SwerveModule {
         
         this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
         this.absoluteEncoderReversed = absoluteEncoderReversed;
-        absoluteEncoder = new AnalogInput(absoluteEncoderId);
+        absoluteEncoder = new CANCoder(absoluteEncoderId);
 
         driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
         turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
@@ -40,9 +40,9 @@ public class SwerveModule {
         
         driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
         driveEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MeterPerSec);
-        turningEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
-        turningEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MeterPerSec);
+        turningEncoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
+        turningEncoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
 
-        turningPidController = new PIDController(ModuleContraints.kPTurning, 0, 0);
+        turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
     }
 }
