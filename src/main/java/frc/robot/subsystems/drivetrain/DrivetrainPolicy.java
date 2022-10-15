@@ -16,7 +16,9 @@ package frc.robot.subsystems.drivetrain;
 public final class DrivetrainPolicy {
     public static double powerLeft; // power for left motors
     public static double powerRight; // power for right motors
-    public static double powerScale;
+    public static double forwardPowerScale = 0.85;
+    public static double backwardPowerScale = 0.7;
+
     
     public static double rightEncoderPosition, rightEncoderVelocity,
             leftEncoderPosition, leftEncoderVelocity;
@@ -27,9 +29,9 @@ public final class DrivetrainPolicy {
         
         if(powerLeft > 0 && powerRight > 0)
         {
-            return 0.7;  //backward speed
+            return backwardPowerScale; //backward speed
         }
-        return 1.0; //forward speed
+        return forwardPowerScale; //forward speed
 
     }
 

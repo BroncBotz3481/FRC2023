@@ -64,6 +64,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
+        System.out.println(DrivetrainPolicy.setPowerScale());
 
     }
 
