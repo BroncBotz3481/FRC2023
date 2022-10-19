@@ -2,43 +2,99 @@ package frc.robot.subsystems.swerve;
 
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class SwerveSubsystem extends Subsystem {
+public class SwerveSubsystem extends SubsystemBase {
+    private final SwerveModule frontLeft = new SwerveModule(
+            DriveConstants.kFrontLeftDriveMotorPort,
+            DriveConstants.kFrontLeftTurningMotorPort,
+            DriveConstants.kFrontLeftDriveEncoderReversed,
+            DriveConstants.kFrontLeftTurningEncoderReversed,
+            DriveConstants.kFrontLeftDriveAbsoluteEncoderPort,
+            DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad,
+            DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
 
-    // With eager singleton initialization, any static variables/fields used in the 
-    // constructor must appear before the "INSTANCE" variable so that they are initialized 
-    // before the constructor is called when the "INSTANCE" variable initializes.
+    private final SwerveModule frontRight = new SwerveModule(
+            DriveConstants.kFrontRightDriveMotorPort,
+            DriveConstants.kFrontRightTurningMotorPort,
+            DriveConstants.kFrontRightDriveEncoderReversed,
+            DriveConstants.kFrontRightTurningEncoderReversed,
+            DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
+            DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad,
+            DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
 
-    /**
-     * The Singleton instance of this SwerveSubsystem. Code should use
-     * the {@link #getInstance()} method to get the single instance (rather
-     * than trying to construct an instance of this class.)
-     */
-    private final static SwerveSubsystem INSTANCE = new SwerveSubsystem();
+    private final SwerveModule backLeft = new SwerveModule(
+            DriveConstants.kBackLeftDriveMotorPort,
+            DriveConstants.kBackLeftTurningMotorPort,
+            DriveConstants.kBackLeftDriveEncoderReversed,
+            DriveConstants.kBackLeftTurningEncoderReversed,
+            DriveConstants.kBackLeftDriveAbsoluteEncoderPort,
+            DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad,
+            DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
 
-    /**
-     * Creates a new instance of this SwerveSubsystem. This constructor
-     * is private since this class is a Singleton. Code should use
-     * the {@link #getInstance()} method to get the singleton instance.
-     */
-    private SwerveSubsystem() {
+    private final SwerveModule backRight = new SwerveModule(
+            DriveConstants.kBackRightDriveMotorPort,
+            DriveConstants.kBackRightTurningMotorPort,
+            DriveConstants.kBackRightDriveEncoderReversed,
+            DriveConstants.kBackRightTurningEncoderReversed,
+            DriveConstants.kBackRightDriveAbsoluteEncoderPort,
+            DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
+            DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
+    private final AHRS gyro = new AHRS(SPI.Port.kMXP);
+    private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
+            new Rotation2d(0));
+
+    public SwerveSubsystem() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                zeroHeading();
+            } catch (Exception e) {
+            }
+        }).start();
     }
 
-    /**
-     * Returns the Singleton instance of this SwerveSubsystem. This static method
-     * should be used, rather than the constructor, to get the single instance
-     * of this class. For example: {@code SwerveSubsystem.getInstance();}
-     */
-    @SuppressWarnings("WeakerAccess")
-    public static SwerveSubsystem getInstance() {
-        return INSTANCE;
+    public void zeroHeading() {
+        gyro.reset();
+    }
+
+    public double getHeading() {
+        return Math.IEEEremainder(gyro.getAngle(), 360);
+    }
+
+    public Rotation2d getRotation2d() {
+        return Rotation2d.fromDegrees(getHeading());
+    }
+
+    public Pose2d getPose() {
+        return odometer.getPoseMeters();
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        odometer.resetPosition(pose, getRotation2d());
     }
 
     @Override
-    protected void initDefaultCommand() {
-        // TODO: Set the default command, if any, for this subsystem by calling setDefaultCommand(command)
-        //       e.g. setDefaultCommand(new MyCommand());
+    public void periodic() {
+        odometer.update(getRotation2d(), frontLeft.getState(), frontRight.getState(), backLeft.getState(),
+                backRight.getState());
+        SmartDashboard.putNumber("Robot Heading", getHeading());
+        SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+    }
+
+    public void stopModules() {
+        frontLeft.stop();
+        frontRight.stop();
+        backLeft.stop();
+        backRight.stop();
+    }
+
+    public void setModuleStates(SwerveModuleState[] desiredStates) {
+        SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        frontLeft.setDesiredState(desiredStates[0]);
+        frontRight.setDesiredState(desiredStates[1]);
+        backLeft.setDesiredState(desiredStates[2]);
+        backRight.setDesiredState(desiredStates[3]);
     }
 }
-
