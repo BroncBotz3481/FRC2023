@@ -14,7 +14,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ExampleSubsystemConstants;
 
 public class ExampleSubsystem extends SubsystemBase {
 
@@ -23,10 +22,6 @@ public class ExampleSubsystem extends SubsystemBase {
     /**
      * Creates a new ExampleSubsystem.
      */
-    public ExampleSubsystem() {
-        motor = new VictorSPX(0); // Create the new motor controller (make sure you check your ID!)
-        System.out.println(ExampleSubsystemConstants.testConstant); // Example of how to use the "Constants" class and subclasses
-    }
 
     // This could be "runintake" or "stopintake" or "liftclimber"
     public void runMotor(double power) {
