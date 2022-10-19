@@ -71,8 +71,8 @@ public class SwerveModule {
     }
 
     public double getAbsoluteEncoderRad() {
-        double angle = absoluteEncoder.getPosition(); // Get angle in Radians  (Already Set Conversion Factor)
-        angle *= 2.0 * Math.PI; // Convert from DEG to RAD --- (This is wrong, !!!not right!!!)
+        double angle = absoluteEncoder.getPosition(); // Get angle in DEG
+        angle *= Math.PI / 180; // Converts from DEG to RAD
         angle -= absoluteEncoderOffsetRad;
         return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
     }
