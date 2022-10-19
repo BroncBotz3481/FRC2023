@@ -25,21 +25,15 @@ import java.util.function.DoubleSupplier;
  */
 public class OverDriveCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final DrivetrainSubsystem m_drivetrainSubsystem;
-    private final DoubleSupplier m_leftpower, m_rightpower;
 
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public OverDriveCommand(DrivetrainSubsystem subsystem, DoubleSupplier leftpower, DoubleSupplier rightpower) {
-        m_drivetrainSubsystem = subsystem;
-        m_leftpower = leftpower;
-        m_rightpower = rightpower;
+    public OverDriveCommand() {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
-        System.out.println("Is this command running?");
+
     }
 
     // Called when the command is initially scheduled.
@@ -52,14 +46,12 @@ public class OverDriveCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-    
-        m_drivetrainSubsystem.run( m_leftpower.getAsDouble(), m_rightpower.getAsDouble());
+    ;
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_drivetrainSubsystem.run(0,0);
         DrivetrainPolicy.forwardPowerScale = 0.85;
 
     }

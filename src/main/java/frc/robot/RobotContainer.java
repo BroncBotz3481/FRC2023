@@ -98,16 +98,12 @@ public class RobotContainer {
         
 
 
-        new Trigger(()->{return controller0.getRightY() < -0.05;}).and(new Trigger(controller0::getRightStickButton)).and(
-                new Trigger(()->{return controller0.getLeftY() < -0.05;})).and(new Trigger(controller0::getLeftStickButton)).whileActiveContinuous(
-                new OverDriveCommand(m_drivetrainSubsystem, controller0::getLeftY, controller0::getRightY));
+        new Trigger(controller0::getRightStickButton).or(new Trigger(controller0::getLeftStickButton).whileActiveContinuous(
+                new OverDriveCommand()));
             
         new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
         new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
-            new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
-
-
-
+                new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
 
     }
 
