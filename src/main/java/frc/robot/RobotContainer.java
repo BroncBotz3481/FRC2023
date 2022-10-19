@@ -23,10 +23,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SwerveCommands.SwerveJoystickCmd;
@@ -54,7 +51,9 @@ import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.commands.intakeCommand.LowerIntake;
 import frc.robot.commands.indexCommand.RunIndexCommand;
 import frc.robot.subsystems.swerve.SwerveSubsystem;
-
+import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.AutoConstants;
 import java.util.List;
 
 /**
@@ -86,7 +85,7 @@ public class RobotContainer {
         controller1 = new XboxController(1);
         swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
                 swerveSubsystem,
-                () -> -driverJoytick.getRawAxis(Constants.OIConstants.kDriverYAxis), // Constants???? or OIConstants?
+                () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis), // Constants???? or OIConstants?
                 () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
                 () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
                 () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
@@ -103,25 +102,25 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
 
-        m_drivetrainSubsystem.setDefaultCommand(new DrivetrainCommand(m_drivetrainSubsystem, controller0::getLeftY, controller0::getRightY));
-        m_climberSubsystem.setDefaultCommand(new StopClimberCommand(m_climberSubsystem));
-        m_indexSubsystem.setDefaultCommand(new StopIndexCommand(m_indexSubsystem));
-        m_intakeSubsystem.setDefaultCommand(new RaiseAndStopCommand(m_intakeSubsystem));
-        m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
-        new Trigger(controller0::getRightBumper).or(new Trigger(controller0:: getLeftBumper)).whileActiveContinuous(
-                new RaiseClimbCommand(m_climberSubsystem, controller0::getRightBumper, controller0::getLeftBumper));
-        new Trigger(()->{return controller0.getRightTriggerAxis() > 0.05;}).or(
-                new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).whileActiveContinuous(
-                new LowerClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
-
-        new Trigger(controller1::getAButton).whileActiveContinuous(new OverrideReverseIndexCommand(m_indexSubsystem, m_intakeSubsystem));
-        new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
-        new Trigger(controller1::getRightBumper).whileActiveContinuous(new OverrideRunIndexCommand(m_indexSubsystem));
-            
-        new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
-        new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
-            new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
-
+//        m_drivetrainSubsystem.setDefaultCommand(new DrivetrainCommand(m_drivetrainSubsystem, controller0::getLeftY, controller0::getRightY));
+//        m_climberSubsystem.setDefaultCommand(new StopClimberCommand(m_climberSubsystem));
+//        m_indexSubsystem.setDefaultCommand(new StopIndexCommand(m_indexSubsystem));
+//        m_intakeSubsystem.setDefaultCommand(new RaiseAndStopCommand(m_intakeSubsystem));
+//        m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
+//        new Trigger(controller0::getRightBumper).or(new Trigger(controller0:: getLeftBumper)).whileActiveContinuous(
+//                new RaiseClimbCommand(m_climberSubsystem, controller0::getRightBumper, controller0::getLeftBumper));
+//        new Trigger(()->{return controller0.getRightTriggerAxis() > 0.05;}).or(
+//                new Trigger(()->{return controller0.getLeftTriggerAxis() > 0.05;})).whileActiveContinuous(
+//                new LowerClimbCommand(m_climberSubsystem, controller0::getRightTriggerAxis, controller0::getLeftTriggerAxis));
+//
+//        new Trigger(controller1::getAButton).whileActiveContinuous(new OverrideReverseIndexCommand(m_indexSubsystem, m_intakeSubsystem));
+//        new Trigger(controller1::getBButton).whileActiveContinuous(new HighShotCommand(m_shooterSubsystem, m_indexSubsystem));
+//        new Trigger(controller1::getRightBumper).whileActiveContinuous(new OverrideRunIndexCommand(m_indexSubsystem));
+//
+//        new Trigger(controller1::getYButton).whileActiveContinuous(new LowShotCommand(m_shooterSubsystem,m_indexSubsystem));
+//        new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
+//            new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
+//
         new JoystickButton(driverJoytick, 2).whenPressed(() -> swerveSubsystem.zeroHeading()); // NEW
 
 
@@ -136,11 +135,11 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // 1. Create trajectory settings
         TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-                Constants.AutoConstants.kMaxSpeedMetersPerSecond, //Import?
+                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                 AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                .setKinematics(DriveConstants.kDriveKinematics); //Import?
+                .setKinematics(DriveConstants.kDriveKinematics);
 
-        // 2. Generate trajectory
+        // 2. Generate trajectory ---Is all the Poses put together in Autonomous
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(
