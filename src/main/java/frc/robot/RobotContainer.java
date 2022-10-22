@@ -72,7 +72,7 @@ public class RobotContainer {
     private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
     private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+//    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final Joystick driverJoytick = new Joystick(Constants.OIConstants.kDriverControllerPort);
     public XboxController controller0;
     public XboxController controller1;
@@ -83,12 +83,12 @@ public class RobotContainer {
     public RobotContainer() {
         controller0 = new XboxController(0);
         controller1 = new XboxController(1);
-        swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-                swerveSubsystem,
-                () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis), // Constants???? or OIConstants?
-                () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
-                () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
-                () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+//        swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
+//                swerveSubsystem,
+//                () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis), // Constants???? or OIConstants?
+//                () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
+//                () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
+//                () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
         configureButtonBindings();
     }
@@ -121,7 +121,7 @@ public class RobotContainer {
 //        new Trigger(controller1::getLeftBumper).whileActiveContinuous(new ParallelCommandGroup(
 //            new ReverseIndexCommand(m_indexSubsystem), new LowerAndSuckCommand(m_intakeSubsystem)));
 //
-        new JoystickButton(driverJoytick, 2).whenPressed(() -> swerveSubsystem.zeroHeading()); // NEW
+//        new JoystickButton(driverJoytick, 2).whenPressed(() -> swerveSubsystem.zeroHeading()); // NEW
 
 
     }
@@ -156,20 +156,21 @@ public class RobotContainer {
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
         // 4. Construct command to follow trajectory
-        SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-                trajectory,
-                swerveSubsystem::getPose,
-                DriveConstants.kDriveKinematics,
-                xController,
-                yController,
-                thetaController,
-                swerveSubsystem::setModuleStates,
-                swerveSubsystem);
-
-        // 5. Add some init and wrap-up, and return everything
-        return new SequentialCommandGroup(
-                new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose())), //Import?
-                swerveControllerCommand,
-                new InstantCommand(() -> swerveSubsystem.stopModules()));
+//        SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+//                trajectory,
+//                swerveSubsystem::getPose,
+//                DriveConstants.kDriveKinematics,
+//                xController,
+//                yController,
+//                thetaController,
+//                swerveSubsystem::setModuleStates,
+//                swerveSubsystem);
+//
+//        // 5. Add some init and wrap-up, and return everything
+//        return new SequentialCommandGroup(
+//                new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose())), //Import?
+//                swerveControllerCommand,
+//                new InstantCommand(() -> swerveSubsystem.stopModules()));
+        return null;
     }
 }

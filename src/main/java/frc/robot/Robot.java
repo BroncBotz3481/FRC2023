@@ -13,7 +13,10 @@ package frc.robot;
 
 import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cscore.UsbCamera;
@@ -111,13 +114,13 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
     }
-
+    SwerveModule swerve;
     @Override
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
-        SwerveModule swerve = new SwerveModule(5,6, boolean driveMotorReversed, boolean turningMotorReversed,
-        int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed)
+        swerve = new SwerveModule(5,6, false, false,
+                0, 0, false);
     }
 
     /**
@@ -125,6 +128,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+        double num = SmartDashboard.getNumber("Rotation Degrees", 90);
+        swerve.setDesiredState(new SwerveModuleState(0,Rotation2d.fromDegrees(num)));
+
         //Set angle or set state here
     }
 }
