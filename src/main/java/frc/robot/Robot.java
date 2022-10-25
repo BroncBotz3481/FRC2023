@@ -11,10 +11,19 @@
  \********************************************************************/
 package frc.robot;
 
+// import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.math.geometry.Rotation2d;
+//import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.cscore.UsbCamera;
+//import frc.robot.subsystems.swerve.SwerveModule;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 // Commenting for test task
 
@@ -26,8 +35,14 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
-
+    private NetworkTableEntry fiducialTableEntry;
+    private NetworkTableEntry pitch;
+    private NetworkTableEntry yaw;
+    private NetworkTableEntry skew;
+    private NetworkTableEntry area;
     private RobotContainer m_robotContainer;
+    private UsbCamera m_usbCamera;
+    //private PhotonCamera camera;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -37,13 +52,24 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        var cam = CameraServer.startAutomaticCapture();
-        cam.setFPS(15);
+
+        m_usbCamera = CameraServer.startAutomaticCapture();
+        CameraServer.startAutomaticCapture();
+        NetworkTableInstance inst = NetworkTableInstance.getDefault();
+        NetworkTable table = inst.getTable("pipeline");
+        fiducialTableEntry = table.getEntry("fid");
+        pitch = table.getEntry("pitch");
+        yaw = table.getEntry("yaw");
+        skew = table.getEntry("skew");
+        area = table.getEntry("area");
+        
+        //camera = new PhotonCamera("Integrated_Webcam");
+
         m_robotContainer = new RobotContainer();
     }
 
     /**
-     *      * This function is called every robot packet, no matter the mode. Use this for items like
+     * This function is called every robot packet, no matter the mode. Use this for items like
      * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
      *
      * <p>This runs after the mode specific periodic functions, but before LiveWindow and
@@ -55,6 +81,8 @@ public class Robot extends TimedRobot {
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
+        //var result = camera.getLatestResult();
+
         CommandScheduler.getInstance().run();
     }
 
@@ -106,11 +134,13 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
     }
-
+   // SwerveModule swerve;
     @Override
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+        // swerve = new SwerveModule(4,3, false, false,
+        //         0, 0, false);
     }
 
     /**
@@ -118,5 +148,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+        double num = SmartDashboard.getNumber("Rotation Degrees", 90);
+       // swerve.setDesiredState(new SwerveModuleState(0,Rotation2d.fromDegrees(num)));
+
+        //Set angle or set state here
     }
 }
