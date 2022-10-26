@@ -64,10 +64,11 @@ public class TrajectoryCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-       currentGoal = autoTrajectory.sample(timer.get());
-       adjustedSpeeds = RamseteController.calculate(DrivetrainPolicy.driveOdometry.getPoseMeters(), currentGoal);
-       wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
-       DrivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+        currentGoal = autoTrajectory.sample(timer.get());
+        adjustedSpeeds = m_ramseteController.calculate(DrivetrainPolicy.driveOdometry.getPoseMeters(), currentGoal);
+        wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
+        new DifferentialDriveWheelSpeeds(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+        m_drivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
     }
 
     // Called once the command ends or is interrupted.

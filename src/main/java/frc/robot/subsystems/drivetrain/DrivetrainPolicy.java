@@ -24,6 +24,7 @@ public final class DrivetrainPolicy {
     public static DifferentialDriveOdometry driveOdometry;
     public static DifferentialDriveKinematics driveKinematics;
     public static double rightSpeed;
+    public static double leftSpeed;
     public static double rightEncoderPosition = 0, rightEncoderVelocity = 0;
     public static double leftEncoderPosition = 0, leftEncoderVelocity = 0;
 
@@ -31,7 +32,6 @@ public final class DrivetrainPolicy {
     public static double getRightVelocity() {
         return ((DrivetrainPolicy.rightSpeed * 60) / (Math.PI * Constants.wheelDiameter));
     }
-
 
     public static double setPowerScale() {
 

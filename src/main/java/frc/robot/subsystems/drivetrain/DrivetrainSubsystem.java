@@ -16,8 +16,10 @@ package frc.robot.subsystems.drivetrain;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
     private final CANSparkMax frontLeftMotor;
@@ -53,9 +55,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.powerLeft = powerLeft;
         DrivetrainPolicy.powerRight = powerRight;
         driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
-        
+
         // frontLeftMotor.set(Driver);
 
+    }
+
+    public void set(double leftspeed, double rightspeed) {
+        leftspeed = PIDController.
     }
 
     @Override
@@ -64,9 +70,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
+
+        DrivetrainPolicy.rightSpeed = (rightEncoder.getVelocity() / 60) * Math.PI * Constants.wheelDiameter;
+        DrivetrainPolicy.leftSpeed = (leftEncoder.getVelocity() / 60) * Math.PI * Constants.wheelDiameter;
         System.out.println(DrivetrainPolicy.setPowerScale());
 
+
     }
+
 
 }
 
