@@ -13,16 +13,14 @@
 
 package frc.robot.commands.autoCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.index.IndexPolicy;
-import frc.robot.subsystems.index.IndexSubsystem;
-import frc.robot.subsystems.drivetrain.DrivetrainPolicy;
-import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.drivetrain.DrivetrainPolicy;
+import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 
 
 /**
@@ -71,7 +69,7 @@ public class TrajectoryCommand extends CommandBase {
        wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
        DrivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
     }
-    public static
+
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
