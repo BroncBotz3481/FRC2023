@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.DrivetrainPolicy;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
-
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
 
 /**
  * An example command that uses an example subsystem.
@@ -36,7 +36,7 @@ public class TrajectoryCommand extends CommandBase {
     private Trajectory.State currentGoal;
     private ChassisSpeeds adjustedSpeeds;
     private DifferentialDriveWheelSpeeds wheelSpeeds;
-
+    private TrajectoryConfig trajectoryConfig;
     /**
      * Creates a new ExampleCommand.
      *
@@ -59,6 +59,8 @@ public class TrajectoryCommand extends CommandBase {
     public void initialize() {
         timer.start();
         timer.reset();
+        trajectoryConfig.setStartVelocity(0);
+        trajectoryConfig.setReversed(true);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -74,6 +76,7 @@ public class TrajectoryCommand extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        trajectoryConfig.setEndVelocity(0);
         timer.stop();
         timer.reset();
       

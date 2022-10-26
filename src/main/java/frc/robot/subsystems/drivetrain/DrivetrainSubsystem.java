@@ -18,7 +18,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
     private final CANSparkMax frontLeftMotor;
@@ -46,42 +45,30 @@ public class DrivetrainSubsystem extends SubsystemBase {
         leftEncoder = frontLeftMotor.getEncoder();
         rightEncoder = frontRightMotor.getEncoder();
 
-        
         driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
+        System.out.println("Are there errors here in DrivetrainSubsystem?");
     }
 
-    public void run(double powerLeft, double powerRight) {
-        DrivetrainPolicy.powerLeft = powerLeft;
-        DrivetrainPolicy.powerRight = powerRight;
-        driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
+    public void run() {
+        System.out.println("AM I RUNNING!!!");
+        System.out.println(DrivetrainPolicy.powerLeft);
+        System.out.println(DrivetrainPolicy.powerRight);
 
+        driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
+        
         // frontLeftMotor.set(Driver);
 
     }
 
-    public void set(double leftspeed, double rightspeed) {
-
-        DrivetrainPolicy.leftSpeed = leftspeed;
-        DrivetrainPolicy.rightSpeed = rightspeed;
-
-        frontLeftMotor.set(DrivetrainPolicy.getLeftVelocity());
-        frontRightMotor.set(DrivetrainPolicy.getRightVelocity());
-    }
-
     @Override
     public void periodic() {
+        
+        //DrivetrainPolicy.UpdateEncoderPositions(leftEncoder.getPosition(), rightEncoder.getPosition());
         DrivetrainPolicy.rightEncoderPosition = rightEncoder.getPosition();
         DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
-
-        DrivetrainPolicy.rightSpeed = (rightEncoder.getVelocity() / 60) * Math.PI * Constants.wheelDiameter;
-        DrivetrainPolicy.leftSpeed = (leftEncoder.getVelocity() / 60) * Math.PI * Constants.wheelDiameter;
-        System.out.println(DrivetrainPolicy.setPowerScale());
-
-
     }
-
 
 }
 
