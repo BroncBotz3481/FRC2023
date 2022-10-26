@@ -16,64 +16,75 @@ package frc.robot.commands.autoCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.index.IndexPolicy;
 import frc.robot.subsystems.index.IndexSubsystem;
-import frc.robot.subsystems.shooter.ShooterPolicy;
-import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.drivetrain.DrivetrainPolicy;
+import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.trajectory.Trajectory;
+
 
 /**
  * An example command that uses an example subsystem.
  */
-public class AutoPIDShot extends CommandBase {
+public class TrajectoryCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final ShooterSubsystem m_shooterSubsystem;
-    private Timer time;
-    private final IndexSubsystem m_indexSubsystem;
+    private final DrivetrainSubsystem m_drivetrainSubsystem;
+
+    private final Timer timer;
+    private final RamseteController m_ramseteController;
+    private Trajectory autoTrajectory;
+    private Trajectory.State currentGoal;
+    private ChassisSpeeds adjustedSpeeds;
+    private DifferentialDriveWheelSpeeds wheelSpeeds;
+
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public AutoPIDShot(ShooterSubsystem subsystem, IndexSubsystem isubsystem) {
-        m_shooterSubsystem = subsystem;
-        m_indexSubsystem = isubsystem;
-        time = new Timer();
+    public TrajectoryCommand(DrivetrainSubsystem subsystem, RamseteController ramseteController) {
+      
+        timer = new Timer();
+        m_ramseteController = ramseteController;
+        m_drivetrainSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
-        addRequirements(isubsystem);
+        //addRequirements(ramseteController);
+
+
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        time.start();
-        IndexPolicy.overridePressurePad = true;
+        timer.start();
+        timer.reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_shooterSubsystem.shootPID(12300);
-        if(ShooterPolicy.inBound(150)){
-            m_indexSubsystem.runIndex(-0.4);
-        }
-        
+       currentGoal = autoTrajectory.sample(timer.get());
+       adjustedSpeeds = RamseteController.calculate(DrivetrainPolicy.driveOdometry.getPoseMeters(), currentGoal);
+       wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
+       DrivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
     }
-
+    public static
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        time.stop();
-        time.reset();
-        IndexPolicy.overridePressurePad = false;
-        m_shooterSubsystem.stopShooter();
-
+        timer.stop();
+        timer.reset();
+      
     }
 
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(time.get()>=4){
+        if(timer.get()>=4){
             return true;
         }
         return false;
