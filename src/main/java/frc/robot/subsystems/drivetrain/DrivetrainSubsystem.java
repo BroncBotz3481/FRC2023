@@ -16,7 +16,6 @@ package frc.robot.subsystems.drivetrain;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -61,7 +60,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     public void set(double leftspeed, double rightspeed) {
-        leftspeed = PIDController.
+
+        DrivetrainPolicy.leftSpeed = leftspeed;
+        DrivetrainPolicy.rightSpeed = rightspeed;
+
+        frontLeftMotor.set(DrivetrainPolicy.getLeftVelocity());
+        frontRightMotor.set(DrivetrainPolicy.getRightVelocity());
     }
 
     @Override

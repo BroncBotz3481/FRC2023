@@ -33,6 +33,11 @@ public final class DrivetrainPolicy {
         return ((DrivetrainPolicy.rightSpeed * 60) / (Math.PI * Constants.wheelDiameter));
     }
 
+    public static double getLeftVelocity() {
+        return ((DrivetrainPolicy.leftSpeed * 60) / (Math.PI * Constants.wheelDiameter));
+
+    }
+
     public static double setPowerScale() {
 
         if (powerLeft > 0 && powerRight > 0) {
