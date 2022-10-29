@@ -68,15 +68,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
         frontRightMotor.set(DrivetrainPolicy.getRightVelocity());
     }
 
+    public void setGearRatio(double gearRatio)
+    {
+        leftEncoder.setVelocityConversionFactor(gearRatio);
+        rightEncoder.setVelocityConversionFactor(gearRatio);
+        leftEncoder.setPositionConversionFactor(gearRatio);
+        rightEncoder.setPositionConversionFactor(gearRatio);
+
+
+
+    }
+
     @Override
     public void periodic() {
+
         DrivetrainPolicy.rightEncoderPosition = rightEncoder.getPosition();
         DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
 
-        DrivetrainPolicy.rightSpeed = (rightEncoder.getVelocity() / 60) * Math.PI * Constants.wheelDiameter;
-        DrivetrainPolicy.leftSpeed = (leftEncoder.getVelocity() / 60) * Math.PI * Constants.wheelDiameter;
         System.out.println(DrivetrainPolicy.setPowerScale());
 
 
