@@ -62,6 +62,21 @@ public class TrajectoryCommand extends CommandBase {
     }
 
     public void generateTrajectory(){
+        var Start = new Pose2d(Units.feetToMeters(8.94), Units.feetToMeters(5.87), 
+        Rotation2d.fromDegrees(-111.8));
+        var End = new Pose2d(Units.feetToMeters(12.94), Units.feetToMeters(4.87),
+        Rotation2d.fromDegrees(-111.8));
+
+        var interiorWaypoints = new ArrayList<Translation2d>();
+        interiorWaypoints.add(new Translation2d(4,-1));
+
+        TrajectoryConfig config = new TrajectoryConfig(0,0);
+        config.setReversed(true);
+
+        var trajectory = TrajectoryGenerator.generateTrajectory(Start,
+        interiorWaypoints, End, config);
+    }
+    /*public void generateTrajectory(){
 
         //Intake second ball
         var Start = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
@@ -117,7 +132,7 @@ public class TrajectoryCommand extends CommandBase {
         interiorWaypoints, intakeShootBallFiveSix, config);
 
         var finaltrajectory = trajectory123.concatenate(trajectory4);
-    }
+    }*/
 
     // Called when the command is initially scheduled.
     @Override
@@ -147,7 +162,7 @@ public class TrajectoryCommand extends CommandBase {
       
     }
 
-
+    
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
