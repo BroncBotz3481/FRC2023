@@ -32,8 +32,6 @@ public class StopShooterCommand extends CommandBase {
         }
         else { */
             shooterSubsystem.shoot(0);
-
-        
     }
 
     /**
