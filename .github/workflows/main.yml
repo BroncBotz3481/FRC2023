@@ -15,7 +15,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: self-hosted
 
-    # This grabs the WPILib docker container
+    # This grabs the WPILib docker container will use 2023-22.04 later
     container: wpilib/roborio-cross-ubuntu:2022-20.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
