@@ -6,4 +6,5 @@
     "vscode": {
       "extensions": ["wpilibsuite.vscode-wpilib","vscjava.vscode-java-pack"]
     }
+  }
 }
