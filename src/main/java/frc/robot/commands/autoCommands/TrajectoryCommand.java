@@ -20,6 +20,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.Timer;
@@ -62,77 +64,55 @@ public class TrajectoryCommand extends CommandBase {
     }
 
     public void generateTrajectory(){
-        var Start = new Pose2d(Units.feetToMeters(8.94), Units.feetToMeters(5.87), 
-        Rotation2d.fromDegrees(-111.8));
-        var End = new Pose2d(Units.feetToMeters(12.94), Units.feetToMeters(4.87),
-        Rotation2d.fromDegrees(-111.8));
+        DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics
+        (Units.inchesToMeters(23.625));
+
+        var wheelSpeeds = new DifferentialDriveWheelSpeeds
+        (DrivetrainPolicy.leftEncoderVelocity, DrivetrainPolicy.rightEncoderVelocity);
+
+        ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
+
+        // Linear velocity
+        double linearVelocity = chassisSpeeds.vxMetersPerSecond;
+
+        // Angular velocity
+        double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
+
+        var Start = new Pose2d(Units.feetToMeters(0), Units.feetToMeters(0), 
+        Rotation2d.fromDegrees(0));
+
+        var Point1 = new Pose2d(Units.feetToMeters(0.5), Units.feetToMeters(0),
+        Rotation2d.fromDegrees(30));
 
         var interiorWaypoints = new ArrayList<Translation2d>();
-        interiorWaypoints.add(new Translation2d(4,-1));
+        interiorWaypoints.add(new Translation2d(0.5,0));
 
-        TrajectoryConfig config = new TrajectoryConfig(0,0);
+        TrajectoryConfig config = new TrajectoryConfig(5,5);
         config.setReversed(true);
 
-        var trajectory = TrajectoryGenerator.generateTrajectory(Start,
+        var trajectory1 = TrajectoryGenerator.generateTrajectory(Start,
+        interiorWaypoints, Point1, config);
+
+        var Point2 = new Pose2d(Units.feetToMeters(0.5+0.5*Math.sqrt(3)), Units.feetToMeters(0.25), 
+        Rotation2d.fromDegrees(-30));
+
+        interiorWaypoints.add(new Translation2d(0.5,0));
+
+        var trajectory2 = TrajectoryGenerator.generateTrajectory(Point1, 
+        interiorWaypoints, Point2, config);
+
+        var concatTrajectory = trajectory1.concatenate(trajectory2);
+
+        var End = new Pose2d(Units.feetToMeters(0.5+2*0.5*Math.sqrt(3)), Units.feetToMeters(0),
+        Rotation2d.fromDegrees(-30));
+
+        interiorWaypoints.add(new Translation2d(0.5,0));
+
+        var trajectory3 = TrajectoryGenerator.generateTrajectory(Point2, 
         interiorWaypoints, End, config);
+
+        autoTrajectory = concatTrajectory.concatenate(trajectory3);
     }
-    /*public void generateTrajectory(){
-
-        //Intake second ball
-        var Start = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        var intakeBallTwo = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-
-        var interiorWaypoints = new ArrayList<Translation2d>();
-        interiorWaypoints.add(new Translation2d(0,0));
-
-        TrajectoryConfig config = new TrajectoryConfig(0,0);
-        config.setReversed(true);
-
-        var trajectory1 = TrajectoryGenerator.generateTrajectory(Start, 
-        interiorWaypoints, intakeBallTwo, config);
-
-        //Shoot first two balls and intake third ball
-        var shootBallOneTwo = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        var intakeBallThree = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-
-        interiorWaypoints.add(new Translation2d(0,0));
-
-        config = new TrajectoryConfig(0,0);
-        config.setReversed(true);
-
-        var trajectory2 = TrajectoryGenerator.generateTrajectory(shootBallOneTwo, 
-        interiorWaypoints, intakeBallThree, config);
-
-        var trajectory12 = trajectory1.concatenate(trajectory2);
-
-        //Intake ball 4 and shoot balls 3 and 4
-        var intakeBallFour = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        var shootBallThreeFour = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-
-        interiorWaypoints.add(new Translation2d(0,0));
-
-        config = new TrajectoryConfig(0,0);
-        config.setReversed(true);
-
-        var trajectory3 = TrajectoryGenerator.generateTrajectory(intakeBallFour, 
-        interiorWaypoints, shootBallThreeFour, config);
-
-        var trajectory123 = trajectory12.concatenate(trajectory3);
-
-        //Intake balls 5 and 6 and shoot them
-        var intakeBallFive = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        var intakeShootBallFiveSix = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-
-        interiorWaypoints.add(new Translation2d(0,0));
-
-        config = new TrajectoryConfig(0,0);
-        config.setReversed(true);
-
-        var trajectory4 = TrajectoryGenerator.generateTrajectory(intakeBallFive, 
-        interiorWaypoints, intakeShootBallFiveSix, config);
-
-        var finaltrajectory = trajectory123.concatenate(trajectory4);
-    }*/
 
     // Called when the command is initially scheduled.
     @Override
