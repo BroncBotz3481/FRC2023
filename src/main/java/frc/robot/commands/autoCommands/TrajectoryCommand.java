@@ -69,6 +69,7 @@ public class TrajectoryCommand extends CommandBase {
         wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
         new DifferentialDriveWheelSpeeds(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
         m_drivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+
     }
 
     // Called once the command ends or is interrupted.
