@@ -27,11 +27,12 @@ public final class ShooterPolicy {
     public static double targetSpeed;
     public static double encoderVelocity;
     public static double getShooterPower() {
-        /*if (IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0) {
+        /*if (IndexPolicy.indexFull() && ShooterPolicy.powerShooter <= 0) { //logic for ramping shooter when ball is on pressurepad is flawed
             ShooterPolicy.powerShooter = 0.1;
         } */
         return ShooterPolicy.powerShooter;
     } 
+
 
     public static boolean shootReady() {
         return IndexPolicy.indexFull();

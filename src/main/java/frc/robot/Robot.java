@@ -15,6 +15,8 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.geometry.Rotation2d;
 //import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +26,13 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.TargetCorner;
+
+import java.util.List;
+
 
 // Commenting for test task
 
@@ -42,7 +51,6 @@ public class Robot extends TimedRobot {
     private NetworkTableEntry area;
     private RobotContainer m_robotContainer;
     private UsbCamera m_usbCamera;
-    //private PhotonCamera camera;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -56,14 +64,12 @@ public class Robot extends TimedRobot {
         m_usbCamera = CameraServer.startAutomaticCapture();
         CameraServer.startAutomaticCapture();
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
-        NetworkTable table = inst.getTable("pipeline");
+        NetworkTable table = inst.getTable("Datatable");
         fiducialTableEntry = table.getEntry("fid");
         pitch = table.getEntry("pitch");
         yaw = table.getEntry("yaw");
         skew = table.getEntry("skew");
         area = table.getEntry("area");
-        
-        //camera = new PhotonCamera("Integrated_Webcam");
 
         m_robotContainer = new RobotContainer();
     }
@@ -81,8 +87,6 @@ public class Robot extends TimedRobot {
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
-        //var result = camera.getLatestResult();
-
         CommandScheduler.getInstance().run();
     }
 
@@ -91,6 +95,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+
     }
 
     @Override
@@ -142,7 +147,6 @@ public class Robot extends TimedRobot {
         // swerve = new SwerveModule(4,3, false, false,
         //         0, 0, false);
     }
-
     /**
      * This function is called periodically during test mode.
      */
@@ -153,4 +157,5 @@ public class Robot extends TimedRobot {
 
         //Set angle or set state here
     }
+
 }

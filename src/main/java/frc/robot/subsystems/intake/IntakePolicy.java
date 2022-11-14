@@ -28,7 +28,6 @@ public class IntakePolicy {
     public static final DoubleSolenoid.Value upPosition = Value.kForward;
     public static final DoubleSolenoid.Value downPosition = Value.kReverse;
     public static double intakePower; //power for motors
-    // public static boolean isUpIntake; //whether the intake is up or not
 
 
 }
