@@ -45,7 +45,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         leftEncoder = frontLeftMotor.getEncoder();
         rightEncoder = frontRightMotor.getEncoder();
 
-        
+
         driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
 
     }
@@ -54,6 +54,24 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.powerLeft = powerLeft;
         DrivetrainPolicy.powerRight = powerRight;
         driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
+
+    }
+
+    public void set(double leftspeed, double rightspeed) {
+
+        DrivetrainPolicy.leftSpeed = leftspeed;
+        DrivetrainPolicy.rightSpeed = rightspeed;
+
+        frontLeftMotor.set(DrivetrainPolicy.getLeftVelocity());
+        frontRightMotor.set(DrivetrainPolicy.getRightVelocity());
+    }
+
+    public void setGearRatio(double gearRatio) {
+        leftEncoder.setVelocityConversionFactor(gearRatio);
+        rightEncoder.setVelocityConversionFactor(gearRatio);
+        leftEncoder.setPositionConversionFactor(gearRatio);
+        rightEncoder.setPositionConversionFactor(gearRatio);
+
 
     }
 
