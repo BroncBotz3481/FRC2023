@@ -35,7 +35,7 @@ public final class DrivetrainPolicy {
     public static double rightEncoderPosition = 0, rightEncoderVelocity = 0;
     public static double leftEncoderPosition = 0, leftEncoderVelocity = 0;
 
-
+//For Orry
     public static double getRightVelocity() {
         return ((DrivetrainPolicy.rightSpeed * 60) / (Math.PI * Constants.wheelDiameter));
     }

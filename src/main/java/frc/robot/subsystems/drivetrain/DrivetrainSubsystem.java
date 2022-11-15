@@ -56,7 +56,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
 
     }
-
+//For Orry
     public void set(double leftspeed, double rightspeed) {
 
         DrivetrainPolicy.leftSpeed = leftspeed;
