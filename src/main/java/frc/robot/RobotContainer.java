@@ -16,32 +16,24 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.autoCommands.AutoPIDShot;
-import frc.robot.commands.climberCommand.RaiseClimbCommand;
+import frc.robot.commands.autoCommands.TrajectoryCommand;
 import frc.robot.commands.climberCommand.LowerClimbCommand;
+import frc.robot.commands.climberCommand.RaiseClimbCommand;
+import frc.robot.commands.climberCommand.StopClimberCommand;
 import frc.robot.commands.drivetrainCommand.DrivetrainCommand;
-import frc.robot.commands.autoCommands.ReverseDriveCommand;
+import frc.robot.commands.drivetrainCommand.OverDriveCommand;
 import frc.robot.commands.indexCommand.ReverseIndexCommand;
 import frc.robot.commands.indexCommand.StopIndexCommand;
 import frc.robot.commands.intakeCommand.LowerAndSuckCommand;
 import frc.robot.commands.intakeCommand.RaiseAndStopCommand;
-import frc.robot.commands.intakeCommand.StopIntakeCommand;
-import frc.robot.commands.shooterCommand.HighShotCommand;
 import frc.robot.commands.shooterCommand.LowShotCommand;
 import frc.robot.commands.shooterCommand.StopShooterCommand;
-import frc.robot.commands.climberCommand.StopClimberCommand;
-import frc.robot.commands.indexCommand.OverrideReverseIndexCommand;
-import frc.robot.commands.indexCommand.OverrideRunIndexCommand;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.subsystems.index.IndexSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
-import frc.robot.commands.intakeCommand.LowerIntake;
-import frc.robot.commands.indexCommand.RunIndexCommand;
-import frc.robot.commands.drivetrainCommand.OverDriveCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -115,11 +107,12 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        SequentialCommandGroup m_autoCommand = new SequentialCommandGroup(
-                new AutoPIDShot(m_shooterSubsystem,m_indexSubsystem),
-                new ReverseDriveCommand(m_drivetrainSubsystem));
+//
+//        SequentialCommandGroup m_autoCommand = new SequentialCommandGroup(
+//                new AutoPIDShot(m_shooterSubsystem,m_indexSubsystem),
+//                new ReverseDriveCommand(m_drivetrainSubsystem));
         // return m_runIndexCommand;
-        return m_autoCommand;
+        return new TrajectoryCommand(m_drivetrainSubsystem);
     }
 
 }

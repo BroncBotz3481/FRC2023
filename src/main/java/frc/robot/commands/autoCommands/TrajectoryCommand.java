@@ -30,6 +30,7 @@ import frc.robot.subsystems.drivetrain.DrivetrainPolicy;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An example command that uses an example subsystem.
@@ -45,20 +46,23 @@ public class TrajectoryCommand extends CommandBase {
     private ChassisSpeeds adjustedSpeeds;
     private DifferentialDriveWheelSpeeds wheelSpeeds;
     private TrajectoryConfig trajectoryConfig;
+    private Pose2d start;
+    private List<Translation2d> interiorWaypoints;
+    private TrajectoryConfig config;
+
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public TrajectoryCommand(DrivetrainSubsystem subsystem, RamseteController ramseteController) {
-      
+    public TrajectoryCommand(DrivetrainSubsystem subsystem) {
+
         timer = new Timer();
-        m_ramseteController = ramseteController;
+        m_ramseteController = new RamseteController();
         m_drivetrainSubsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
         //addRequirements(ramseteController);
-
 
     }
 
@@ -77,40 +81,57 @@ public class TrajectoryCommand extends CommandBase {
         // Angular velocity
         double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
 
-        var Start = new Pose2d(Units.feetToMeters(0), Units.feetToMeters(0), 
-        Rotation2d.fromDegrees(0));
-
-        var Point1 = new Pose2d(Units.feetToMeters(0.5), Units.feetToMeters(0),
-        Rotation2d.fromDegrees(30));
-
-        var interiorWaypoints = new ArrayList<Translation2d>();
-        interiorWaypoints.add(new Translation2d(0.5,0));
-
-        TrajectoryConfig config = new TrajectoryConfig(5,5);
+        // Step 1:
+        TrajectoryConfig config = new TrajectoryConfig(5, 5);
         config.setReversed(true);
+        config.setEndVelocity(0);
+        config.setStartVelocity(0);
+        config.setKinematics(kinematics);
 
-        var trajectory1 = TrajectoryGenerator.generateTrajectory(Start,
-        interiorWaypoints, Point1, config);
+        // Step 2: Define starting point
+        Pose2d start = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
 
-        var Point2 = new Pose2d(Units.feetToMeters(0.5+0.5*Math.sqrt(3)), Units.feetToMeters(0.25), 
-        Rotation2d.fromDegrees(-30));
+        // Step 3: Define points
+        var interiorWaypoints = new ArrayList<Translation2d>();
+        interiorWaypoints.add(new Translation2d(0, 0.5)); // forward .5m
+//        interiorWaypoints.add(new Translation2d(-0.5, 0)); // left .5m
+//        interiorWaypoints.add(new Translation2d(0,-0.5)); // backwards .5m
+//        interiorWaypoints.add(new Translation2d(0.5,0)); // right .5m
 
-        interiorWaypoints.add(new Translation2d(0.5,0));
+        //forward, left, backward, right (1)
 
-        var trajectory2 = TrajectoryGenerator.generateTrajectory(Point1, 
-        interiorWaypoints, Point2, config);
+//        var Start = new Pose2d(Units.feetToMeters(0), Units.feetToMeters(0),
+//        Rotation2d.fromDegrees(0));
+//
+//        var Point1 = new Pose2d(Units.feetToMeters(0.5), Units.feetToMeters(0),
+//        Rotation2d.fromDegrees(30));
+//
 
-        var concatTrajectory = trajectory1.concatenate(trajectory2);
 
-        var End = new Pose2d(Units.feetToMeters(0.5+2*0.5*Math.sqrt(3)), Units.feetToMeters(0),
-        Rotation2d.fromDegrees(-30));
-
-        interiorWaypoints.add(new Translation2d(0.5,0));
-
-        var trajectory3 = TrajectoryGenerator.generateTrajectory(Point2, 
-        interiorWaypoints, End, config);
-
-        autoTrajectory = concatTrajectory.concatenate(trajectory3);
+//
+//
+//        var trajectory1 = TrajectoryGenerator.generateTrajectory(Start,
+//        interiorWaypoints, Point1, config);
+//
+//        var Point2 = new Pose2d(Units.feetToMeters(0.5+0.5*Math.sqrt(3)), Units.feetToMeters(0.25),
+//        Rotation2d.fromDegrees(-30));
+//
+//        interiorWaypoints.add(new Translation2d(0.5,0));
+//
+//        var trajectory2 = TrajectoryGenerator.generateTrajectory(Point1,
+//        interiorWaypoints, Point2, config);
+//
+//        var concatTrajectory = trajectory1.concatenate(trajectory2);
+//
+//        var End = new Pose2d(Units.feetToMeters(0.5+2*0.5*Math.sqrt(3)), Units.feetToMeters(0),
+//        Rotation2d.fromDegrees(-30));
+//
+//        interiorWaypoints.add(new Translation2d(0.5,0));
+//
+//        var trajectory3 = TrajectoryGenerator.generateTrajectory(Point2,
+//        interiorWaypoints, End, config);
+//
+//        autoTrajectory = concatTrajectory.concatenate(trajectory3);
     }
 
     // Called when the command is initially scheduled.
@@ -118,8 +139,8 @@ public class TrajectoryCommand extends CommandBase {
     public void initialize() {
         timer.start();
         timer.reset();
-        trajectoryConfig.setStartVelocity(0);
-        trajectoryConfig.setReversed(true);
+        // Step 4: generate trajectory
+        autoTrajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, new Pose2d(new Translation2d(0, 0.5), Rotation2d.fromDegrees(0)), config);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -136,7 +157,6 @@ public class TrajectoryCommand extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        trajectoryConfig.setEndVelocity(0);
         timer.stop();
         timer.reset();
       
