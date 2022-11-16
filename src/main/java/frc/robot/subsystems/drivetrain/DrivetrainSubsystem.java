@@ -14,10 +14,18 @@
 package frc.robot.subsystems.drivetrain;
 //hello
 
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
+import edu.wpi.first.wpilibj.shuffleboard.SuppliedValueWidget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -30,6 +38,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private final RelativeEncoder rightEncoder;
 
     private final DifferentialDrive driveTrain;
+
+    private SparkMaxPIDController leftPIDController;
+    private SparkMaxPIDController rightPIDController;
+
 
     public DrivetrainSubsystem() {
         frontLeftMotor = new CANSparkMax(4, MotorType.kBrushless);
@@ -49,6 +61,28 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
 
+        leftPIDController = frontLeftMotor.getPIDController();
+        leftPIDController = frontRightMotor.getPIDController();
+
+        this.setPIDF(0, 0, 0, 0, 200);
+        this.setOutputRange(-1,1);
+    }
+
+    private void setOutputRange(int i, int j) {
+    }
+
+    public void setPIDF(double P, double I, double D, double F, double integralZone){
+        leftPIDController.setP(P);
+        leftPIDController.setI(I);
+        leftPIDController.setD(D);
+        leftPIDController.setFF(F);
+        leftPIDController.setIZone(integralZone);
+
+        rightPIDController.setP(P);
+        rightPIDController.setI(I);
+        rightPIDController.setD(D);
+        rightPIDController.setFF(F);
+        rightPIDController.setIZone(integralZone);
     }
 
     public void run(double powerLeft, double powerRight) {
@@ -63,8 +97,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.leftSpeed = leftspeed;
         DrivetrainPolicy.rightSpeed = rightspeed;
 
-        frontLeftMotor.set(DrivetrainPolicy.getLeftVelocity());
-        frontRightMotor.set(DrivetrainPolicy.getRightVelocity());
+        leftPIDController.setReference(DrivetrainPolicy.getLeftVelocity(),ControlType.kVelocity);
+        rightPIDController.setReference(DrivetrainPolicy.getRightVelocity(), ControlType.kVelocity);
     }
 
     public void setGearRatio(double gearRatio) {
