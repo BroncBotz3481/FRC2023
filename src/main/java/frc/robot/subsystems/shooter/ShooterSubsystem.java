@@ -75,6 +75,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void shoot(double power) {
         ShooterPolicy.powerShooter = power;
+        // example
         shooterMotorRight.set(ControlMode.PercentOutput, ShooterPolicy.getShooterPower());
         
 
