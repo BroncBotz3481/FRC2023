@@ -137,10 +137,10 @@ public class TrajectoryCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        autoTrajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, new Pose2d(new Translation2d(0, 0.5), Rotation2d.fromDegrees(0)), config);
         timer.start();
         timer.reset();
         // Step 4: generate trajectory
-        autoTrajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, new Pose2d(new Translation2d(0, 0.5), Rotation2d.fromDegrees(0)), config);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -151,7 +151,6 @@ public class TrajectoryCommand extends CommandBase {
         wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
         new DifferentialDriveWheelSpeeds(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
         m_drivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
-        // noooo
     }
 
     // Called once the command ends or is interrupted.
