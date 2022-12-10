@@ -76,12 +76,13 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
 
-
+        
         m_drivetrainSubsystem.setDefaultCommand(new DrivetrainCommand(m_drivetrainSubsystem, controller0::getLeftY, controller0::getRightY));
         m_climberSubsystem.setDefaultCommand(new StopClimberCommand(m_climberSubsystem));
         m_indexSubsystem.setDefaultCommand(new StopIndexCommand(m_indexSubsystem));
         m_intakeSubsystem.setDefaultCommand(new RaiseAndStopCommand(m_intakeSubsystem));
         m_shooterSubsystem.setDefaultCommand(new StopShooterCommand(m_shooterSubsystem));
+        new Trigger(controller0::getYButton).whileActiveContinuous((new TrajectoryCommand(m_drivetrainSubsystem)));
         new Trigger(controller0::getRightBumper).or(new Trigger(controller0:: getLeftBumper)).whileActiveContinuous(
                 new RaiseClimbCommand(m_climberSubsystem, controller0::getRightBumper, controller0::getLeftBumper));
         new Trigger(()->{return controller0.getRightTriggerAxis() > 0.05;}).or(

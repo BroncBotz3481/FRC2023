@@ -20,6 +20,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -29,7 +30,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SuppliedValueWidget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-    private final CANSparkMax frontLeftMotor;
+    // private final CANSparkMax frontLeftMotor;
     private final CANSparkMax backLeftMotor;
     private final CANSparkMax frontRightMotor;
     private final CANSparkMax backRightMotor;
@@ -42,29 +43,51 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private SparkMaxPIDController leftPIDController;
     private SparkMaxPIDController rightPIDController;
 
+    // private ShuffleboardTab pidTab;
+    // private SuppliedValueWidget<Double> leftVelocityWidget;
+    // private SuppliedValueWidget<Double> rightVelocityWidget;
+    // private SimpleWidget kP;
+    // private SimpleWidget kI;
+    // private SimpleWidget kD;
+    // private SimpleWidget kF;
+
 
     public DrivetrainSubsystem() {
-        frontLeftMotor = new CANSparkMax(4, MotorType.kBrushless);
+
+        // pidTab = Shuffleboard.getTab("PID");
+        // leftVelocityWidget = pidTab.addNumber("LeftVelocity", ()->{return DrivetrainPolicy.getLeftVelocity();});
+        // rightVelocityWidget = pidTab.addNumber("RightVelocity", ()->{return DrivetrainPolicy.getRightVelocity();});
+        // kP = pidTab.add("kP", 0.01);
+        // kI = pidTab.add("kI", 0);
+        // kD = pidTab.add("kD", 0);
+        // kF = pidTab.add("kF", 0);
+
+        // frontLeftMotor = new CANSparkMax(4, MotorType.kBrushless);
         backLeftMotor = new CANSparkMax(3, MotorType.kBrushless);
         frontRightMotor = new CANSparkMax(1, MotorType.kBrushless);
         backRightMotor = new CANSparkMax(2, MotorType.kBrushless);
+        // frontLeftMotor.setIdleMode(IdleMode.kCoast);
+        backLeftMotor.setIdleMode(IdleMode.kCoast);
+        frontRightMotor.setIdleMode(IdleMode.kCoast);
+        backRightMotor.setIdleMode(IdleMode.kCoast);
 
-        backLeftMotor.follow(frontLeftMotor);//frontLeftMotor is the leader
+        // backLeftMotor.follow(frontLeftMotor);//frontLeftMotor is the leader
         backRightMotor.follow(frontRightMotor);//frontRightMotor is the leader
 
         frontRightMotor.setInverted(false);
-        frontLeftMotor.setInverted(true);
+        // frontLeftMotor.setInverted(true);
 
-        leftEncoder = frontLeftMotor.getEncoder();
+        // leftEncoder = frontLeftMotor.getEncoder();
+        leftEncoder = backRightMotor.getEncoder();
         rightEncoder = frontRightMotor.getEncoder();
 
 
-        driveTrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
+        driveTrain = new DifferentialDrive(backLeftMotor, frontRightMotor);
 
-        leftPIDController = frontLeftMotor.getPIDController();
-        leftPIDController = frontRightMotor.getPIDController();
+        leftPIDController = backLeftMotor.getPIDController();
+        rightPIDController = frontRightMotor.getPIDController();
 
-        this.setPIDF(0, 0, 0, 0, 200);
+        this.setPIDF(0.01, 0, 0, 0, 200);
         this.setOutputRange(-1,1);
     }
 
@@ -88,6 +111,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void run(double powerLeft, double powerRight) {
         DrivetrainPolicy.powerLeft = powerLeft;
         DrivetrainPolicy.powerRight = powerRight;
+        // DrivetrainPolicy.setPowerScale()
         driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
 
     }
