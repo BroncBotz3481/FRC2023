@@ -82,17 +82,17 @@ public class TrajectoryCommand extends CommandBase {
         double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
 
         // Step 1:
-        TrajectoryConfig config = new TrajectoryConfig(5, 5);
+        config = new TrajectoryConfig(5, 5);
         config.setReversed(true);
         config.setEndVelocity(0);
         config.setStartVelocity(0);
         config.setKinematics(kinematics);
 
         // Step 2: Define starting point
-        Pose2d start = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
+        start = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
 
         // Step 3: Define points
-        var interiorWaypoints = new ArrayList<Translation2d>();
+        interiorWaypoints = new ArrayList<Translation2d>();
         interiorWaypoints.add(new Translation2d(0, 0.5)); // forward .5m
 //        interiorWaypoints.add(new Translation2d(-0.5, 0)); // left .5m
 //        interiorWaypoints.add(new Translation2d(0,-0.5)); // backwards .5m
@@ -137,6 +137,7 @@ public class TrajectoryCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        generateTrajectory();
         autoTrajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, new Pose2d(new Translation2d(0, 0.5), Rotation2d.fromDegrees(0)), config);
         timer.start();
         timer.reset();

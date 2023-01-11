@@ -33,6 +33,8 @@ import org.photonvision.targeting.TargetCorner;
 
 import java.util.List;
 
+import com.kauailabs.navx.frc.AHRS;
+
 
 // Commenting for test task
 
@@ -61,8 +63,8 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
 
-        m_usbCamera = CameraServer.startAutomaticCapture();
-        CameraServer.startAutomaticCapture();
+        // m_usbCamera = CameraServer.startAutomaticCapture();
+        // CameraServer.startAutomaticCapture();
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         NetworkTable table = inst.getTable("Datatable");
         fiducialTableEntry = table.getEntry("fid");
@@ -72,6 +74,12 @@ public class Robot extends TimedRobot {
         area = table.getEntry("area");
 
         m_robotContainer = new RobotContainer();
+        
+        AHRS navX = new AHRS();
+        while(navX == null)
+        {
+            System.out.println("NavX not connected.");
+        }
     }
 
     /**

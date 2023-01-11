@@ -23,6 +23,9 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -40,7 +43,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     private final RelativeEncoder leftEncoder;
     private final RelativeEncoder rightEncoder;
-    private final AHRS navX;
+    private AHRS navX;
     private final DifferentialDrive driveTrain;
 
     private SparkMaxPIDController leftPIDController;
@@ -56,7 +59,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
 
     public DrivetrainSubsystem() {
-        navX = new AHRS(Port.kMXP);
+        
+
         // navX.calibrate();
         // pidTab = Shuffleboard.getTab("PID");
         // leftVelocityWidget = pidTab.addNumber("LeftVelocity", ()->{return DrivetrainPolicy.getLeftVelocity();});
@@ -145,7 +149,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
         
-        DrivetrainPolicy.position = DrivetrainPolicy.driveOdometry.update(navX.getRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
+        // DrivetrainPolicy.position = DrivetrainPolicy.driveOdometry.update(Rotation2d.fromDegrees(navX.getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
     }
 }
 
