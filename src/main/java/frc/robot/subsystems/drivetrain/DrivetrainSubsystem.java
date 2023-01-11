@@ -145,7 +145,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
         
-        DrivetrainPolicy.driveOdometry.update(navX.getRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
+        DrivetrainPolicy.position = DrivetrainPolicy.driveOdometry.update(navX.getRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
     }
 }
 
