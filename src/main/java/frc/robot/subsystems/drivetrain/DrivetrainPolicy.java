@@ -12,6 +12,7 @@
 
 package frc.robot.subsystems.drivetrain;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import frc.robot.Constants;
@@ -35,7 +36,10 @@ public final class DrivetrainPolicy {
     public static double rightEncoderPosition = 0, rightEncoderVelocity = 0;
     public static double leftEncoderPosition = 0, leftEncoderVelocity = 0;
 
+    public static Pose2d position;
+
 //For Orry
+    
     public static double getRightVelocity() {
         return ((DrivetrainPolicy.rightSpeed * 60) / (Math.PI * Constants.wheelDiameter));
     }
