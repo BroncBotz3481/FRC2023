@@ -60,10 +60,7 @@ public class TrajectoryCommand extends CommandBase {
         timer = new Timer();
         m_ramseteController = new RamseteController();
         m_drivetrainSubsystem = subsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
-        //addRequirements(ramseteController);
-
     }
 
     public void generateTrajectory(){

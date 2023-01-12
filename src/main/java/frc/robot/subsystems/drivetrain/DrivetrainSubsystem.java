@@ -36,7 +36,7 @@ import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-    // private final CANSparkMax frontLeftMotor;
+    private final CANSparkMax frontLeftMotor;
     private final CANSparkMax backLeftMotor;
     private final CANSparkMax frontRightMotor;
     private final CANSparkMax backRightMotor;
@@ -70,23 +70,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // kD = pidTab.add("kD", 0);
         // kF = pidTab.add("kF", 0);
 
-        // frontLeftMotor = new CANSparkMax(4, MotorType.kBrushless);
+        frontLeftMotor = new CANSparkMax(4, MotorType.kBrushless);
         backLeftMotor = new CANSparkMax(3, MotorType.kBrushless);
         frontRightMotor = new CANSparkMax(1, MotorType.kBrushless);
         backRightMotor = new CANSparkMax(2, MotorType.kBrushless);
-        // frontLeftMotor.setIdleMode(IdleMode.kCoast);
+        frontLeftMotor.setIdleMode(IdleMode.kCoast);
         backLeftMotor.setIdleMode(IdleMode.kCoast);
         frontRightMotor.setIdleMode(IdleMode.kCoast);
         backRightMotor.setIdleMode(IdleMode.kCoast);
 
-        // backLeftMotor.follow(frontLeftMotor);//frontLeftMotor is the leader
+        backLeftMotor.follow(frontLeftMotor);//frontLeftMotor is the leader
         backRightMotor.follow(frontRightMotor);//frontRightMotor is the leader
 
         frontRightMotor.setInverted(false);
-        // frontLeftMotor.setInverted(true);
+        frontLeftMotor.setInverted(true);
 
-        // leftEncoder = frontLeftMotor.getEncoder();
-        leftEncoder = backRightMotor.getEncoder();
+        leftEncoder = frontLeftMotor.getEncoder();
         rightEncoder = frontRightMotor.getEncoder();
 
 
