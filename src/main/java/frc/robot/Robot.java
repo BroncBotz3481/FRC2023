@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
     private NetworkTableEntry area;
     private RobotContainer m_robotContainer;
     private UsbCamera m_usbCamera;
+    private AHRS navX;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -73,9 +75,10 @@ public class Robot extends TimedRobot {
         skew = table.getEntry("skew");
         area = table.getEntry("area");
 
+        navX = new AHRS(Port.kMXP);
+
         m_robotContainer = new RobotContainer();
-        
-        AHRS navX = new AHRS();
+
         while(navX == null)
         {
             System.out.println("NavX not connected.");
