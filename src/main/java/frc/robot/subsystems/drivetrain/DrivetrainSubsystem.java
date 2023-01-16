@@ -36,6 +36,8 @@ import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DrivetrainSubsystem extends SubsystemBase {
+    
+    public static AHRS navX;
     private final CANSparkMax frontLeftMotor;
     private final CANSparkMax backLeftMotor;
     private final CANSparkMax frontRightMotor;
@@ -43,7 +45,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     private final RelativeEncoder leftEncoder;
     private final RelativeEncoder rightEncoder;
-    private AHRS navX;
     private final DifferentialDrive driveTrain;
 
     private SparkMaxPIDController leftPIDController;
@@ -61,7 +62,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public DrivetrainSubsystem() {
         
 
-        // navX.calibrate();
+        navX.calibrate();
         // pidTab = Shuffleboard.getTab("PID");
         // leftVelocityWidget = pidTab.addNumber("LeftVelocity", ()->{return DrivetrainPolicy.getLeftVelocity();});
         // rightVelocityWidget = pidTab.addNumber("RightVelocity", ()->{return DrivetrainPolicy.getRightVelocity();});
@@ -118,7 +119,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void run(double powerLeft, double powerRight) {
         DrivetrainPolicy.powerLeft = powerLeft;
         DrivetrainPolicy.powerRight = powerRight;
-        // DrivetrainPolicy.setPowerScale()
         driveTrain.tankDrive(DrivetrainPolicy.powerLeft * DrivetrainPolicy.setPowerScale(), DrivetrainPolicy.powerRight * DrivetrainPolicy.setPowerScale());
 
     }
@@ -147,8 +147,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         DrivetrainPolicy.rightEncoderVelocity = rightEncoder.getVelocity();
         DrivetrainPolicy.leftEncoderPosition = leftEncoder.getPosition();
         DrivetrainPolicy.leftEncoderVelocity = leftEncoder.getVelocity();
-        
-        // DrivetrainPolicy.position = DrivetrainPolicy.driveOdometry.update(Rotation2d.fromDegrees(navX.getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
+        DrivetrainPolicy.position = DrivetrainPolicy.driveOdometry.update(Rotation2d.fromDegrees(navX.getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
     }
 }
 
