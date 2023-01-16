@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -74,9 +75,11 @@ public class Robot extends TimedRobot {
         skew = table.getEntry("skew");
         area = table.getEntry("area");
 
+
         m_robotContainer = new RobotContainer();
         
-        DrivetrainSubsystem.navX = new AHRS();
+        DrivetrainSubsystem.navX = new AHRS(Port.kMXP);
+        
         while(DrivetrainSubsystem.navX == null)
         {
             System.out.println("NavX not connected.");
