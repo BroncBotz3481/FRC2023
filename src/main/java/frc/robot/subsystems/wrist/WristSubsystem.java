@@ -1,7 +1,5 @@
 package frc.robot.subsystems.wrist;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -14,7 +12,6 @@ public class WristSubsystem extends SubsystemBase {
         wristMotor = new CANSparkMax(4,MotorType.kBrushless);
     }
 
-
     public void runWrist(double power) {
         WristPolicy.powerWrist = power; 
         wristMotor.set(WristPolicy.powerWrist);
@@ -22,6 +19,6 @@ public class WristSubsystem extends SubsystemBase {
 
     public void stopRightMotor() {
         runWrist(0);;
-
     }
+
 }

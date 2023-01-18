@@ -1,7 +1,5 @@
 package frc.robot.subsystems.telescope;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -13,7 +11,6 @@ public class TelescopeSubsystem extends SubsystemBase {
     public TelescopeSubsystem() {
         telescopeMotor = new CANSparkMax(2, MotorType.kBrushless);
     }
-
 
     public void runTelescope(double power) {
         TelescopePolicy.powerTele = power;

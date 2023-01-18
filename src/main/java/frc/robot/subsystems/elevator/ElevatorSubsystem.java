@@ -20,9 +20,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         eleMotor1.set(ElevatorPolicy.powerEle);
     }
 
-
     public void stopEle() {
         runEle(0);
-
     }
 }

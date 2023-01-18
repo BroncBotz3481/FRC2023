@@ -14,6 +14,5 @@ package frc.robot.subsystems.wrist;
 
 
 public final class WristPolicy {
-
     public static double powerWrist;
 }

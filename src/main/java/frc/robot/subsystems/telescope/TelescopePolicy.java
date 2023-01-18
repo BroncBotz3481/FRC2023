@@ -14,6 +14,5 @@ package frc.robot.subsystems.telescope;
 
 
 public final class TelescopePolicy {
-
     public static double powerTele;
 }

@@ -15,5 +15,4 @@ package frc.robot.subsystems.intakeNew;
 
 public final class IntakePolicy {
     public static double powerIntake;
-
 }

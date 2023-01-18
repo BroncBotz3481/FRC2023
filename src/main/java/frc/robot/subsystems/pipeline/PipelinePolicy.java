@@ -25,7 +25,6 @@ public final class PipelinePolicy {
 
     public static List corners;
 
-
     public void aVisionProcessingAlgorithmThatAutomagicallyWorks(){
         //magic ensues...
     }
