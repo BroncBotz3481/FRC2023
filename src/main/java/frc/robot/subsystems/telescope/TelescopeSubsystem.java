@@ -1,39 +1,27 @@
-package frc.robot.subsystems.climber;
+package frc.robot.subsystems.telescope;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ClimberSubsystem extends SubsystemBase {
-    private final VictorSPX leftMotorClimb;
-    private final VictorSPX rightMotorClimb;
+public class TelescopeSubsystem extends SubsystemBase {
+    private final CANSparkMax telescopeMotor;
 
-    public ClimberSubsystem() {
-        leftMotorClimb = new VictorSPX(4);
-        rightMotorClimb = new VictorSPX(5);
-
-        leftMotorClimb.setInverted(true);
+    public TelescopeSubsystem() {
+        telescopeMotor = new CANSparkMax(2, MotorType.kBrushless);
     }
 
 
-    public void runLeftMotor(double powerLeft) {
-        ClimberPolicy.leftPowerClimb = powerLeft; 
-        leftMotorClimb.set(VictorSPXControlMode.PercentOutput, ClimberPolicy.leftPowerClimb);
+    public void runTelescope(double power) {
+        TelescopePolicy.powerTele = power;
+        telescopeMotor.set(TelescopePolicy.powerTele);
     }
 
-    public void runRightMotor(double powerRight) {
-        ClimberPolicy.rightPowerClimb = powerRight; 
-        rightMotorClimb.set(VictorSPXControlMode.PercentOutput, ClimberPolicy.rightPowerClimb);
-
+    public void stopTelescope() {
+        runTelescope(0);
     }
 
-    public void stopLeftMotor() {
-        leftMotorClimb.set(VictorSPXControlMode.PercentOutput, 0);
-
-    }
-
-    public void stopRightMotor() {
-        rightMotorClimb.set(VictorSPXControlMode.PercentOutput, 0);
-
-    }
 }

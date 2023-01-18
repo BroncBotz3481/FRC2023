@@ -6,8 +6,8 @@
  Copyright (c) BroncBotz.
  All rights reserved.
 
- Author(s): Shruti Venkat and Samuel Zhao
- Email: Shruti.venkat05@gmail.com
+ Author(s): Vishal Vijayakumar
+ Email: reachvishalvj@gmail.com
  \********************************************************************/
 
 package frc.robot.subsystems.wrist;
@@ -15,4 +15,5 @@ package frc.robot.subsystems.wrist;
 
 public final class WristPolicy {
 
+    public static double powerWrist;
 }

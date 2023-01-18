@@ -6,8 +6,8 @@
  Copyright (c) BroncBotz.
  All rights reserved.
 
- Author(s): Shruti Venkat and Samuel Zhao
- Email: Shruti.venkat05@gmail.com
+ Author(s): Vishal Vijayakumar
+ Email: reachvishalvj@gmail.com
  \********************************************************************/
 
 package frc.robot.subsystems.telescope;
@@ -15,4 +15,5 @@ package frc.robot.subsystems.telescope;
 
 public final class TelescopePolicy {
 
+    public static double powerTele;
 }
