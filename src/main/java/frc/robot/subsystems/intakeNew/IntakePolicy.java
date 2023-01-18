@@ -7,12 +7,13 @@
  All rights reserved.
 
  Author(s): Shruti Venkat and Samuel Zhao
- Email: Shruti.venkat05@gmail.com
+ Email: Samuelzhao0714@gmail.com, Shruti.venkat05@gmail.com
  \********************************************************************/
 
 package frc.robot.subsystems.intakeNew;
 
 
 public final class IntakePolicy {
+    public static double powerIntake;
 
 }

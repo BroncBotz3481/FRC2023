@@ -12,7 +12,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         eleMotor1 = new CANSparkMax(0, MotorType.kBrushless);
         eleMotor2 = new CANSparkMax(1, MotorType.kBrushless);
         eleMotor2.follow(eleMotor1);//eleMotor1 is the leader
-
+        // TODO: Check if one motor needs to be reversed
     }
 
     public void runEle(double powerOne) {
