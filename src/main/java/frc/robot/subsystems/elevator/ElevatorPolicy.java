@@ -7,12 +7,12 @@
  All rights reserved.
 
  Author(s): Shruti Venkat and Samuel Zhao
- Email: Shruti.venkat05@gmail.com
+ Email: Samuelzhao0714@gmail.com, Shruti.venkat05@gmail.com
  \********************************************************************/
 
 package frc.robot.subsystems.elevator;
 
 
 public final class ElevatorPolicy {
-
+    public static double powerEle;
 }
