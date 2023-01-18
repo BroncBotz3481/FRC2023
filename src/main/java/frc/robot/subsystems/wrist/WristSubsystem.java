@@ -1,28 +1,39 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+package frc.robot.subsystems.climber;
 
-package frc.robot.subsystems.wrist;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+public class ClimberSubsystem extends SubsystemBase {
+    private final VictorSPX leftMotorClimb;
+    private final VictorSPX rightMotorClimb;
 
-public class WristSubsystem extends PIDSubsystem {
-  /** Creates a new Telescope. */
-  public WristSubsystem() {
-    super(
-        // The PIDController used by the subsystem
-        new PIDController(0, 0, 0));
-  }
+    public ClimberSubsystem() {
+        leftMotorClimb = new VictorSPX(4);
+        rightMotorClimb = new VictorSPX(5);
 
-  @Override
-  public void useOutput(double output, double setpoint) {
-    // Use the output here
-  }
+        leftMotorClimb.setInverted(true);
+    }
 
-  @Override
-  public double getMeasurement() {
-    // Return the process variable measurement here
-    return 0;
-  }
+
+    public void runLeftMotor(double powerLeft) {
+        ClimberPolicy.leftPowerClimb = powerLeft; 
+        leftMotorClimb.set(VictorSPXControlMode.PercentOutput, ClimberPolicy.leftPowerClimb);
+    }
+
+    public void runRightMotor(double powerRight) {
+        ClimberPolicy.rightPowerClimb = powerRight; 
+        rightMotorClimb.set(VictorSPXControlMode.PercentOutput, ClimberPolicy.rightPowerClimb);
+
+    }
+
+    public void stopLeftMotor() {
+        leftMotorClimb.set(VictorSPXControlMode.PercentOutput, 0);
+
+    }
+
+    public void stopRightMotor() {
+        rightMotorClimb.set(VictorSPXControlMode.PercentOutput, 0);
+
+    }
 }
