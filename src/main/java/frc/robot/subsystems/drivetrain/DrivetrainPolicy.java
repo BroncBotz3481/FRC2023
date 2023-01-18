@@ -38,23 +38,19 @@ public final class DrivetrainPolicy {
 
     public static Pose2d position;
 
+
+
 //For Orry
     
+    //RPM
     public static double getRightVelocity() {
         return ((DrivetrainPolicy.rightSpeed * 60) / (Math.PI * Constants.wheelDiameter));
     }
-
+    //RPM
     public static double getLeftVelocity() {
         return ((DrivetrainPolicy.leftSpeed * 60) / (Math.PI * Constants.wheelDiameter));
 
     }
-    // public static void RPMtoMPSConversion(double rightSpeed, double leftSpeed)
-//    public static double setPowerScale()
-//    {
-//        rightSpeed = (getRightVelocity() / 60) * Math.PI * Constants.wheelDiameter;
-//        leftSpeed = (getLeftVelocity() / 60) * Math.PI * Constants.wheelDiameter;
-//
-//    }
 
      /*public static void  UpdateEncoderPosition(double leftEncoder, double rightEncoder)
      {

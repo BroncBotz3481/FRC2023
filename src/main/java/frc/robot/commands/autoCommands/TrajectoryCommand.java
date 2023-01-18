@@ -45,7 +45,6 @@ public class TrajectoryCommand extends CommandBase {
     private Trajectory.State currentGoal;
     private ChassisSpeeds adjustedSpeeds;
     private DifferentialDriveWheelSpeeds wheelSpeeds;
-    private TrajectoryConfig trajectoryConfig;
     private Pose2d start;
     private List<Translation2d> interiorWaypoints;
     private TrajectoryConfig config;
@@ -67,7 +66,7 @@ public class TrajectoryCommand extends CommandBase {
         DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics
         (Units.inchesToMeters(23.625));
 
-        var wheelSpeeds = new DifferentialDriveWheelSpeeds
+        wheelSpeeds = new DifferentialDriveWheelSpeeds
         (DrivetrainPolicy.leftEncoderVelocity, DrivetrainPolicy.rightEncoderVelocity);
 
         ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
@@ -147,16 +146,16 @@ public class TrajectoryCommand extends CommandBase {
         currentGoal = autoTrajectory.sample(timer.get());
         adjustedSpeeds = m_ramseteController.calculate(DrivetrainPolicy.driveOdometry.getPoseMeters(), currentGoal);
         wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
-        new DifferentialDriveWheelSpeeds(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+        //new DifferentialDriveWheelSpeeds(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
         m_drivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        m_drivetrainSubsystem.run(0, 0);
         timer.stop();
         timer.reset();
-      
     }
 
     
