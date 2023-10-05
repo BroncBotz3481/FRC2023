@@ -48,6 +48,7 @@ public class TrajectoryCommand extends CommandBase {
     private Pose2d start;
     private List<Translation2d> interiorWaypoints;
     private TrajectoryConfig config;
+    private DifferentialDriveKinematics kinematics;
 
     /**
      * Creates a new ExampleCommand.
@@ -63,7 +64,7 @@ public class TrajectoryCommand extends CommandBase {
     }
 
     public void generateTrajectory(){
-        DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics
+        kinematics = new DifferentialDriveKinematics
         (Units.inchesToMeters(23.625));
 
         wheelSpeeds = new DifferentialDriveWheelSpeeds
@@ -128,7 +129,7 @@ public class TrajectoryCommand extends CommandBase {
 //        interiorWaypoints, End, config);
 //
 //        autoTrajectory = concatTrajectory.concatenate(trajectory3);
-    }
+    } 
 
     // Called when the command is initially scheduled.
     @Override
@@ -145,7 +146,7 @@ public class TrajectoryCommand extends CommandBase {
     public void execute() {
         currentGoal = autoTrajectory.sample(timer.get());
         adjustedSpeeds = m_ramseteController.calculate(DrivetrainPolicy.driveOdometry.getPoseMeters(), currentGoal);
-        wheelSpeeds = DrivetrainPolicy.driveKinematics.toWheelSpeeds(adjustedSpeeds);
+        wheelSpeeds = kinematics.toWheelSpeeds(adjustedSpeeds);
         //new DifferentialDriveWheelSpeeds(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
         m_drivetrainSubsystem.set(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
     }
